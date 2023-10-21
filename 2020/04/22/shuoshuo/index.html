@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>如何给Hexo博客添加说说页面 | Doraemon's Blog</title><meta name="author" content="Doraemon,601162956@qq.com"><meta name="copyright" content="Doraemon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="前言 本文已经过期，说说已经更名为artitalk具体百度  最近看了许多大佬的博客，终于明白了我到底有多弱:weary:,不过虽然我菜，但是Chinese还是能看懂的:grin:,直接按照教程往下走，感谢把我教会的原文1和原文2  看看效果吧:  这个和QQ空间里面的说说类似，用来记录自己的生活以及心情都挺好的，请忽略内容里面的表情符号:sleeping:我太菜了，这些原本是要被转成表情的，但说">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何给Hexo博客添加说说页面">
+<meta property="og:url" content="http://example.com/2020/04/22/shuoshuo/index.html">
+<meta property="og:site_name" content="Doraemon&#39;s Blog">
+<meta property="og:description" content="前言 本文已经过期，说说已经更名为artitalk具体百度  最近看了许多大佬的博客，终于明白了我到底有多弱:weary:,不过虽然我菜，但是Chinese还是能看懂的:grin:,直接按照教程往下走，感谢把我教会的原文1和原文2  看看效果吧:  这个和QQ空间里面的说说类似，用来记录自己的生活以及心情都挺好的，请忽略内容里面的表情符号:sleeping:我太菜了，这些原本是要被转成表情的，但说">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/11.webp">
+<meta property="article:published_time" content="2020-04-22T13:27:19.000Z">
+<meta property="article:modified_time" content="2023-10-21T03:05:05.462Z">
+<meta property="article:author" content="Doraemon">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/11.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2020/04/22/shuoshuo/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '如何给Hexo博客添加说说页面',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-21 11:05:05'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">137</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">69</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/11.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Doraemon's Blog"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/blogIcon.png"/><span class="site-name">Doraemon's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">如何给Hexo博客添加说说页面</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-04-22T13:27:19.000Z" title="发表于 2020-04-22 21:27:19">2020-04-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-21T03:05:05.462Z" title="更新于 2023-10-21 11:05:05">2023-10-21</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="如何给Hexo博客添加说说页面"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2020/04/22/shuoshuo/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2020/04/22/shuoshuo/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>本文已经过期，说说已经更名为artitalk具体百度</p>
+</blockquote>
+<p>最近看了许多大佬的博客，终于明白了我到底有多弱:weary:,不过虽然我菜，但是Chinese还是能看懂的:grin:,直接按照教程往下走，感谢把我教会的<a target="_blank" rel="noopener" href="https://cungudafa.gitee.io/post/ec85.html">原文1</a>和<a target="_blank" rel="noopener" href="https://cndrew.cn/2019/09/11/shuoshuo/">原文2</a></p>
+<blockquote>
+<p>看看效果吧:</p>
+</blockquote>
+<p><img src="https://img-blog.csdnimg.cn/20200703225932343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70" alt=""><br>这个和QQ空间里面的说说类似，用来记录自己的生活以及心情都挺好的，请忽略内容里面的表情符号:sleeping:我太菜了，这些原本是要被转成表情的，但说说页面好像不支持，/手动流汗/，如果哪位大佬看到了这篇文章，祈求您留言指教我</p>
+<p>好了，废话少说，正文开始：</p>
+<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p>1.在<strong>themes\sakura\languages\zh-cn.yml</strong>中增添定义：</p>
+<pre><code>shuoshuo: 说说
+</code></pre><p>2.修改导航栏，位置：themes\sakura_config.yml增添：</p>
+<pre><code>说说: &#123;path: /shuoshuo/, fa: fa-commenting-o fa-commenting &#125;
+</code></pre><p>这里需要注意的是如果你的说说是添加在导航栏的子页面的，比如说在归档里面，那么需要在最后添加逗号( , )</p>
+<p>3.在博客主目录下新建目录：</p>
+<pre><code>hexo new page shuoshuo
+</code></pre><p>路径<strong>Users/用户名/博客文件夹/source</strong>文件夹里就会出现刚刚新建的文件夹shuoshuo，打开文件shuoshuo，删除index文件夹，还有一个index.md文件,待会再来修改它。</p>
+<p>4.Myblog\source\shuoshuo\ ，新建文件夹 <strong>shuoshuo.css</strong></p>
+<p><strong>shuoshuo.css</strong>样式文件：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><span class="line">#shuoshuo_content &#123;</span><br><span class="line">    background-color: #fff;</span><br><span class="line">    padding: 10px;</span><br><span class="line">    min-height: 500px;</span><br><span class="line">&#125;</span><br><span class="line">/* shuo */</span><br><span class="line"> </span><br><span class="line">body.theme-dark .cbp_tmtimeline::before &#123;</span><br><span class="line">    background: RGBA(255, 255, 255, 0.06);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">ul.cbp_tmtimeline &#123;</span><br><span class="line">    padding: 0;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">div class.cdp_tmlabel &gt; li .cbp_tmlabel &#123;</span><br><span class="line">    margin-bottom: 0;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline &#123;</span><br><span class="line">    margin: 30px 0 0 0;</span><br><span class="line">    padding: 0;</span><br><span class="line">    list-style: none;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">/* The line */</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline:before &#123;</span><br><span class="line">    content: &#x27;&#x27;;</span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 0;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    width: 4px;</span><br><span class="line">    background: RGBA(0, 0, 0, 0.02);</span><br><span class="line">    left: 80px;</span><br><span class="line">    margin-left: 10px;</span><br><span class="line">&#125;</span><br><span class="line">/* The date/time */</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline &gt; li .cbp_tmtime &#123;</span><br><span class="line">    display: block;</span><br><span class="line">    /* width: 29%; */</span><br><span class="line">    /* padding-right: 110px; */</span><br><span class="line">    max-width: 70px;</span><br><span class="line">    position: absolute;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline &gt; li .cbp_tmtime span &#123;</span><br><span class="line">    display: block;</span><br><span class="line">    text-align: right;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline &gt; li .cbp_tmtime span:first-child &#123;</span><br><span class="line">    font-size: 0.9em;</span><br><span class="line">    color: #bdd0db;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline &gt; li .cbp_tmtime span:last-child &#123;</span><br><span class="line">    font-size: 1.2em;</span><br><span class="line">    color: #9BCD9B;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline &gt; li:nth-child(odd) .cbp_tmtime span:last-child &#123;</span><br><span class="line">    color: RGBA(255, 125, 73, 0.75);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">div.cbp_tmlabel &gt; p &#123;</span><br><span class="line">    margin-bottom: 0;</span><br><span class="line">&#125;</span><br><span class="line">/* Right content */</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline &gt; li .cbp_tmlabel &#123;</span><br><span class="line">    margin: 0 0 45px 65px;</span><br><span class="line">    background: #9BCD9B;</span><br><span class="line">    color: #fff;</span><br><span class="line">    padding: .8em 1.2em .4em 1.2em;</span><br><span class="line">    /* font-size: 1.2em; */</span><br><span class="line">    font-weight: 300;</span><br><span class="line">    line-height: 1.4;</span><br><span class="line">    position: relative;</span><br><span class="line">    border-radius: 5px;</span><br><span class="line">    transition: all 0.3s ease 0s;</span><br><span class="line">    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);</span><br><span class="line">    cursor: pointer;</span><br><span class="line">    display: block;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.cbp_tmlabel:hover &#123;</span><br><span class="line">    /* transform:scale(1.05); */</span><br><span class="line">    transform: translateY(-3px);</span><br><span class="line">    z-index: 1;</span><br><span class="line">    box-shadow: 0 15px 32px rgba(0, 0, 0, 0.15) !important</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline &gt; li:nth-child(odd) .cbp_tmlabel &#123;</span><br><span class="line">    background: RGBA(255, 125, 73, 0.75);</span><br><span class="line">&#125;</span><br><span class="line">/* The triangle */</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline &gt; li .cbp_tmlabel:after &#123;</span><br><span class="line">    right: 100%;</span><br><span class="line">    border: solid transparent;</span><br><span class="line">    content: &quot; &quot;;</span><br><span class="line">    height: 0;</span><br><span class="line">    width: 0;</span><br><span class="line">    position: absolute;</span><br><span class="line">    pointer-events: none;</span><br><span class="line">    border-right-color: #9BCD9B;</span><br><span class="line">    border-width: 10px;</span><br><span class="line">    top: 4px;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.cbp_tmtimeline &gt; li:nth-child(odd) .cbp_tmlabel:after &#123;</span><br><span class="line">    border-right-color: RGBA(255, 125, 73, 0.75);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">p.shuoshuo_time &#123;</span><br><span class="line">    margin-top: 10px;</span><br><span class="line">    border-top: 1px dashed #fff;</span><br><span class="line">    padding-top: 5px;</span><br><span class="line">&#125;</span><br><span class="line">/* Media */</span><br><span class="line"> </span><br><span class="line">@media screen and (max-width: 65.375em) &#123;</span><br><span class="line">    .cbp_tmtimeline &gt; li .cbp_tmtime span:last-child &#123;</span><br><span class="line">        font-size: 1.2em;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.shuoshuo_author_img img &#123;</span><br><span class="line">    border: 1px solid #ddd;</span><br><span class="line">    padding: 2px;</span><br><span class="line">    float: left;</span><br><span class="line">    border-radius: 64px;</span><br><span class="line">    transition: all 1.0s;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.avatar &#123;</span><br><span class="line">    border-radius: 100% !important;</span><br><span class="line">    -moz-border-radius: 100% !important;</span><br><span class="line">    box-shadow: inset 0 -1px 0 3333sf;</span><br><span class="line">    -webkit-box-shadow: inset 0 -1px 0 3333sf;</span><br><span class="line">    -webkit-transition: 0.4s;</span><br><span class="line">    -webkit-transition: -webkit-transform 0.4s ease-out;</span><br><span class="line">    transition: transform 0.4s ease-out;</span><br><span class="line">    -moz-transition: -moz-transform 0.4s ease-out;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.zhuan &#123;</span><br><span class="line">    transform: rotateZ(720deg);</span><br><span class="line">    -webkit-transform: rotateZ(720deg);</span><br><span class="line">    -moz-transform: rotateZ(720deg);</span><br><span class="line">&#125;</span><br><span class="line">/* end */</span><br></pre></td></tr></table></figure></p>
+<p>主页面：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">title: shuoshuo</span><br><span class="line">type: shuoshuo</span><br><span class="line">noDate: &#x27;true&#x27;</span><br><span class="line">comments: &#x27;false&#x27;</span><br><span class="line">---</span><br><span class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;./shuoshuo.css&quot;&gt;</span><br><span class="line"> </span><br><span class="line">&lt;div id=&quot;primary&quot; class=&quot;content-area&quot; style=&quot;&quot;&gt;</span><br><span class="line">    &lt;main id=&quot;main&quot; class=&quot;site-main&quot; role=&quot;main&quot;&gt;</span><br><span class="line">        &lt;div id=&quot;shuoshuo_content&quot;&gt;</span><br><span class="line">            &lt;ul class=&quot;cbp_tmtimeline&quot;&gt;</span><br><span class="line">                &lt;li&gt; &lt;span class=&quot;shuoshuo_author_img&quot;&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/cungudafa/cdn/img/custom/cungudafa.jpg&quot; class=&quot;avatar avatar-48 zhuan&quot; width=&quot;48&quot; height=&quot;48&quot;&gt;&lt;/span&gt;</span><br><span class="line">                    &lt;a class=&quot;cbp_tmlabel&quot; href=&quot;&quot;&gt;</span><br><span class="line">                        &lt;p&gt;&lt;/p&gt;</span><br><span class="line">                        &lt;p&gt;想要开学，想吃火锅，想吃烧烤，想吃蟹肉煲，想吃鸡脚米线，想喝奶茶~&lt;/p&gt;</span><br><span class="line">                        &lt;iframe frameborder=&quot;no&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86 src=&quot;//music.163.com/outchain/player?type=2&amp;id=1338809890&amp;auto=1&amp;height=66&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">                        &lt;p&gt;&lt;/p&gt;</span><br><span class="line">                        &lt;p class=&quot;shuoshuo_time&quot;&gt;&lt;i class=&quot;fa fa-clock-o&quot;&gt;&lt;/i&gt;</span><br><span class="line">                            2020年2月25日</span><br><span class="line">                        &lt;/p&gt;</span><br><span class="line">                    &lt;/a&gt;</span><br><span class="line">                &lt;/li&gt;</span><br><span class="line">                 &lt;li&gt; &lt;span class=&quot;shuoshuo_author_img&quot;&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/cungudafa/cdn/img/custom/cungudafa.jpg&quot; class=&quot;avatar avatar-48 zhuan&quot; width=&quot;48&quot; height=&quot;48&quot;&gt;&lt;/span&gt;</span><br><span class="line">                    &lt;a class=&quot;cbp_tmlabel&quot; href=&quot;&quot;&gt;</span><br><span class="line">                        &lt;p&gt;&lt;/p&gt;</span><br><span class="line">                        &lt;img src=&quot;https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1582636990314&amp;di=2421dcd34e1cc519b7f7f9559afbe7b1&amp;imgtype=0&amp;src=http%3A%2F%2Fpics1.baidu.com%2Ffeed%2Fb17eca8065380cd7531865282a19873258828151.jpeg%3Ftoken%3Dce6f76a2b9dc38c02c91acfc2a4bb8d8%26s%3D3C79EF14C510746516F547E003007036&quot; height=&quot;200&quot; width=&quot;100&quot; /&gt;</span><br><span class="line">                        &lt;p&gt;武汉加油！中国加油！&lt;/p&gt;</span><br><span class="line">                        &lt;p&gt;&lt;/p&gt;</span><br><span class="line">                        &lt;p class=&quot;shuoshuo_time&quot;&gt;&lt;i class=&quot;fa fa-clock-o&quot;&gt;&lt;/i&gt;</span><br><span class="line">                            2020年2月25日</span><br><span class="line">                        &lt;/p&gt;</span><br><span class="line">                    &lt;/a&gt;</span><br><span class="line">                &lt;/li&gt;</span><br><span class="line">                &lt;li&gt; &lt;span class=&quot;shuoshuo_author_img&quot;&gt;&lt;img src=&quot;https://cdn.jsdelivr.net/gh/cungudafa/cdn/img/custom/cungudafa.jpg&quot; class=&quot;avatar avatar-48 zhuan&quot; width=&quot;48&quot; height=&quot;48&quot;&gt;&lt;/span&gt;</span><br><span class="line">                    &lt;a class=&quot;cbp_tmlabel&quot; href=&quot;&quot;&gt;</span><br><span class="line">                        &lt;p&gt;&lt;/p&gt;</span><br><span class="line">                        &lt;p&gt;第一个说说&lt;/p&gt;</span><br><span class="line">                        &lt;p&gt;&lt;/p&gt;</span><br><span class="line">                        &lt;p class=&quot;shuoshuo_time&quot;&gt;&lt;i class=&quot;fa fa-clock-o&quot;&gt;&lt;/i&gt;</span><br><span class="line">                            2020年2月25日</span><br><span class="line">                        &lt;/p&gt;</span><br><span class="line">                    &lt;/a&gt;</span><br><span class="line">                &lt;/li&gt;</span><br><span class="line">            &lt;/ul&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    (function () &#123;</span><br><span class="line">        var oldClass = &quot;&quot;;</span><br><span class="line">        var Obj = &quot;&quot;;</span><br><span class="line">        $(&quot;.cbp_tmtimeline li&quot;).hover(function () &#123;</span><br><span class="line">            Obj = $(this).children(&quot;.shuoshuo_author_img&quot;);</span><br><span class="line">            Obj = Obj.children(&quot;img&quot;);</span><br><span class="line">            oldClass = Obj.attr(&quot;class&quot;);</span><br><span class="line">            var newClass = oldClass + &quot; zhuan&quot;;</span><br><span class="line">            Obj.attr(&quot;class&quot;, newClass);</span><br><span class="line">        &#125;, function () &#123;</span><br><span class="line">            Obj.attr(&quot;class&quot;, oldClass);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure><br>只会报别人代码的我再次像大佬们深深鞠一躬(orz)</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Doraemon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2020/04/22/shuoshuo/">http://example.com/2020/04/22/shuoshuo/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Doraemon's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/11.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/04/18/gaojing/" title="高精加减乘除"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/4.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">高精加减乘除</div></div></a></div><div class="next-post pull-right"><a href="/2020/04/28/shuxuewenti/" title="数学问题模板"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/32.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">数学问题模板</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%AD%A5%E9%AA%A4"><span class="toc-number">2.</span> <span class="toc-text">步骤</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Doraemon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="https://butterfly.js.org/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'fbMkGCqFR4CUHufZzPUvIprm-MdYXbMMI',
+      appKey: '3J39KYN5r1aiDyQofBtAPNNj',
+      avatar: '',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

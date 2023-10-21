@@ -1,0 +1,272 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>十字链表存储稀疏矩阵 | Doraemon's Blog</title><meta name="author" content="Doraemon,601162956@qq.com"><meta name="copyright" content="Doraemon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="课程设计 问题描述:    用十字链表存储稀疏矩阵，实现两个可进行矩阵之间的乘法运算。  基本要求: （1）要对两个矩阵能否进行乘法进行判断。（2）对能够进行乘法运算的稀疏矩阵进行乘法运算并输出正确的结果。  参考博客 大致思路一般矩阵中会有很多值为0的元素，十字链表把这些值给忽略掉了，只存有值不为0的元素，每一行都是一个链表，每一列也是一个链表，用一个行指针、一个列指针指向它们，形成矩阵形式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="十字链表存储稀疏矩阵">
+<meta property="og:url" content="http://example.com/2020/12/03/shizilianbiao/index.html">
+<meta property="og:site_name" content="Doraemon&#39;s Blog">
+<meta property="og:description" content="课程设计 问题描述:    用十字链表存储稀疏矩阵，实现两个可进行矩阵之间的乘法运算。  基本要求: （1）要对两个矩阵能否进行乘法进行判断。（2）对能够进行乘法运算的稀疏矩阵进行乘法运算并输出正确的结果。  参考博客 大致思路一般矩阵中会有很多值为0的元素，十字链表把这些值给忽略掉了，只存有值不为0的元素，每一行都是一个链表，每一列也是一个链表，用一个行指针、一个列指针指向它们，形成矩阵形式">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/89.webp">
+<meta property="article:published_time" content="2020-12-03T14:00:40.000Z">
+<meta property="article:modified_time" content="2023-10-21T03:05:05.437Z">
+<meta property="article:author" content="Doraemon">
+<meta property="article:tag" content="数据结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/89.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2020/12/03/shizilianbiao/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '十字链表存储稀疏矩阵',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-21 11:05:05'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">137</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">69</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/89.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Doraemon's Blog"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/blogIcon.png"/><span class="site-name">Doraemon's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">十字链表存储稀疏矩阵</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-12-03T14:00:40.000Z" title="发表于 2020-12-03 22:00:40">2020-12-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-21T03:05:05.437Z" title="更新于 2023-10-21 11:05:05">2023-10-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="十字链表存储稀疏矩阵"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2020/12/03/shizilianbiao/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2020/12/03/shizilianbiao/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>课程设计</p>
+<p><strong>问题描述:</strong>    用十字链表存储稀疏矩阵，实现两个可进行矩阵之间的乘法运算。 </p>
+<p><strong>基本要求:</strong> （1）要对两个矩阵能否进行乘法进行判断。（2）对能够进行乘法运算的稀疏矩阵进行乘法运算并输出正确的结果。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhuyi2654715/article/details/6729783"><strong>参考博客</strong></a></p>
+<h2 id="大致思路"><a href="#大致思路" class="headerlink" title="大致思路"></a>大致思路</h2><p>一般矩阵中会有很多值为0的元素，十字链表把这些值给忽略掉了，只存有值不为0的元素，每一行都是一个链表，每一列也是一个链表，用一个行指针、一个列指针指向它们，形成矩阵形式</p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">OLNode</span>&#123;</span>  <span class="comment">//元素类型</span></span><br><span class="line">	<span class="type">int</span> row,col;  <span class="comment">//行列</span></span><br><span class="line">	ElemType val;  <span class="comment">//数值</span></span><br><span class="line">	OLNode *right,*down;  <span class="comment">//行指针、列指针</span></span><br><span class="line">&#125;*OLink; </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CrossList</span>&#123;</span>  <span class="comment">//矩阵结构</span></span><br><span class="line">	<span class="type">int</span> n,m,num;</span><br><span class="line">	OLink *Rhead,*Chead;  <span class="comment">//指向行链表、列链表的指针</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="初始化指针"><a href="#初始化指针" class="headerlink" title="初始化指针"></a>初始化指针</h2><p>每次都要先把矩阵指针置为空</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitCrossList</span><span class="params">(CrossList &amp;CL)</span>&#123;</span><br><span class="line">	CL.n=CL.m=CL.num=<span class="number">0</span>;</span><br><span class="line">	CL.Rhead=CL.Chead=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="销毁链表"><a href="#销毁链表" class="headerlink" title="销毁链表"></a>销毁链表</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">DestroyCrossList</span><span class="params">(CrossList CL)</span>&#123;</span><br><span class="line">	<span class="type">int</span> n=CL.n,m=CL.m;</span><br><span class="line">	OLink temp;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		OLink p=CL.Rhead[i];</span><br><span class="line">		<span class="keyword">while</span>(p)&#123;</span><br><span class="line">			temp=p;</span><br><span class="line">			delete temp;</span><br><span class="line">			p=p-&gt;right;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	delete CL.Rhead;</span><br><span class="line">	delete CL.Chead;</span><br><span class="line">	CL.Rhead=<span class="literal">NULL</span>;</span><br><span class="line">	CL.Chead=<span class="literal">NULL</span>;</span><br><span class="line">	CL.n=CL.m=CL.num=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建链表"><a href="#创建链表" class="headerlink" title="创建链表"></a>创建链表</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">CreateCrossList</span><span class="params">(CrossList &amp;CL)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(CL.Rhead) DestroyCrossList(CL);  <span class="comment">//矩阵不为空先销毁</span></span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;请输入十字链表的行数、列数、非零元个数(空格隔开):\n&quot;</span>;</span><br><span class="line">	<span class="type">int</span> n,m,num;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m&gt;&gt;num)&#123;  </span><br><span class="line">		<span class="keyword">if</span>(n&gt;=<span class="number">1</span> &amp;&amp; m&gt;=<span class="number">1</span> &amp;&amp; num&gt;=<span class="number">1</span> &amp;&amp; num&lt;=n*m) <span class="keyword">break</span>;  <span class="comment">//行数列数不能小于1，非零元个数不能大于矩阵最大容纳量</span></span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;输入有误，请重新输入:\n&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	CL.n=n; CL.m=m; CL.num=num;  <span class="comment">//矩阵行数，列数，非零元个数</span></span><br><span class="line">	CL.Rhead=new OLink[m+<span class="number">1</span>];  <span class="comment">//给每一行分配链表</span></span><br><span class="line">	<span class="keyword">if</span>(!CL.Rhead)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;内存不足\n&quot;</span>;</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	CL.Chead=new OLink[n+<span class="number">1</span>];  <span class="comment">//给每一列分配链表</span></span><br><span class="line">	<span class="keyword">if</span>(!CL.Chead) &#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;内存不足\n&quot;</span>;</span><br><span class="line">		<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++) CL.Rhead[i]=<span class="literal">NULL</span>;  <span class="comment">//初始化为空</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++) CL.Chead[i]=<span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;num;i++)&#123;</span><br><span class="line">		<span class="type">int</span> row,col,val;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;请输入第&quot;</span>&lt;&lt;i+<span class="number">1</span>&lt;&lt;<span class="string">&quot;个非零元的横坐标、纵坐标、不为0的值(空格隔开):\n&quot;</span>;</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;row&gt;&gt;col&gt;&gt;val)&#123;</span><br><span class="line">			<span class="keyword">if</span>(row&gt;=<span class="number">1</span> &amp;&amp; row&lt;=n &amp;&amp; col&gt;=<span class="number">1</span> &amp;&amp; col&lt;=m &amp;&amp; val) <span class="keyword">break</span>;  <span class="comment">//坐标不能超出矩阵，值不能为0</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;输入有误，请重新输入:\n&quot;</span>;</span><br><span class="line">		&#125; </span><br><span class="line">		OLink p=new OLNode;</span><br><span class="line">		<span class="keyword">if</span>(!p)&#123;</span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;内存不足\n&quot;</span>;</span><br><span class="line">			<span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		p-&gt;row=row; p-&gt;col=col; p-&gt;val=val;</span><br><span class="line">		<span class="keyword">if</span>(CL.Rhead[row]==<span class="literal">NULL</span> || CL.Rhead[row]-&gt;col&gt;col)&#123;</span><br><span class="line">			p-&gt;right=CL.Rhead[row];</span><br><span class="line">			CL.Rhead[row]=p;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			OLink j;</span><br><span class="line">			<span class="keyword">for</span>(j=CL.Rhead[row];j-&gt;right &amp;&amp; j-&gt;right-&gt;col&lt;=col;j=j-&gt;right);  <span class="comment">//找到插入位置</span></span><br><span class="line">			<span class="keyword">if</span>(j-&gt;col==col)&#123;  <span class="comment">//当当前坐标有值时覆盖它</span></span><br><span class="line">				j-&gt;val=val;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			p-&gt;right=j-&gt;right;</span><br><span class="line">			j-&gt;right=p;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(CL.Chead[col]==<span class="literal">NULL</span> || CL.Chead[col]-&gt;row&gt;row)&#123;</span><br><span class="line">			p-&gt;down=CL.Chead[col];</span><br><span class="line">			CL.Chead[col]=p;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			OLink j;</span><br><span class="line">			<span class="keyword">for</span>(j=CL.Chead[col];j-&gt;down &amp;&amp; j-&gt;down-&gt;row&lt;row;j=j-&gt;down);  <span class="comment">//找到插入位置</span></span><br><span class="line">			p-&gt;down=j-&gt;down;</span><br><span class="line">			j-&gt;down=p;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="打印链表"><a href="#打印链表" class="headerlink" title="打印链表"></a>打印链表</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">PrintCrossList</span><span class="params">(CrossList CL)</span>&#123;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;------------------------\n&quot;</span>;</span><br><span class="line">	<span class="type">int</span> n=CL.n,m=CL.m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;第&quot;</span>&lt;&lt;i&lt;&lt;<span class="string">&quot;行元素:  &quot;</span>;</span><br><span class="line">		OLink p=CL.Rhead[i];</span><br><span class="line">		<span class="keyword">if</span>(p)&#123;</span><br><span class="line">			<span class="keyword">while</span>(p)&#123;</span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;p-&gt;val&lt;&lt;<span class="string">&quot;(&quot;</span>&lt;&lt;p-&gt;row&lt;&lt;<span class="string">&quot;,&quot;</span>&lt;&lt;p-&gt;col&lt;&lt;<span class="string">&quot;)&quot;</span>&lt;&lt;<span class="string">&quot;  &quot;</span>;</span><br><span class="line">				p=p-&gt;right;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;空&quot;</span>;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;第&quot;</span>&lt;&lt;i&lt;&lt;<span class="string">&quot;列元素:  &quot;</span>;</span><br><span class="line">		OLink p=CL.Chead[i];</span><br><span class="line">		<span class="keyword">if</span>(p)&#123;</span><br><span class="line">			<span class="keyword">while</span>(p)&#123;</span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;p-&gt;val&lt;&lt;<span class="string">&quot;(&quot;</span>&lt;&lt;p-&gt;row&lt;&lt;<span class="string">&quot;,&quot;</span>&lt;&lt;p-&gt;col&lt;&lt;<span class="string">&quot;)&quot;</span>&lt;&lt;<span class="string">&quot;  &quot;</span>;</span><br><span class="line">				p=p-&gt;down;</span><br><span class="line">			&#125;	</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;空&quot;</span>;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;------------------------\n&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="矩阵相乘"><a href="#矩阵相乘" class="headerlink" title="矩阵相乘"></a>矩阵相乘</h2><p>这里用一个二维数组去存了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">multiCrossList</span><span class="params">(CrossList CL1,CrossList CL2)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(CL1.m!=CL2.n)&#123;</span><br><span class="line">    	<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;矩阵无法相乘\n&quot;</span>;</span><br><span class="line">    	<span class="keyword">return</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=CL1.n;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=CL2.m;j++)&#123;</span><br><span class="line">			<span class="type">int</span> num=<span class="number">0</span>;</span><br><span class="line">			OLink p=CL1.Rhead[i];</span><br><span class="line">			<span class="keyword">while</span>(p)&#123;</span><br><span class="line">				OLink q=CL2.Chead[j];</span><br><span class="line">				<span class="keyword">while</span>(q &amp;&amp; q-&gt;row&lt;p-&gt;col)&#123;</span><br><span class="line">					q=q-&gt;down;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">if</span>(q &amp;&amp; q-&gt;row==p-&gt;col)&#123;</span><br><span class="line">					<span class="built_in">cout</span>&lt;&lt;p-&gt;val&lt;&lt;<span class="string">&#x27; &#x27;</span>&lt;&lt;q-&gt;val&lt;&lt;<span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">					num+=p-&gt;val*q-&gt;val;</span><br><span class="line">				&#125;</span><br><span class="line">				p=p-&gt;right;</span><br><span class="line">			&#125; </span><br><span class="line">			mat[i][j]=num;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<h2 id="主函数"><a href="#主函数" class="headerlink" title="主函数"></a>主函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	CrossList CL1,CL2;</span><br><span class="line">	InitCrossList(CL1);</span><br><span class="line">	InitCrossList(CL2);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;创建矩阵1:\n&quot;</span>;</span><br><span class="line">	CreateCrossList(CL1); </span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;创建矩阵2:\n&quot;</span>;</span><br><span class="line">	CreateCrossList(CL2);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;\n创建矩阵1如下:\n&quot;</span>;</span><br><span class="line">	PrintCrossList(CL1);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;\n创建矩阵2如下:\n&quot;</span>;</span><br><span class="line">	PrintCrossList(CL2);</span><br><span class="line">	multiCrossList(CL1,CL2);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;\n相乘后矩阵:\n&quot;</span>;</span><br><span class="line">	PrintResult();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h2><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">2 2 2</span><br><span class="line">1 1 1</span><br><span class="line">2 2 2</span><br><span class="line">2 3 5</span><br><span class="line">1 1 1</span><br><span class="line">1 2 2</span><br><span class="line">1 3 1</span><br><span class="line">2 1 3</span><br><span class="line">2 3 -1</span><br></pre></td></tr></table></figure>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">1</th>
+<th style="text-align:center">0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">-1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>结果</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Doraemon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2020/12/03/shizilianbiao/">http://example.com/2020/12/03/shizilianbiao/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Doraemon's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/89.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/11/30/Binary-Tree/" title="Binary Tree"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/88.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Binary Tree</div></div></a></div><div class="next-post pull-right"><a href="/2020/12/10/BeautifyWin10/" title="win10美化"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/90.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">win10美化</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E8%87%B4%E6%80%9D%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">大致思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%8C%87%E9%92%88"><span class="toc-number">3.</span> <span class="toc-text">初始化指针</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%80%E6%AF%81%E9%93%BE%E8%A1%A8"><span class="toc-number">4.</span> <span class="toc-text">销毁链表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E9%93%BE%E8%A1%A8"><span class="toc-number">5.</span> <span class="toc-text">创建链表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8"><span class="toc-number">6.</span> <span class="toc-text">打印链表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9F%A9%E9%98%B5%E7%9B%B8%E4%B9%98"><span class="toc-number">7.</span> <span class="toc-text">矩阵相乘</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E5%87%BD%E6%95%B0"><span class="toc-number">8.</span> <span class="toc-text">主函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"><span class="toc-number">9.</span> <span class="toc-text">测试数据</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Doraemon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener" href="https://butterfly.js.org/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'fbMkGCqFR4CUHufZzPUvIprm-MdYXbMMI',
+      appKey: '3J39KYN5r1aiDyQofBtAPNNj',
+      avatar: '',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
