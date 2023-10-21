@@ -1,0 +1,109 @@
+---
+
+title:   指针笔记（指针数组和指向数组的指针，数组中a和&a的区别等）
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+date: 2023-10-01 10:56:34
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+## 指针数组和指向数组的指针
+
+
+
+int *p[4]和int (*p)[4]有何区别？ 前者是一个指针数组，数组大小为4，每一个元素都是一个指向int的指针 后者是指向int[4]类型数组的指针 ![img](https://img-blog.csdnimg.cn/43a71c451b20467fac3fc113d84a02e1.png) 以上代码若运行会报如下错误 ![img](https://img-blog.csdnimg.cn/05e85d7085f640cfa68b4e2d5794719e.png) main函数中定义的a数组本质是一个指向int[2]的指针，而函数形参则是一个指针数组，即形参的a是一个二维指针，所以会报错类型不匹配 若将形参改为int (*a)[2]则编译通过
+
+## 数组中a和&a的区别
+
+
+
+假如a是一个一维数组，输出a和&amp;a发现结果相同，都是一维数组首元素的地址，但两者虽然值相同，却是不同的 ![img](https://img-blog.csdnimg.cn/9057c28b1d0d4acdbfaa1d2ccb9b0b0b.png) 这段代码是没问题的，但若将第二行的&amp;a改为a，则会报错 ![img](https://img-blog.csdnimg.cn/3667b35f35634f0db37c9078454c7fcf.png) 即编译器认为a是int *类型的，而&a则是int (* )[4]类型的，用大白话讲就是&amp;a编译器可以认出a是一个数组，a则不行
+
+```java
+#include "stdio.h"
+int main()
+{
+   
+ int a[5] = {
+    1,2,3,4,5 };
+ int *ptr = (int *)(&a + 1);
+ printf("%d,%d", *(a + 1), *(ptr - 1));
+ /*getchar是用VS编写方便查看输出*/
+ getchar();
+ return 0;
+}
+```
+
+请思考一下上面的输出结果，如果你非常自信了，可以不用往下看 这个题目主要考察&amp;a 和 a
+
+- a 在这里代表是的数组首元素的地址即 a[0]的首地址，其值为 0x005efda0。 
+- &amp;a 代表的是数组的首地址，其值为 0x005efda0。 
+- a+1 的值是 0x005efda0+1*sizeof（int），等于 0x005efda4。 
+- &amp;a+1 的值是（0x005efda0 +（sizeof（a）= 5*sizeof(int)）= 0x005efdb4 {0xcccccccc, 0xcb626a90, 0x005efdd0, 0x0029200e, 0x00000001}
+
+## 二级指针
+
+>指向指针的指针
+
+```java
+//一些常用的头文件
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+
+/*
+通过引用直接去修改数组里的元素
+小技巧：函数写在主函数（main）前面，就不用写函数声明了
+*/
+void SetArray(int row,int col,int** &Array){
+   //&是引用符号，得到的是指针地址
+//二维指针需要通过一维指针去指向数组
+	Array = new int*[row]; //开辟行空间
+	for(int i = 0;i < row;i++){
+   
+		Array[i] = new int[col]; //开辟列空间
+		for(int j = 0;j < col;j++){
+   
+			Array[i][j]  = 0;//初始化，也可以将其他数组或是值存进去
+		}
+	}
+}
+//打印数组里的内容
+void PrintArray(int** Array,int row,int col){
+   
+	for(int i = 0;i < row;i++){
+   
+		for(int j = 0;j < col;j++){
+   
+			cout << Array[i][j] << " ";
+		}
+		cout << endl;
+	}
+}
+//内存释放：开辟的数组空间用完必须要手动释放，不然会爆内存
+void DeleteArray(int** Array,int row){
+   
+for(int i = 0;i < row;i++){
+   
+		delete[] Array[i];
+	}
+	delete Array;
+}
+int main(){
+   
+	int** Array = NULL;
+	int row = col = 3;
+	SetArray(row,col,Array);
+	PrintArray( Array,row,col);
+	DeleteArray(Array,row);
+	return 0;
+}
+```
+

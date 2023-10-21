@@ -1,0 +1,53 @@
+---
+
+title:   56. 合并区间
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+date: 2021-05-07 10:56:34
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+## 56. 合并区间
+
+双指针，先按照左端点升序排序，对于一个区间，如果可以和后面的合并，则其右端点一定大于后面区间的左端点，且合并后的区间右端点要取两个区间大的右端点，取max，注意边界即可 vector&lt;vector&lt;int&gt;&gt;默认按照第一列的元素从小到大排序，注意如果这里加cmp函数，必须是静态函数，因为sort是全局函数，全局函数不能调用类的成员函数
+
+```java
+class Solution {
+   
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+   
+        int n = intervals.size();
+        sort(intervals.begin(), intervals.end());
+        vector<vector<int>> res;
+        int i = 0, j = 1, mx = intervals[0][1];
+        while(j < n) {
+   
+            if(intervals[j][0] <= mx) {
+   
+                mx = max(mx, intervals[j][1]);
+                j ++;
+            }
+            else {
+   
+                res.push_back({
+   intervals[i][0], mx});
+                i = j;
+                j = i + 1;
+                mx = intervals[i][1];
+            }
+        }
+        res.push_back({
+   intervals[i][0], mx});
+        return res;
+    }
+};
+```
+

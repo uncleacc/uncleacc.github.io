@@ -1,0 +1,64 @@
+---
+
+title:   Leetcode 48. 旋转图像
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+date: 2023-10-01 10:56:34
+
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+## 48. 旋转图像
+
+矩阵从外到内，是一圈一圈的，只要能把一圈旋转90度，内层圈找好数据关系，for循环就可以搞定每一圈 对于一圈：对于第一行（除了最后一个元素）而言，只要把这些元素旋转四次就回到了原来位置，所以只要循环四次，把中间遍历到的元素都移到下一次即将遍历的位置即可 如何把当前元素放到下一个即将访问的位置？如果只是简单的覆盖，下一个元素将丢失，容易想到的是用temp存储即将丢失的元素，但这样实现起来有许多细节很难写，用交换实现则特别简单，找一个临时变量，每次都把当前位置和临时变量进行交换，则实现了旋转操作
+
+```java
+class Solution {
+   
+public:
+    static struct node {
+   
+        int x, y;
+        node(int x, int y) {
+   
+            this->x = x;
+            this->y = y;
+        }
+    };
+    static node nextP(int x, int y, int n) {
+   // 计算旋转后位置
+        return {
+   y, n - x - 1};
+    }
+    void work(int x, int y, vector<vector<int>>& matrix) {
+    // 旋转一个元素对应的四个位置
+        int n = matrix.size(), bx = x, by = y;
+        node np = nextP(x, y, n);
+        for(int i = 0; i < 4; i ++) {
+   
+            swap(matrix[np.x][np.y], matrix[bx][by]); // 交换
+            x = np.x; y = np.y;
+            np = nextP(np.x, np.y, n);
+        }
+    }
+    void rotate(vector<vector<int>>& matrix) {
+   
+        int n = matrix.size();
+        for(int i = 0; i < n/2; i ++) {
+    // 行
+            for(int j = i; j < n-1-i; j ++) {
+    // 列
+                work(i, j, matrix);
+            }
+        }
+    }
+};
+```
+

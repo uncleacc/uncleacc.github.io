@@ -1,0 +1,26 @@
+---
+title:   Qt 桌面闹钟提示小程序
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
+tags: ACM冷知识
+categories: 算法
+mathjax: true
+date: 2023-10-01 16:49:38
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+## 程序运行截图
+
+
+
+
+倒计时 ![img](https://img-blog.csdnimg.cn/5859b6f410aa4b63a2f0c6ebbaf30ea1.png) 闹钟设置界面 ![img](https://img-blog.csdnimg.cn/8bdbe197d525459c921f1591001348d9.png) 闹钟弹窗提示+提示音 ![img](https://img-blog.csdnimg.cn/d987e900e87345ac9e5a1d62b3dee75c.png)
+
+## 源码
+
+ [gitee源码链接](https://gitee.com/uncleacc/clock)  [软件打包](https://gitee.com/uncleacc/clock-program/releases/tag/1.0)
+

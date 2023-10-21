@@ -1,0 +1,1319 @@
+---
+title:   C++ 笔记
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+date: 2023-10-10 10:56:34
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+
+
+
+
+
+### 四区
+
+1. 全局区 静态变量、全局变量、常量 
+<li>代码区 存储编写的代码，本质就是把代码编译形成的二进制文件放在内存的代码区</li> 
+<li>栈区 形参、临时变量（由操作系统负责分配与回收）</li> 
+<li>堆区 new的变量（由程序员负责分配与回收）</li>
+
+### argc和argv
+
+
+如果在命令行中编译运行C或C++文件，可能会传入某些参数，argc为参数的个数，argv为每一个参数的名称 main(int argc, char *argv[]) argv[0]为运行文件的目录地址（第一个参数） argv[1]为传入的第二个参数 … argv[argc-1]为传入的argc个参数 argv[argc]为NULL ![img](https://img-blog.csdnimg.cn/5eab799b38fd46d0b0edfca3ccf60cce.png) 图片中hello即为传入的第二个参数
+
+### 函数的分文件编写
+
+1. 把函数声明放在.h的头文件中 
+2. 把函数定义写在.cpp的函数文件中 
+3. 在main.cpp中包含了函数声明头文件即可直接使用此函数
+
+```java
+swap.h
+#include <iostream>
+using namespace std;
+
+void swap(int *a, int *b);
+
+swap.cpp
+#include "swap.h"
+
+void swap(int *a, int *b) {
+   
+	int temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+main.cpp
+#include "swap.h"
+
+int main()
+{
+   
+	int a = 1, b = 2;
+	swap(&a, &b);
+	cout << a << " " << b << endl;
+	return 0;
+}
+```
+
+### 函数默认参数
+
+>若一个形参有默认参数，则此形参的右边所有参数都必须有默认参数，这是防止二义性的出现
+
+```java
+int getRadius(int a, int b = 2, int c = 3) {
+    //valid
+	return 0;
+}
+int getRadius(int a, int b = 2, int c) {
+    //invalid
+	return 0;
+}
+```
+
+### class结构
+
+```java
+class 类名 {
+   
+	访问权限:
+		变量
+	访问权限:
+		方法
+}
+```
+
+访问权限（默认是私有）:
+
+1. public 类内类外都可以访问 
+<li>protected 类内可以访问，类外不可以访问 派生类可以访问基类的protected，但是不可以访问private</li> 
+<li>private 类内可以访问，类外不可以访问</li>
+
+### class和struct的区别
+
+c++的struct除了保留c的所有特性外，还增加了class的所有特性，两者只有一点不同，struct里面的属性默认是public，而class默认是private
+
+### 构造函数和析构函数
+
+>构造函数：创建对象时会自动调用构造函数，构造函数（与函数名一致）若不定义则系统会默认创建一个空实现的构造函数<br> 析构函数：释放对象内存时会自动调用析构函数，在构造函数前面加上“~”即成为析构函数，若不定义则系统会默认创建一个空实现的析构函数
+
+析构函数通常用来释放类对象在堆区开辟的空间
+
+```java
+class cicle {
+   
+	public:
+		cicle() {
+   
+			cout << "这里调用了构造函数" <<endl;
+		}
+		//析构函数
+		~cicle() {
+   
+			cout << "这里调用了析构函数" <<endl;
+		}
+};
+```
+
+### 拷贝函数
+
+```java
+class circle {
+   
+	public:
+		int radius;
+		circle(const circle &c) {
+   	//参数形式是固定的，只能这样写const类名 &变量名
+			radius = c.radius;
+			cout << "这里调用了拷贝函数" <<endl;
+		}
+}
+```
+
+### 创建对象的三种方法
+
+>如果创建了有参构造函数则不提供默认构造函数<br> 如果创建了拷贝构造函数则不提供其他构造函数
+
+```java
+circle c(2);	//括号法 
+circle c = circle(2);	//显示法（circle(2)创建了一个匿名对象），匿名对象会立刻被系统回收掉
+circle c = 2;	//隐式转化法（编译器将此语句变成circle c = circle(2)）
+```
+
+### 深拷贝和浅拷贝
+
+浅拷贝： 简单的变量赋值操作 深拷贝： 在堆区重新申请内存，用指针接受地址
+
+浅拷贝存在的问题：如果在类中函数有申请堆区内存操作，假设创建了类c1，类中指针p接收了new出来的内存地址，又调用拷贝函数创建了c2，c2的p指针内容是由c1的p指针内容拷贝过来的，因此两者指针指向同一块内存区域，若此时c2调用了析构函数，将p指针指向的区域delete掉了，由于c1的p也指向此区域，所以当c1调用析构函数时，就会因为p1指针指向区域已经被释放掉而进行非法操作。解决办法是自定义拷贝函数，重新申请一块新区域，用p指针指向此区域，即深拷贝
+
+```java
+class circle {
+   
+	public:
+		int *p;
+	public:
+		circle(int a) {
+   
+			p = new int(a);
+		}
+		circle(const circle &c) {
+   	//拷贝函数如果有new操作特别注意要深拷贝，浅拷贝会出问题
+			p = new int(*c.p);
+		}
+		~circle() {
+   		//释放掉类中new的内存
+			if(p) {
+   
+				delete p;
+				cout << "调用成功" << endl;
+			}
+		}
+};
+```
+
+### 初始化列表
+
+```java
+class circle {
+   
+	public:
+		int aa, bb, cc;
+	public:
+		circle(int a, int b, int c): aa(a), bb(b), cc(c) {
+   }
+};
+```
+
+### 静态成员
+
+静态成员变量
+
+1. 所有对象共享同一份数据 
+2. 在编译阶段分配内存 
+3. 类内声明，类外初始化（必须）
+
+静态成员函数 4. 所有对象共享同一个函数 5. 静态成员函数只能访问静态成员变量
+
+```java
+class circle {
+   
+	public:
+		static int a;	//类内声明
+		int b;
+		static int getB() {
+   	//invalid，因为b是非静态变量
+			return b;
+		}
+};
+int circle::a = 1; 	//类外初始化
+void test() {
+   
+	circle c;
+	circle c2;
+	c2.a = 3;	//c2和c共享一份a静态变量
+	cout << c.a << endl; 
+}
+```
+
+### this指针
+
+this指针指向被调用的成员函数所指向的对象 this指针不需要定义，直接使用即可 this指针的用途
+
+1. 当形参和成员变量同名时，可用this指针来区分 
+2. 在类的非静态成员函数中返回对象本身，可使用return *this（链式编程）
+
+```java
+class person {
+   
+	public:
+		int age;
+		person(int age) {
+   
+			this->age = age;	//区分形参和成员变量
+			//person::age = age;//这种形式也可以
+		}
+		person& addAge(int age) {
+   	//注意返回引用才可以链式编程
+			this->age += age;
+			return *this;	//返回调用该函数的对象c
+		}
+};
+void test() {
+   
+	person c;
+	c.age = 10;
+	c.addAge(10).addAge(10).addAge(10);	//链式编程
+	cout << c.age << endl;
+}
+```
+
+### 常成员函数和常对象
+
+>特例：<strong>mutable</strong>修饰的变量可以被常函数和常对象修改
+
+在普通成员函数后面括号后面加上const修饰就变成了常成员函数，常成员函数无法修改成员变量，通过两个规则保证
+
+1. **常成员函数不能更新对象的数据成员，也不能调用该类中没有用const修饰的成员函数**。这保证了在常成员函数中绝对不会更新数据成员的值。 
+2. 如果将一个对象说明为常对象（const对象），**则通过该常对象只能调用它的常成员函数**，而不能调用其他成员函数。这是C++从语法机制上对 const对象 的保护，也是 const对象 唯一的对外接口方式。
+
+```java
+class person {
+   
+	public:
+		int age;
+		void setAge(int age) const {
+   	//常成员函数 ，const本质上是在修饰this指针，更改成员变量本质上就是通过对this指针解引用实现 
+//			this->age = age //invalid，不允许修改成员变量 
+		}
+};
+```
+
+定义对象语句前面加上const修饰即为常对象。 常对象只能调用常函数，无法修改常对象的成员变量和调用常对象的普通成员函数。
+
+```java
+const person p();	//const修饰要初始化加上一个括号
+```
+
+### 友元函数
+
+>作用：让全局函数可以访问到类对象的私有变量和函数<br> 用法：在类中加上一条全局函数声明，再在前面加上friend修饰
+
+```java
+class person {
+   
+	friend void func(person &p);	//友元函数声明
+	private:
+		int age;
+		string name;
+		string getName() {
+   
+			return name;
+		}
+	public:
+		person(string name, int age) {
+   
+			this->name = name;
+			this->age = age;
+		}
+};
+void func(person &p) {
+   	//友元函数可以访问私有成员
+	cout << "正在访问" << p.name << " " << p.age << endl;
+	cout << p.getName() << endl;
+}
+void test() {
+   
+	string name;
+	int age;
+	cin >> name >> age;
+	person p1 = person(name, age);
+	func(p1);	
+}
+int main()
+{
+   
+	test();
+	return 0;
+}
+```
+
+### 友元类
+
+>作用：和友元函数一样，都是让好朋友可以访问自己的私有成员<br> 用法：在类中加上友元类声明，再在前面加上friend修饰
+
+```java
+class rooms;	//事先声明rooms类，防止location报错找不到rooms类
+class person {
+   
+	private:
+		int age;
+		string name;
+	public:
+		person(string name, int age) {
+   
+			this->name = name;
+			this->age = age;
+		}
+		void location(rooms &r);
+};
+
+class rooms {
+   
+	friend class person;	//友元类
+	private:
+		string bedRoom;
+	public:
+		string sittingRoom;
+		rooms(string a, string b) {
+   
+			bedRoom = a;
+			sittingRoom = b;
+		}
+};
+
+void person::location(rooms &r) {
+   	//在类外实现成员函数的定义，这是因为location用到了rooms的成员变量，而person类定义在rooms之前，所以如果location在类内定义的话，编译器不认识bedRoom这个变量，因为此时rooms只是声明了一下，并没有定义内部变量（如果不想这么写，可以直接把rooms定义写在person类定义前面）
+	cout << name << "现在正在" << r.bedRoom <<endl;
+}
+
+void test() {
+   
+	person p("李四", 21);
+	rooms r("卧室", "客厅");
+	p.location(r);
+}
+```
+
+### 友元成员函数
+
+```java
+class rooms;
+class person {
+   
+	private:
+		string name;
+		rooms *p; 
+	public:
+		person(string name);
+		void location();
+		
+};
+
+class rooms {
+   
+	friend void person::location();	//变得只有这里
+	private:
+		string bedRoom;
+	public:
+		string sittingRoom;
+		rooms() {
+   
+			bedRoom = "卧室";
+			sittingRoom = "客厅";
+		}
+};
+
+person::person(string name) {
+   
+	this->name = name;
+	p = new rooms;
+}
+
+void person::location() {
+   
+	cout << name << "现在正在" << p->bedRoom <<endl;
+}
+
+void test() {
+   
+	person p("李四");
+	p.location();
+}
+```
+
+### 函数重载
+
+重载依据：
+
+1. 形参类型； 
+2. 参数个数； 
+3. 形参的顺序； 
+4. const，有const 只读，无const可读写 重点说一下const修饰的函数，const只能修饰成员函数，const修饰的函数不能修改成员变量，const修饰的常对象只能调用const修饰的常函数，而非常对象只能调用**重载**的非常函数（但非常函数可以调用没有重载的常函数，也就是只有一个函数名字的常函数）
+
+```java
+class T {
+   
+	public:
+		int disp() {
+   
+			cout << 1 << endl; 
+		}
+		char disp() const{
+   
+			cout << 2 << endl;
+		}
+};
+int main()
+{
+   
+	T t;
+	t.disp();
+	const T t2;
+	t2.disp(); 
+    return 0;
+}
+```
+
+### 运算符重载
+
+将成员函数名字换成operator"运算符"，即为运算符重载，本质还是编写函数
+
+#### 重载+（加号运算符）
+
+让两个同类对象对应属性相加
+
+```java
+class person {
+   
+	public:
+		int age;
+		person(int age) {
+   
+			this->age = age;
+		}
+//		person operator+(person p) {	//成员函数重载
+//			person temp(0);
+//			temp.age = age + p.age;
+//			return temp;
+//		}
+
+};
+person operator+(person a, person b) {
+   	//全局函数重载
+	person temp(0);
+	temp.age = a.age + b.age;
+	return temp;
+}
+void test() {
+   
+	person p1(10);
+	person p2(20);
+//	person p3 = p1.person(p2);	//成员函数重载，第一种写法
+//	person p3 = operator+(p1, p2);	//全局函数重载，第二种写法
+	person p3 = p1 + p2;	//以上两种写法的简化，等价于上面两种
+	cout << p3.age << endl;
+}
+```
+
+#### 重载<<（左移运算符）
+
+输出对象的所有属性值，由于cout在左移运算符左边，所以无法通过成员函数实现，成员函数cout只能在右边
+
+```java
+class person {
+   
+	friend ostream& operator<<(ostream &out, person &p);	//友元
+	private:
+		int a, b;
+	public:
+		person(int a, int b) {
+   
+			this->a = a;
+			this->b = b;
+		}
+};
+ostream& operator<<(ostream &out, person &p) {
+   	//链式编程，只有这样cout<<p之后才可以继续追加输出，cout本质就是一个ostream的对象
+	out << p.a << " " << p.b;
+	return out; 
+}
+void test() {
+   
+	person p(1,2);
+	cout << p << endl;
+}
+```
+
+#### 重载自增运算符（递增运算符）
+
+```java
+class myInteger {
+   
+	friend ostream& operator<<(ostream &cout, myInteger &o);
+	private:
+		int num;
+	public:
+		myInteger() {
+   
+			num = 0;
+		}
+		myInteger& operator++() {
+   
+			++ num;
+			return *this;
+		}
+		myInteger& operator++(int) {
+   	//占位区分前置和后置
+			myInteger temp = *this;
+			num ++;
+			return temp;
+		}
+};
+ostream& operator<<(ostream &cout, myInteger &o) {
+   
+	cout << o.num;
+	return cout;
+}
+void test() {
+   
+	myInteger a;
+	cout << ++a << endl;
+	cout << a++ <<endl;
+	cout << a << endl;
+}
+```
+
+#### 重载=（赋值运算符）
+
+```java
+class person {
+   
+	public:
+		int *p;
+	public:
+		person(int t) {
+   
+			p = new int(t);
+		}
+		person(const person &o) {
+   	//重写拷贝函数
+			p = new int(*o.p);
+		}
+		~person() {
+   	//析构函数释放申请空间
+			if(p) {
+   
+				delete p;
+				p = NULL;
+			}
+			cout << "success" << endl;
+		}
+		person& operator=(person &o) {
+   	//重载=，注意返回当前对象，链式法则
+			if(p) {
+   
+				delete p;
+				p = NULL;
+			}
+			p = new int(*o.p);
+			return *this;
+		}
+};
+
+void test() {
+   
+	person p1(10);
+	person p2(0);
+	person p3(0);
+	person p4 = p3;	//这里不是=运算符重载，而是调用拷贝函数，因此依旧是浅拷贝，需要自定义拷贝函数，改成深拷贝 
+	p3 = p2 = p1;
+	cout << p1.p << " " << p2.p << " " << p3.p << " " << p4.p << endl;	//查看申请的内存地址
+}
+```
+
+#### 重载关系运算符
+
+```java
+class person {
+   
+	public:
+		string name;
+		int age;
+	public:
+		person(string name, int age) {
+   
+			this->name = name;
+			this->age = age;
+		}
+//		bool operator==(person o) {
+   
+//			if(name == o.name && age == o.age) return true;
+//			return false;
+//		}
+		bool operator<(person o) {
+   
+			if(age < o.age) return true;
+			return false;
+		}
+		bool operator>(person o) {
+   
+			if(age > o.age) return true;
+			return false;
+		}
+};
+bool operator==(person a, person b) {
+   
+	if(a.name == b.name && a.age == b.age) return true;
+	return false;
+}
+void test() {
+   
+	person p1("tom", 16);
+	person p2("tom", 15);
+	if(p1 == p2) cout << "same" << endl;
+	else if(p1 > p2) cout << "bigger" << endl;
+	else cout << "smaller" << endl;
+	
+}
+```
+
+#### 重载括号运算符
+
+```java
+class person {
+   
+	public:
+		string name;
+		int age;
+	public:
+		person(string name, int age) {
+   
+			this->name = name;
+			this->age = age;
+		}
+		void operator()() {
+   	//重载（）运算符
+			cout << name << endl;
+		}
+};
+
+void test() {
+   
+	person p1("tom", 16);	
+	p1();	//由于写法类似函数，又名仿函数
+}
+```
+
+### 继承
+
+#### 多继承
+
+考虑以下情况： 狗是一个类，但狗又可以细分为很多品种，例如边牧、二哈、柯基等，这些细分的品种有狗的共性，但也有自己的特性，这时就体现出继承。 继承方式有三种：(子类会继承所有父类属性，但父类private的属性子类无法访问) public： 不改变从父类继承过来的属性访问权限 protected： 把所有父类非private的属性访问权限设为protected private： 把所有父类非private的属性访问权限设为private **派生类不可以访问基类的私有成员，只能通过函数接口来访问；但是可以访问基类的公共成员和保护成员** 派生类应当使用初始化列表的方式将值传递给基类的构造函数，否则将使用默认的基类构造函数 derived:derived(type1 x, type2 y):base(x, y) {} 首先创建基类对象。 派生类构造函数应通过成员初始化列表将基类信息传递给基类的构造函数。 派生类构造函数应当初始化派生类新增的初始化成员。
+
+```java
+class basicClass {
+   	//父类，公共内容
+	public:
+		void header() {
+   
+			cout << "公共头部" << endl;
+		}
+		void footer() {
+   
+			cout << "公共底部" << endl;
+		}
+		void left() {
+   
+			cout << "公共左部" << endl;
+		}
+};
+class JAVA : public basicClass {
+   	//继承父类的子类
+	public:
+		void content() {
+   
+			cout << "JAVA课程" << endl; 
+		}
+};
+class CPP : public basicClass {
+   
+	public:
+		void content() {
+   
+			cout << "CPP课程" << endl; 
+		}
+};
+class Python : public basicClass {
+   
+	public:
+		void content() {
+   
+			cout << "Python课程" << endl; 
+		}
+};
+void test() {
+   
+	JAVA a;
+	Python b;
+	CPP c;
+	a.header(); a.content(); a.footer(); a.left(); 
+	cout << "----------------------------------------" << endl;
+	b.header(); b.content(); b.footer(); b.left();
+	cout << "----------------------------------------" << endl;
+	c.header(); c.content(); c.footer(); c.left();
+}
+```
+
+#### 同名变量函数
+
+如果子类和父类有同名变量或者同名函数，则子类会隐藏父类的同名变量和同名函数，想要访问到父类的同名变量或者函数，则必须加上父类的作用域，另外，即使子类和父类的同名函数参数不同，但是子类仍然会隐藏父类的函数
+
+```java
+class basicClass {
+   
+	public:
+		int a;
+		void out() {
+   
+			cout << "basicClass" << endl;
+		}
+		void out(int k) {
+   
+			cout << "basicClass " << k << endl;
+		}
+};
+class JAVA : public basicClass {
+   
+	public:
+		JAVA() {
+   
+			a = 100;
+		}
+		int a;
+		void out() {
+   
+			cout << "JAVA" << endl; 
+		}
+};
+void test() {
+   
+	JAVA a;
+	cout << a.a << endl;
+	a.out();
+	cout << a.basicClass::a << endl;
+	a.basicClass::out();
+	a.basicClass::out(2);	//即使子类同名函数和父类同名函数参数不同，仍然会隐藏父类同名函数 
+}
+```
+
+#### 多个父类拥有同名变量函数
+
+子类可以继承多个父类，如果多个父类拥有同名变量或者函数，也需要通过作用域来区分
+
+```java
+class basicClass {
+   
+	public:
+		int a;
+		basicClass() {
+   
+			a = 100;
+		}
+};
+class basicClass2 {
+   
+	public:
+		int a;
+		basicClass2() {
+   
+			a = 200;
+		}
+};
+class JAVA : public basicClass, public basicClass2 {
+   
+};
+void test() {
+   
+	JAVA a;
+	cout << a.basicClass::a << " " << a.basicClass2::a << endl;
+}
+```
+
+#### 菱形继承
+
+考虑下面情况： 有基类A，B继承于A，C继承于A，D继承于B和C，A中有一份数据，此时D就会同时继承两份一样的数据，要访问这份数据，还要加上作用域。如何解决呢？ 虚继承可以解决此问题
+
+```java
+class annimal {
+   
+	public:
+		int age;
+		annimal() {
+   
+			age = 18;
+		}
+};
+class sleep : virtual public annimal {
+   
+};
+class tuo : virtual public annimal {
+   
+};
+class sleepTuo : public sleep, public tuo {
+   
+};
+void test() {
+   
+	sleepTuo a;
+	cout << sizeof a << endl;	//8->24消耗了内存
+	cout << a.age << endl;
+}
+```
+
+虚继承本质是存储一个指向虚基类的指针，指针指向虚基类表，表中存储一个偏移量，指针地址加上偏移量就是数据存放地址，因此此操作实质上增加了内存消耗，换来的是不用区分作用域。
+
+### 多态
+
+ [详解](https://blog.csdn.net/zhang_si_hang/article/details/126173598)
+
+```java
+class annimal {
+   
+	public:
+		virtual void speak() {
+   	//定义为虚函数
+			cout << "动物在说话" << endl;
+		}
+};
+class cat : public annimal {
+   
+	public:
+		void speak() {
+   	//重写虚函数
+			cout << "猫在说话" << endl;
+		}
+};
+void test() {
+   
+	cat c;
+	annimal &a = c;	//多态
+	a.speak();
+}
+```
+
+#### 开闭原则
+
+开发项目时最忌讳代码一整个一口气写完，一是可读性差，二是扩展性差 开闭原则即为 扩展开放，修改封闭 多态即可实现这样的目标，下面计算器是一个实例，如果把计算器实现的所有操作都封装在一个类里面，会显得代码都集中在一块，没有体现模块化编程思想，以后想添加新的操作，就要修改计算器类的代码。 如果使用多态，就可以创造一个空实现的基类，要添加操作时，就可以创造一个新类继承此基类，重写虚函数，实现新功能，不需要更改旧代码，只需要添加新代码即可。
+
+```java
+class calculator {
+   
+	public:
+		int num1, num2;
+		virtual int calc() {
+   
+			return 0;
+		}
+};
+
+class subCalculator : public calculator {
+   
+	public:
+		int calc() {
+   
+			return num1 + num2;
+		}
+};
+
+void test() {
+   
+	calculator *c = new subCalculator;	//加法器 
+	c->num1 = 1;
+	c->num2 = 2;
+	cout << c->calc() << endl;
+}
+```
+
+#### 纯虚函数
+
+以上案例中基类的虚函数函数体其实根本不会用到，写它只是为了过编译，这种情况就可以使用纯虚函数，纯虚函数可以不写函数体，拥有纯虚函数的类称为虚类，而让子类重写此函数，且子类必须重写纯虚函数，否则子类就也为虚类。
+
+虚类无法实例化，即无法创建对象。
+
+只能创建指针或者引用来实现多态。
+
+```java
+class calculator {
+   
+	public:
+		int num1, num2;
+		virtual int calc() = 0;	//纯虚函数
+};
+```
+
+### 函数模板
+
+>template&lt;class T&gt;：括号里面的就是模板形参，调用模板时没有歧义时可以省略实参，否则需要指明实参类型
+
+#### 举例
+
+```java
+template<typename T>	//将T作为一种数据类型
+//template<class T>	效果等价于上一句
+void out(T &a) {
+   
+	cout << a;
+}
+```
+
+以上代码调用out函数时会根据传入的参数判断出T的类型，我们也可以在调用时直接指定出类型
+
+```java
+out<string>(s);	//直接指定T为string类型
+```
+
+以下是快速排序自写的一个模板
+
+```java
+template<class T>
+void sort(T a[], int l, int r) {
+   
+	if(l >= r) return ;
+	T bas = a[l];
+	int i = l, j = r;
+	while(i < j) {
+   
+		while(i < j && a[j] >= bas) j --;
+		while(i < j && a[i] <= bas) i ++;
+		swap(a[i], a[j]);
+	}
+	swap(a[l], a[i]);
+	sort(a, l, i-1);
+	sort(a, i+1, r);
+}
+```
+
+#### 调用规则
+
+调用规则如下:
+
+1. 如果函数模板和普通函数都可以实现，优先调用普通函数 
+2. 可以通过空模板参数列表来强制调用函数模板 
+3. 函数模板也可以发生重载 
+4. 如果函数模板可以产性更好的匹配,优先调用函数模板
+
+#### 利用具体化模板解决自定义类型的比较问题
+
+><code>template&lt;&gt;</code>打头，且参数类型具体指名即为具体化模板
+
+```java
+class person {
+   
+	public:
+		int age;
+		string name;
+		person(int age, string name) {
+   
+			this->age = age;
+			this->name = name;
+		}
+};
+
+template<class T>
+bool compare(T &a, T &b) {
+   
+	if(a == b) return true;
+	return false;
+}
+template<>bool compare(person &a, person &b) {
+   	//具体化模板
+	if(a.age == b.age && a.name == b.name) return true;	//如果函数参数和具体化模板参数相同，则会优先调用具体化模板
+	return false;
+}
+void test() {
+   
+	person p1(16, "tom");
+	person p2(16, "tom");
+	cout << compare(p1, p2) << endl;	//person类型编译器无法比较
+}
+```
+
+### 异常处理
+
+try、catch、throw throw(x)：x的类型决定抛出异常的类型，x可以是表达式，也可以是常数或变量，其他类型异常自行百度
+
+```java
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+double fuc(double x, double y) {
+       
+	if(y==0) throw 0;	//如果除数为0抛出int类型异常
+	return x/y;
+}
+int main()
+{
+   
+	double res;
+	try {
+   	//尝试执行try，出现异常后执行对应catch块中内容
+		res=fuc(2,3);
+		cout<<"The result of x/y is : "<<res<<endl;
+		res=fuc(4,0);
+	} 
+	catch(int) {
+   
+		cerr<<"error of dividing zero.\n";
+		res=fuc(2,3);
+		exit(1);
+	}
+	catch(...) {
+   	//默认异常处理
+		cerr << "error" << endl;	//与cout无异，只是规范
+		exit(1);
+	}
+	return 0; 
+}
+```
+
+### const引用
+
+ [讲解博客](https://blog.csdn.net/holybin/article/details/17558183?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2~default~OPENSEARCH~Rate-1-17558183-blog-115046837.pc_relevant_multi_platform_whitelistv3&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2~default~OPENSEARCH~Rate-1-17558183-blog-115046837.pc_relevant_multi_platform_whitelistv3&utm_relevant_index=1)
+
+### 指针常量和常量指针
+
+指针**常量**int *const p 指针的值不能改变，即指向的地址无法改变，但可以修改该地址的值 常量**指针**const int *p | int const *p 指针的值可以改变，但指针指向的内容不可以改变，即指向常量的指针
+
+### 内联函数
+
+通过inline关键字修饰的函数就是内联函数，分为显式和隐式，**类内定义的成员函数默认为内联函数**，这被称为隐式内联，而在函数头前面加上inline就是显式。 调用函数时，操作系统需要执行转移指令，并把当前地址压栈，还需要把形参赋值给实参，这些操作虽然开销不大，但是若一个函数经常被调用，开销也需要考虑在内，内联函数可以在编译时将该函数的目标代码插入每个调用该函数的地方，和#include有些类似，不需要再执行转移指令了，减少了开销
+
+### 静态变量和全局变量的区别
+
+1. 单文件时+静态局部变量：在函数内定义静态变量，静态变量定义在全局区而非栈区，所以生命周期不同于局部变量，静态变量一直存在直到程序结束，而局部变量当程序执行过其作用域后，局部变量会被回收，生命也就结束了，静态变量相当于结合了局部变量和全局变量的特点，作用域等于局部变量，生命周期等于全局变量。 
+2. 单文件+静态全局变量：等价于全局变量。 
+3. 多文件+静态局部变量：静态局部变量和单文件没区别 
+4. 多文件+静态全局变量：此时静态全局变量作用域为此文件，不同于全局变量的作用域为所有文件。
+
+**总结：** 全局变量、局部变量、全局静态变量、局部静态变量的区别。要从分配内存的位置和作用域入手来解释。
+
+全局变量，分配的内存在静态存储区内存上面，其作用域是全局作用域，也就是整个程序的生命周期内都可以使用，同时，有些程序并不是由一个源文件构成的，可能有许多个源文件构成，全局变量只要在一个文件中定义，就可以在其他所有的文件中使用，当然，必须在其他文件使用extern关键字声明该变量。
+
+局部变量，分配内存是分配在栈存储区上的，其作用域也只是在局部函数内，在定义该变量的函数内，只要出了该函数，该局部变量就不再起作用，该变量的生命周期也只是和该函数同在。
+
+全局静态变量，分配的内存与全局变量一样，也是在静态存储内存上，其生命周期也是与整个程序同在的，从程序开始到结束一直起作用，但是与全局变量不同的是，全局静态变量作用域只在定义它的一个源文件内，其他源文件不能使用它。
+
+局部静态变量，分配的内存也是在静态存储内存上的，其第一次初始化后就一直存在直到程序结束，该变量的特点是其作用域只在定义它的函数内可见，出了该函数就不可见了。
+
+```java
+#include <bits/stdc++.h>
+using namespace std;
+void f1() {
+   
+	static int a = 0;
+//	static int a = 0; //同一作用域 不能重复定义
+	cout << ++ a << endl;
+}
+void f2() {
+   
+	static int a;
+	cout << ++ a << endl;
+}
+int main()
+{
+   
+	f2();
+	f2();
+	f1();
+	f1();
+	return 0;
+}
+输出
+1
+2
+1
+2
+```
+
+不同作用域的变量是互不干扰的，即使是静态变量也是如此，上面代码f1和f2函数的a变量存储在不同内存，互不干扰，而且a有记忆（类似全局变量），在之前基础上自增
+
+### extern
+
+extern放在变量或者函数之前，表示变量或者函数的定义在**别的文件**中，提示编译器遇到此变量和函数时在其他模块中寻找其定义。 比如在a文件中有一个全局变量或者全局函数，在b文件中想要使用这个全局变量或者函数，就可以在前面加上extern关键字声明它。 一般应用于以下场景： a.h， a.cpp 在a.cpp中定义了全局变量，a.h中声明此变量，在前面加上extern，其他文件想使用此变量，就可以包含a.h
+
+### = delete
+
+防止函数被调用，例如需要禁止一个类调用拷贝函数或者赋值函数，可以
+
+```java
+// MyClass is neither copyable nor movable.
+MyClass(const MyClass&) = delete;
+MyClass& operator=(const MyClass&) = delete;
+```
+
+更进一步来说，可能是为了： （1）防止隐式转换 （2）希望类不能被拷贝（之前的做法是把类的构造函数定义为private） 关于（1）：
+
+```java
+#include <cstdio>
+
+class TestClass
+{
+   
+public:
+    void func(int data) {
+    printf("data: %d\n", data); }
+};
+
+int main(void)
+{
+   
+    TestClass obj;
+    obj.func(100);
+    obj.func(100.0);
+    return 0;
+}
+```
+
+这是因为隐式转换，把100.0转换为int类型的100导致的。如何防止：
+
+```java
+#include <cstdio>
+
+class TestClass
+{
+   
+public:
+    void func(int data) {
+    printf("data: %d\n", data); }
+    void func(double data)=delete;
+};
+int main(void)
+{
+   
+    TestClass obj;
+    obj.func(100);
+    obj.func(100.0);
+
+    return 0;
+}
+```
+
+### 左值（引用）和右值（引用）
+
+左值指在内存中有实体，可以取地址的变量，而右值通常是一个式子，例如 a = b + c a是左值，b+c是右值 而左右值引用就是分别引用左值和右值 int &amp;d = a; int &amp;&amp;e = b + c;
+
+### override
+
+用来提醒编译器这是一个重写基类纯虚函数的函数，编译器会检查基类中是否存在相应的基函数，如果不存在就会报错。
+
+```java
+#include <bits/stdc++.h>
+using namespace std;
+class annimal {
+   
+	public:
+		virtual void cry() = 0;
+};
+class dog:public annimal {
+   
+	public:
+		void cry() override;
+//		void cry(int) override;	//报错，编译器检测到在基类不存在这种类型的函数
+};
+void dog::cry() {
+   
+	cout << "wangwang";
+}
+int main()
+{
+   
+	dog *d = new dog;
+	d->cry();
+	return 0;
+}
+```
+
+### 为什么父类的析构函数需要写成虚函数
+
+C++的类中，构造函数用于初始化对象及相关操作，构造函数是不能声明为虚函数的，因为在执行构造函数前对象尚未完成创建，虚函数表指针还不存在。 析构函数则用于销毁对象完成时相应的资源释放工作，析构函数可以被声明为虚函数。在继承层次中，基类的析构函数一般建议声明为虚函数。 通过一个例子来说明下基类析构函数声明为虚函数的必要性。
+
+```java
+#include <iostream>
+using namespace std;
+
+class base {
+   
+public:
+    base() {
+   
+        cout << "base constructor" << endl;
+        int *b = new int[5];
+    }
+    ~base() {
+   
+        cout << "base destructor" << endl;
+        delete[] b;
+    }
+
+private:
+    int *b;
+};
+
+class derived : public base {
+   
+public:
+    derived() {
+   
+        cout << "derived constructor" << endl;
+        int *d = new int[8];
+    }
+    ~derived() {
+   
+        cout << "derived destructor" << endl;
+        delete[] d;
+    }
+
+private:
+    int *d;
+};
+
+int main()
+{
+   
+    base *pBase = new derived;
+    cout << "---" << endl;
+    delete pBase;
+
+    return 0;
+}
+```
+
+运行结果：
+
+```java
+base constructor
+derived constructor
+---
+base destructor
+```
+
+上面定义了两个类：一个基类base，一个派生类derived。
+
+基类和派生类都分别定义了各自的构造函数和析构函数。
+
+基类和派生类中各有一个int型指针成员变量：
+
+在基类的构造函数中，给指针变量b分配了5个int型空间；基类的析构函数用于将b所指的空间释放掉； 在派生类的构造函数中，指针成员变量d被分配了8个int型空间；派生类的析构函数是为了释放掉d指针所指向的存储空间。 在主函数中创建一个基类类型的指针pBase，指向一个派生类对象，之后释放掉pBase指针所指向的对象的存储空间。
+
+观察程序的运行结果，说明：
+
+首先，基类的构造函数被调用（base constructor）； 其次，派生类的构造函数也被调用（derived constructor）； 最后，基类的析构函数被调用（base destructor）。 但是却没有调用派生类的析构函数，这样会导致d指针所指向的整型存储空间不会被释放，从而造成内存泄漏。
+
+为了解决这个问题，需要将基类的析构函数声明为虚函数。修改如下：
+
+```java
+virtual ~base() {
+   
+    cout << "base destructor" << endl;
+    delete[] b;
+}
+```
+
+运行结果：
+
+```java
+base constructor
+derived constructor
+---
+derived destructor
+base destructor
+```
+
+将基类的析构函数声明为虚函数之后，派生类的析构函数也自动成为虚析构函数，在主函数中基类指针pBase指向的是派生类对象，当delete释放pBase指针所指向的存储空间时，
+
+首先执行派生类的析构函数（derived destructor）； 然后执行基类的析构函数（base destructor）。 综上所述，将基类的析构函数设为虚函数，可以保证派生类被正确地释放。
+
+### enum class
+
+ [文章链接](https://zhuanlan.zhihu.com/p/501309032)
+

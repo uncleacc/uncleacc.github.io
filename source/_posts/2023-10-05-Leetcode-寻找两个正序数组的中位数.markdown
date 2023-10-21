@@ -1,0 +1,61 @@
+---
+
+title:   Leetcode-寻找两个正序数组的中位数
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
+tags: ACM冷知识
+categories: 算法
+mathjax: true
+date: 2023-10-01 16:49:38
+
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+## 题目链接
+
+ [click here](https://leetcode.cn/problems/median-of-two-sorted-arrays/)
+
+## 题解
+
+此题目是寻找两个数组组合为一个数组后的中位数，我们知道两个数组的长度，中位数是组合后的数组第几个数字我们是知道的，问题就转化为了寻找组合后数组的第k个数字，要求时间复杂度在**log(n)**，明显是二分，但是二分什么呢？一般都是二分两个数组，但这道题不同，需要二分的是k，对于两个数组而言，比较两个数组的第k/2个数字，小的一方前k/2个数字都不会是中位数，可以直接排除，从而快速缩小范围
+
+```java
+class Solution {
+   
+public:
+    double find(int k, vector<int>& nums1, vector<int>& nums2) {
+   
+        int m = nums1.size(), n = nums2.size();
+        int id1 = 0, id2 = 0;
+        while(true) {
+   
+            if(id1 == m) return nums2[id2 + k - 1];//边界
+            if(id2 == n) return nums1[id1 + k - 1];
+            if(k == 1) return min(nums1[id1], nums2[id2]);
+            int len = k / 2;//二分
+            int newid1 = min(id1 + len - 1, m - 1), newid2 = min(id2 + len - 1, n - 1);
+            if(nums1[newid1] < nums2[newid2]) {
+   //缩小范围
+                k -= newid1 - id1 + 1;
+                id1 = newid1 + 1;
+            }
+            else {
+   
+                k -= newid2 - id2 + 1;
+                id2 = newid2 + 1;
+            }
+        }
+    }
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+   
+        int len1 = nums1.size(), len2 = nums2.size();
+        if((len1 + len2) & 1) return find((len1 + len2) / 2 + 1, nums1, nums2);
+        return (find((len1 + len2) / 2, nums1, nums2) + find((len1 + len2)/2 + 1, nums1, nums2)) / 2;
+    }
+};
+```
+

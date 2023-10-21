@@ -1,0 +1,50 @@
+---
+
+title:   Leetcode-5 最长回文子串
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+date: 2022-02-20 10:56:34
+
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+
+
+![img](https://img-blog.csdnimg.cn/c4268e9784f84075b08ed979f60d2f7d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16) 动态规划 ![img](https://img-blog.csdnimg.cn/8ce61f447b95410ebd98bb7547c8347a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16)
+
+```java
+class Solution {
+   
+public:
+    string longestPalindrome(string s) {
+   
+        int st = 0, L = 1;
+        int len = s.size();
+        bool dp[1100][1100];
+        for(int i = 0; i < len; i ++) dp[i][i] = 1;	//长度为1的子串都是回文串
+        for(int i = 2; i <= len; i ++) {
+   	//枚举长度
+            for(int j = 0; j + i - 1 < len; j ++) {
+   	//枚举位置
+                int k = j + i - 1;	//结束位置
+                if(s[j] != s[k]) dp[j][k] = 0;	//如果两端字符不一致不回文
+                else {
+   
+                    if(i <= 3) dp[j][k] = 1;	//长度为3或者2的都是回文
+                    else dp[j][k] = dp[j+1][k-1];	//由之前状态推过来
+                }
+                if(dp[j][k]) st = j, L = i;	//更新长度和起始位置
+            }
+        }
+        return s.substr(st, L);
+    }
+};
+```
+

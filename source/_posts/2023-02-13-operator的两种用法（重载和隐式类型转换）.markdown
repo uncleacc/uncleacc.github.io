@@ -1,0 +1,123 @@
+---
+
+title:   operator的两种用法（重载和隐式类型转换）
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+date: 2023-10-01 10:56:34
+
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+
+
+
+
+
+## 重载
+
+略
+
+## 隐式类型转换
+
+### 构造函数的隐式类型转换
+
+利用operator进行的隐式类型转换成为**operator算子的隐式类型转换**，讲这个之前先了解**构造函数的隐式类型转换**，请看以下代码
+
+```java
+class X{
+   
+	public:
+		int val;
+		X(int _val) {
+   	//隐式类型转换
+			val = _val;
+		}
+};
+int main()
+{
+   
+	X m = 2;	//等价于X m(2);
+	return 0;
+}
+```
+
+传入**一个参数**初始化类的构造函数就是构造函数的隐式类型转换，可以理解为将int类型转换为X(class)类型
+
+#### 补充
+
+如果不想出现这种隐式类型转换，就可以用explict修饰 具体详解请看： [explict详解](https://blog.csdn.net/weixin_45525272/article/details/105996548)
+
+### operator算子的隐式类型转换
+
+而operator算子的隐式类型转换则是相反的，例如以下代码
+
+```java
+#include<string>
+#include<iostream>
+#include<cstdio>
+#include<sstream>
+ 
+using namespace std;
+ 
+class Test1{
+   
+	public:
+	    Test1(int value):_value(value){
+   
+	        cout<<"constructor"<<endl;
+	    }
+	    ~Test1(){
+   
+	        cout<<"destructor"<<endl;
+	    }
+	    int getValue(){
+   
+	        return _value;
+	    }
+	    bool operator() (int x) const{
+   	//重载括号
+	        cout<<"() is overload"<<endl;
+	        return x > _value;
+	    }
+	    //operator在返回类型前面（区分重载），string是返回类型
+	    operator string(){
+   	//operator算子隐式类型转换
+	        cout<<"type convert"<<endl;
+	        stringstream sstr;
+	        sstr<<_value;
+	        return sstr.str();
+		}
+	private:
+	    int _value;
+};
+ 
+int main(){
+   
+    Test1 t(10);
+    int i = 5;
+    if(t(5))
+        cout<<i<<" is greater than "<<t.getValue()<<endl;
+    else
+        cout<<i<<" is less than "<<t.getValue()<<endl;
+
+    string str(t); // 将Test1类型转换为string类型
+    cout<<str<<endl;
+    return 0;
+}
+```
+
+Test1类型的对象传入string的构造函数，是用了c++构造函数的隐式类型转换特性，虽然string类并没有显式定义参数为Test1的构造函数，但因为其可以隐式转换为string，所以语法上都是合法的。
+
+构造函数的隐式类型转换，是使用一个其他的类型构造当前类的临时对象并用此临时对象来构造当前对象，这种转换必须有构造函数的支持；
+
+operator算子的隐式类型转换，使用当前对象去生成另一个类型的对象（正好与构造函数隐式转换相反），这种转换必须有operator算子的支持。
+
+当然了，构造函数的隐式类型转换有利有弊，类的设计者就起决定性作用了，如果你不想让构造函数发生隐式的类型转换，请在构造函数前加explicit关键字；同时，operator算子声明的隐式类型转换也可以通过一些相应的返回值函数替代，用户的掌控性更好。
+

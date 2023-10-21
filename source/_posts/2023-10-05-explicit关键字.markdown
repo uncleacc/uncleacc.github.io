@@ -1,0 +1,42 @@
+---
+
+title:   explicit关键字
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
+tags: ACM冷知识
+categories: 算法
+mathjax: true
+date: 2023-10-01 16:49:38
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+## explicit
+
+>作用: 防止隐式类型转换
+
+```java
+class Complex {
+   
+	private:
+		double real, imag;
+	public:
+		Complex(){
+   
+			
+		}
+		Complex(double _r, double _i): real(_r), imag(_i) {
+   }
+};
+int main(){
+   
+	Complex t = {
+   1, 2};
+}
+```
+
+以上代码不会报错，因为t = {1, 2}这里发生了隐式类型转换，将{1, 2}转化为了Complex(1, 2)，产生了一个匿名对象，然后把匿名对象赋值给t(这种赋值只是简单的值拷贝操作，假如存在指针，这种操作有浅拷贝的隐患) 但如果在构造函数前面加上explicit关键字，以上代码无法通过编译，因为explicit不允许隐式类型转换，等号右边的类型与左边的类型不符，则编译失败
+

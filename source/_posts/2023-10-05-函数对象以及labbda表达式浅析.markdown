@@ -1,0 +1,118 @@
+---
+title:   函数对象以及labbda表达式浅析
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: ACM冷知识
+categories: 算法
+mathjax: true
+date: 2023-10-03 16:49:38
+
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+## 函数对象
+
+函数对象就是仿函数，之所以叫仿函数，是因为使用起来书写形式和调用函数的代码形式很像，之所以叫函数对象，是因为本shi质还是个对象，只不过写这个类是为了使用类似函数的功能。 仿函数就是重载了括号，例如以下代码
+
+```java
+#include <iostream>
+using namespace std;
+class myPrint{
+   
+	public:
+		int cnt;
+		void operator()(int n) {
+   
+			cout << n << endl;
+			++ cnt;
+		}
+}; 
+
+int main()
+{
+   
+	myPrint func;
+    func(2);
+//    myPrint()(2);
+    return 0;
+}
+```
+
+myPrint类声明的对象就是函数对象，func()本质上是调用成员函数func.operator()(2)，但是由于经过运算符重载后也可以写成func(2)，形式就像是调用函数一样，所以称为函数对象 和普通的函数相比，有很多好处
+
+1. 可以在内部保存状态，例如这里cnt记录了函数调用次数 
+2. 可以作为参数传递到其他函数（因为其内部有状态），类似函数指针
+
+## lambda表达式
+
+形式如下 其中返回类型可写可不写，编译器可以自动推断
+
+```java
+[捕获变量](形参)->返回类型 {
+   
+	函数体内容
+	return 变量;
+}
+```
+
+例子
+
+```java
+#include <iostream>
+using namespace std;
+int main()
+{
+   
+	int m = 3, n = 4;
+	auto func = [&m](int &a, int &b) {
+   
+		int temp = a;
+		a = b;
+		b = temp;
+		m = 10;
+	};
+	int a = 1, b = 2;
+	func(a, b);
+	cout << a << " " << b << " " << m << endl;
+    return 0;
+}
+```
+
+捕获变量有几种形式
+
+```java
+lambda表达式，从闭包作用域捕获变量而获得状态，分为传值和传引用。
+捕获变量登记与函数对象中的示例数据成员。
+ [=] 值捕获所有变量
+ [&] 引用捕获所有变量
+ [&x] 引用捕获x变量
+ [x]  值捕获x
+ [=,&x] 默认值捕获，x变量通过引用捕获
+ [&,x] 默认引用捕获，x通过值捕获
+ [this] 捕获当前对象，可访问所有共有成员，C++20中不允许隐式捕获this
+ [=,x],[&,&x] 错误，重复指定
+ 注意：即便默认要值捕获，全局变量总是使用引用捕获
+ 使用初始化捕获表达式表达move捕获
+```
+
+值捕获的变量默认是const不可修改的，如果需要修改，则需要将lambda匿名函数对象用mutable修饰
+
+```java
+#include <iostream>
+using namespace std;
+int main()
+{
+   
+	int m = 3;
+	auto func = [m]() mutable{
+   
+		m = 2;
+	};
+    return 0;
+}
+```
+

@@ -1,0 +1,93 @@
+---
+
+title:   牛客练习赛-C-梦迹
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+date: 2023-10-01 10:56:34
+
+updated: 
+keywords: 
+description: 
+comments: 
+highlight_shrink: 
+---
+
+
+## 题目：梦迹
+
+这道题和用树状数组求逆序对那道题目类似，都是把数组值作为树状数组下标，效果等价于权值线段树，本质上是一道树状数组的简单题。 每一个数字为答案的贡献等于getsum(W-num) 因此修改数字时就可以先减去修改前的贡献，加上修改后的贡献，树状数组的维护上，如果数字从a变为b，就把a位置加上-1，b位置加上1即可 考虑答案是否爆int，最差情况是n*(n-1)/2，到1e10，开longlong，其次注意树状数组下标从1开始，而题目a[i]从0开始，因此加上值为1的偏移量
+
+```java
+#include <bits/stdc++.h>
+#define ios ios::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+#define endl '\n'
+#define int long long
+using namespace std;
+
+typedef long long ll;
+const int N = 1e6+10;
+int a[N], tr[N];
+int n, q, W;
+int lowbit(int x) {
+   
+	return x & (-x);
+}
+void modify(int i, int val) {
+   
+	i ++;
+	while(i < N) {
+   
+		tr[i] += val;
+		i += lowbit(i);
+	}
+}
+int getsum(int pos) {
+   
+	int res = 0;
+	pos ++;
+	while(pos > 0) {
+   
+		res += tr[pos];
+		pos -= lowbit(pos);
+	}
+	return res;
+}
+int solve() {
+   
+	cin >> n >> q >> W;
+	int ans = 0; 
+	for(int i = 1; i <= n; i ++) {
+   
+		cin >> a[i];
+		modify(a[i], 1);
+		ans += getsum(W - a[i]);
+	}
+
+	while(q --) {
+   
+		int p, x;
+		cin >> p >> x;
+		ans -= getsum(W - a[p]);
+		modify(a[p], -1);
+		modify(x, 1);
+		ans += getsum(W - x);
+		a[p] = x;
+		cout << ans << endl;
+	}
+	return ans;
+} 
+signed main(){
+   
+	ios;
+	int T;
+	T = 1;
+	while(T --) {
+   
+	    solve();
+	}
+    return 0;
+}
+```
+
