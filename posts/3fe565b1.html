@@ -1,0 +1,365 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>快速幂详解 | Doraemon's Blog</title><meta name="author" content="Doraemon,601162956@qq.com"><meta name="copyright" content="Doraemon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="原理先举个例子，比如说算3^6^,你要怎么算，用6个6相乘对不对，那要是3^1000^呢？1000个3相乘，复杂度为O(N)，现在我们这样算，6的二进制是110，所以6&#x3D;1(2^2^)+1(2^1^)+0(2^0^)，那么3^6^就变成了3^( 1(2^2^)+1(2^1^)+0(2^0^) )&#x3D;3^(1(2^2^))  3^(1(2^1^))^  3^(0*(2^0^))^，这其实就是快速幂的原">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快速幂详解">
+<meta property="og:url" content="http://example.com/posts/3fe565b1.html">
+<meta property="og:site_name" content="Doraemon&#39;s Blog">
+<meta property="og:description" content="原理先举个例子，比如说算3^6^,你要怎么算，用6个6相乘对不对，那要是3^1000^呢？1000个3相乘，复杂度为O(N)，现在我们这样算，6的二进制是110，所以6&#x3D;1(2^2^)+1(2^1^)+0(2^0^)，那么3^6^就变成了3^( 1(2^2^)+1(2^1^)+0(2^0^) )&#x3D;3^(1(2^2^))  3^(1(2^1^))^  3^(0*(2^0^))^，这其实就是快速幂的原">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/8.webp">
+<meta property="article:published_time" content="2020-04-05T11:39:12.000Z">
+<meta property="article:modified_time" content="2023-10-21T13:44:32.716Z">
+<meta property="article:author" content="Doraemon">
+<meta property="article:tag" content="基础数学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/8.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/posts/3fe565b1.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?e5f1c961209bbe62fbceb50c9ef96345";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BDW0BKMDBE"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BDW0BKMDBE');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '快速幂详解',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-10-21 21:44:32'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">137</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">69</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/talk/"><i class="fa-fw fa-regular fa-comment"></i><span> 说说</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/8.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Doraemon's Blog"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/blogIcon.png"/><span class="site-name">Doraemon's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/talk/"><i class="fa-fw fa-regular fa-comment"></i><span> 说说</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">快速幂详解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-04-05T11:39:12.000Z" title="发表于 2020-04-05 19:39:12">2020-04-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-10-21T13:44:32.716Z" title="更新于 2023-10-21 21:44:32">2023-10-21</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/posts/3fe565b1.html" data-flag-title="快速幂详解"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/3fe565b1.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/posts/3fe565b1.html" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>先举个例子，比如说算3^6^,你要怎么算，用6个6相乘对不对，那要是3^1000^呢？1000个3相乘，复杂度为O(N)，现在我们这样算，6的二进制是110，所以6=1(2^2^)+1(2^1^)+0(2^0^)，那么3^6^就变成了3^( 1(2^2^)+1(2^1^)+0(2^0^) )=3^(1<em>(2^2^)) </em> 3^(1<em>(2^1^))^ </em> 3^(0*(2^0^))^，这其实就是快速幂的原理，看起来麻烦了对吗？OK，先不看复杂度，先看用代码如何实现，我们可以用一个数来充当3^(1*(2^2^))^、3^(1*(2^1^))^、3^(0*(2^0^))^，在下面的代码中y就是这个变量，不是每一次都要算的，比如3^(0*(2^0^))^=1，乘不乘都一样，那怎么判断呢？我们每次取二进制数的最后一位，要么是0要么是1，如果是0，就不用不用乘，否则就乘，先看代码：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">int p(int a,int b)&#123;</span><br><span class="line">  int t,y;  //定义两个变量，t起到类乘的作用，而y则就是每一次要乘的数</span><br><span class="line">  t=1; y=a;  //注意一定要初始化</span><br><span class="line">  while (b!=0)&#123;  //只要二进制位数还没有遍历完就还要循环</span><br><span class="line">    if (b&amp;1==1) t=t*y; //y就是幂的形式a^(2^0),a^(2^1),a^(2^2),a^(2^3)</span><br><span class="line">    y=y*y;  //</span><br><span class="line">    b=b&gt;&gt;1;  //每次要舍去二进制数的最后一位</span><br><span class="line">  &#125;</span><br><span class="line">  return t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这就是原理是不是很简单呢（qwq）</p>
+<h2 id="复杂度"><a href="#复杂度" class="headerlink" title="复杂度"></a>复杂度</h2><p>也许你会疑惑明明步骤变多了怎么会快了呢？这只是你的直观感觉，代码是变长了，但次数确确实实变少了，我们来看上面的代码，复杂度主要就在于循环上，循环的条件是b!=0，而每次不都要除以2，设循环次数为x，那么2^x=b，x=log(2,b)，循环里面运算次数最多为3次，那么复杂度最大就是3log(2,N)，3是常数，当数值很大时，可以省略，复杂度为log(2,N)，那么假如算2^10000，常规需要10000次运算，而快速幂只需要14*3次运算，是不是很神奇呢？</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>学习了这个算法有什么用呢？实际上快速幂是一个非常常用的算法，它经常与其他算法一起混用，一般来说快速幂适用于求一个指数非常高的数对某个数的余数，例如：题目：<br>现在星期日，问：再过2^10000^天后星期几？学习了快速幂这种题就是送分题了，每次对7取余就行了</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>附上链接，有兴趣的小伙伴可以前往相关网站做一下</p>
+<pre><code>Fermat&#39;s theorem states that for any prime number p and for any integer a &gt; 1, ap = a (mod p). That is, if we raise a to the pth power and divide by p, the remainder is a. Some (but not very many) non-prime values of p, known as base-a pseudoprimes, have this property for some a. (And some, known as Carmichael Numbers, are base-a pseudoprimes for all a.)
+
+Given 2 &lt; p ≤ 1000000000 and 1 &lt; a &lt; p, determine whether or not p is a base-a pseudoprime.
+</code></pre><p>Input</p>
+<pre><code>Input contains several test cases followed by a line containing &quot;0 0&quot;. Each test case consists of a line containing p and a.
+</code></pre><p>Output</p>
+<pre><code>For each test case, output &quot;yes&quot; if p is a base-a pseudoprime; otherwise output &quot;no&quot;.
+</code></pre><p>Sample Input</p>
+<pre><code>3 2
+10 3
+341 2
+341 3
+1105 2
+1105 3
+0 0
+</code></pre><p>Sample Output</p>
+<pre><code>no
+no
+yes
+no
+yes
+yes
+</code></pre><p>AC代码：</p>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+long long p(long long a,long long b)&#123;
+    long long t,y,n=b;
+    t=1; y=a;
+    while (b!=0)&#123;
+        if (b&amp;1==1) t=t*y%n;
+        y=y*y%n;
+        b=b&gt;&gt;1;
+    &#125;    
+    return t;
+&#125;
+int main()
+&#123;
+    long long m,n;
+    while(scanf(&quot;%lld %lld&quot;,&amp;m,&amp;n)!=EOF)&#123;
+        if(m==0&amp;&amp;n==0) break;
+        int flag=0;
+        for(int i=2;i*i&lt;=m;i++)&#123;
+            if(m%i==0)&#123;
+                flag=1;
+                break;
+            &#125;
+        &#125;
+        if(flag==0) cout&lt;&lt;&quot;no&quot;&lt;&lt;endl;
+        else&#123;
+            if(p(n,m)==n) cout&lt;&lt;&quot;yes&quot;&lt;&lt;endl;
+            else cout&lt;&lt;&quot;no&quot;&lt;&lt;endl;
+        &#125;
+    &#125;
+&#125;
+</code></pre><p>地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://poj.org/problem?id=3641">http://poj.org/problem?id=3641</a></p>
+<p>Rightmost Digit </p>
+<p>Given a positive integer N, you should output the most right digit of N^N.</p>
+<p>Input</p>
+<pre><code>The input contains several test cases. The first line of the input is a single integer T which is the number of test cases. T test cases follow.
+Each test case contains a single positive integer N(1&lt;=N&lt;=1,000,000,000).
+</code></pre><p>Output<br>    For each test case, you should output the rightmost digit of N^N.<br>Sample Input</p>
+<pre><code>2
+3
+4
+</code></pre><p>Sample Output</p>
+<pre><code>7
+6
+</code></pre><p>​<br>​      </p>
+<p>Hint</p>
+<pre><code>In the first case, 3 * 3 * 3 = 27, so the rightmost digit is 7.
+In the second case, 4 * 4 * 4 * 4 = 256, so the rightmost digit is 6.
+</code></pre><p>AC代码：</p>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;iostream&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+long long p(long long a)&#123;
+    long long t,y;
+    t=1; y=a;
+    while(a!=0)&#123;
+        if (a&amp;1==1) t=t*y%10;
+        y=y*y%10; 
+        a=a&gt;&gt;1;
+    &#125;
+    return t;
+&#125;
+int main()
+&#123;
+    int t;
+    cin&gt;&gt;t;
+    while(t--)&#123;
+        long long n;
+        scanf(&quot;%lld&quot;,&amp;n);
+        cout&lt;&lt;p(n)&lt;&lt;endl;
+    &#125;
+&#125;
+</code></pre><p>地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://acm.hdu.edu.cn/showproblem.php?pid=1061">http://acm.hdu.edu.cn/showproblem.php?pid=1061</a></p>
+<p>小蒜想知道：假设今天是星期日，那么过 aba^bab 天之后是星期几？</p>
+<p>输入格式</p>
+<p>两个正整数 aaa，bbb，中间用单个空格隔开。0&lt;a≤100,0&lt;b≤100000 &lt; a \le 100, 0 &lt; b \le 100000&lt;a≤100,0&lt;b≤10000。</p>
+<p>输出格式</p>
+<p>一个字符串，代表过 aba^bab ​天之后是星期几。</p>
+<p>其中，Monday 是星期一，Tuesday 是星期二，Wednesday 是星期三，Thursday 是星期四，Friday 是星期五，Saturday 是星期六，Sunday 是星期日。</p>
+<p>输出时每行末尾的多余空格，不影响答案正确性</p>
+<p>样例输入</p>
+<pre><code>3 2000
+</code></pre><p>样例输出</p>
+<pre><code>Tuesday
+</code></pre><p>AC代码</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;stdio.h&gt;
+#include&lt;math.h&gt;
+#include&lt;string.h&gt;
+using namespace std;
+typedef long long ll;
+ll p(ll a,ll b)&#123;
+    int t,y;
+    t=1; y=a;
+    while (b!=0)&#123;
+        if (b&amp;1==1) t=t*y%7;
+        y=y*y%7; 
+        b=b&gt;&gt;1;
+    &#125;
+    return t;
+&#125;
+int main()
+&#123;
+    int a,b;
+    cin&gt;&gt;a&gt;&gt;b;
+    switch(p(a,b))&#123;
+        case 1: printf(&quot;Monday\n&quot;);break;
+        case 2: printf(&quot;Tuesday\n&quot;);break;
+        case 3: printf(&quot;Wednesday\n&quot;);break;
+        case 4: printf(&quot;Thursday\n&quot;);break;
+        case 5: printf(&quot;Friday\n&quot;);break;
+        case 6: printf(&quot;Saturday \n&quot;);break;
+        case 0: printf(&quot;Sunday\n&quot;);break;
+    &#125;
+&#125;
+</code></pre><p>地址：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://nanti.jisuanke.com/t/T1234">https://nanti.jisuanke.com/t/T1234</a></p>
+<blockquote>
+<p>制作不易，您的赞助是我最大的动力，留下您的评论，有条件的小伙伴可以打赏2毛钱，谢谢各位老板（owo）</p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Doraemon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/3fe565b1.html">http://example.com/posts/3fe565b1.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Doraemon's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%9F%BA%E7%A1%80%E6%95%B0%E5%AD%A6/">基础数学</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/8.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/7247b6a5.html" title="BFS模板题"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/20.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">BFS模板题</div></div></a></div><div class="next-post pull-right"><a href="/posts/1f0cd9a2.html" title="查并集"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/1.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">查并集</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-number">2.</span> <span class="toc-text">复杂度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE"><span class="toc-number">4.</span> <span class="toc-text">题目</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Doraemon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener external nofollow noreferrer" href="https://fezhu.top/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'fbMkGCqFR4CUHufZzPUvIprm-MdYXbMMI',
+      appKey: '3J39KYN5r1aiDyQofBtAPNNj',
+      avatar: '',
+      serverURLs: 'https://fbmkgcqf.api.lncldglobal.com',
+      emojiMaps: "",
+      master: '71a69a31286a700ee0738a6e0942e102',
+      tagMeta: ["博主","小伙伴","访客"],
+      friends:  [], 
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
