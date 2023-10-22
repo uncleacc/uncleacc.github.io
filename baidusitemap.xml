@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://example.com/posts/54d18d14.html</loc>
-    <lastmod>2023-10-21</lastmod>
-  </url>
-  <url>
-    <loc>http://example.com/posts/c4e80fbc.html</loc>
-    <lastmod>2023-10-21</lastmod>
+    <loc>http://example.com/posts/96d45fb1.html</loc>
+    <lastmod>2023-10-22</lastmod>
   </url>
   <url>
     <loc>http://example.com/posts/6d71acfd.html</loc>
@@ -17,7 +13,19 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
+    <loc>http://example.com/posts/c4e80fbc.html</loc>
+    <lastmod>2023-10-21</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/posts/54d18d14.html</loc>
+    <lastmod>2023-10-21</lastmod>
+  </url>
+  <url>
     <loc>http://example.com/posts/7bf7b6ec.html</loc>
+    <lastmod>2023-10-21</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/posts/4ac79732.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -30,10 +38,6 @@
   </url>
   <url>
     <loc>http://example.com/posts/f1b375ae.html</loc>
-    <lastmod>2023-10-21</lastmod>
-  </url>
-  <url>
-    <loc>http://example.com/posts/4ac79732.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -53,7 +57,7 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/a3781d1f.html</loc>
+    <loc>http://example.com/posts/82a15c1d.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -61,7 +65,7 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/82a15c1d.html</loc>
+    <loc>http://example.com/posts/a3781d1f.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -109,6 +113,10 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
+    <loc>http://example.com/posts/5f67ec8b.html</loc>
+    <lastmod>2023-10-21</lastmod>
+  </url>
+  <url>
     <loc>http://example.com/posts/481c5c0c.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
@@ -118,10 +126,6 @@
   </url>
   <url>
     <loc>http://example.com/posts/fa2b1812.html</loc>
-    <lastmod>2023-10-21</lastmod>
-  </url>
-  <url>
-    <loc>http://example.com/posts/5f67ec8b.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -193,15 +197,11 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/a28e20bb.html</loc>
-    <lastmod>2023-10-21</lastmod>
-  </url>
-  <url>
     <loc>http://example.com/posts/8fb3f0eb.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/6bf2ab0f.html</loc>
+    <loc>http://example.com/posts/a28e20bb.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -210,6 +210,10 @@
   </url>
   <url>
     <loc>http://example.com/posts/c024eb61.html</loc>
+    <lastmod>2023-10-21</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/posts/6bf2ab0f.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -249,11 +253,11 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/b58a3aa9.html</loc>
+    <loc>http://example.com/posts/6b47ae8.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/6b47ae8.html</loc>
+    <loc>http://example.com/posts/b58a3aa9.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -297,15 +301,15 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
+    <loc>http://example.com/posts/564fb150.html</loc>
+    <lastmod>2023-10-21</lastmod>
+  </url>
+  <url>
     <loc>http://example.com/posts/ef84d4b4.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
     <loc>http://example.com/posts/83ce6fe2.html</loc>
-    <lastmod>2023-10-21</lastmod>
-  </url>
-  <url>
-    <loc>http://example.com/posts/564fb150.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -393,11 +397,11 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/2da2039a.html</loc>
+    <loc>http://example.com/posts/5ccd823e.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/5ccd823e.html</loc>
+    <loc>http://example.com/posts/2da2039a.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -441,19 +445,19 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/bc5cfa75.html</loc>
-    <lastmod>2023-10-21</lastmod>
-  </url>
-  <url>
     <loc>http://example.com/posts/d98274c.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/d0810907.html</loc>
+    <loc>http://example.com/posts/bc5cfa75.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
     <loc>http://example.com/posts/82361365.html</loc>
+    <lastmod>2023-10-21</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/posts/d0810907.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -481,11 +485,11 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/2e0786fe.html</loc>
+    <loc>http://example.com/posts/5655ac3f.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/5655ac3f.html</loc>
+    <loc>http://example.com/posts/2e0786fe.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -505,11 +509,11 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/b6ef4fe0.html</loc>
+    <loc>http://example.com/posts/ac816005.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/ac816005.html</loc>
+    <loc>http://example.com/posts/b6ef4fe0.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
@@ -529,19 +533,19 @@
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/cbf78b69.html</loc>
-    <lastmod>2023-10-21</lastmod>
-  </url>
-  <url>
     <loc>http://example.com/posts/b5949c1f.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
-    <loc>http://example.com/posts/25665b78.html</loc>
+    <loc>http://example.com/posts/cbf78b69.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
     <loc>http://example.com/posts/cc730d32.html</loc>
+    <lastmod>2023-10-21</lastmod>
+  </url>
+  <url>
+    <loc>http://example.com/posts/25665b78.html</loc>
     <lastmod>2023-10-21</lastmod>
   </url>
   <url>
