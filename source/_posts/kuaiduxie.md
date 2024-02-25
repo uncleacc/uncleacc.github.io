@@ -1,16 +1,17 @@
 ---
 layout: post
 title: 快读快写
-date: 2020-04-06 10:20:05
 tags: 模板
 categories: 算法
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/7.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/7.webp'
+abbrlink: e38e89eb
+date: 2020-04-06 10:20:05
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 ## 应用

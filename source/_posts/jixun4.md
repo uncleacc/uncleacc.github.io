@@ -1,15 +1,16 @@
 ---
 title: 贪心与二分
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/66.webp'
-date: 2020-07-15 20:33:21
 categories: 题目
 tags: 集训
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 8fb3f0eb
+date: 2020-07-15 20:33:21
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 被虐惨了，各种调试与超时或者看不懂题🐷

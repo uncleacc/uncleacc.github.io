@@ -1,22 +1,23 @@
 ---
-
-title:   Leetcode-2 两数相加
+title: Leetcode-2 两数相加
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: cbf78b69
 date: 2022-02-20 10:56:34
-
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
 
-考察了对链表的使用 ![img](https://img-blog.csdnimg.cn/f32296771e0e43e7b64b06a748d3b5da.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16) 特别注意的是**在一个自己声明的函数**中**直接定义变量**和**使用new声明**内存分配机制是不一样的，**直接定义是由系统管理内存的分配与回收**，而**new则是由程序员自己分配与回收**，所以在自定义函数中直接定义变量，然后把指针指向此变量会导致在函数结束后内存回收指针指向无效地址的错误，而new则避免了此问题。
+考察了对链表的使用 
+
+![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/f32296771e0e43e7b64b06a748d3b5da.png) 特别注意的是**在一个自己声明的函数**中**直接定义变量**和**使用new声明**内存分配机制是不一样的，**直接定义是由系统管理内存的分配与回收**，而**new则是由程序员自己分配与回收**，所以在自定义函数中直接定义变量，然后把指针指向此变量会导致在函数结束后内存回收指针指向无效地址的错误，而new则避免了此问题。
 
 ```java
 /**

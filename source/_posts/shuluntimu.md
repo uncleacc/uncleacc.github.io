@@ -1,15 +1,16 @@
 ---
 title: 数论题目集(协会)
 categories: 算法
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/54.webp
-date: 2020-06-02 16:58:19
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/54.webp'
 tags: 数论
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 816bcb91
+date: 2020-06-02 16:58:19
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 >以下题目涉及知识有 欧拉函数、素数筛、算数基本定理（唯一分解定理）
 

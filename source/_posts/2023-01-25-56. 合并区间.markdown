@@ -1,16 +1,16 @@
 ---
-
-title:   56. 合并区间
+title: 56. 合并区间
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: 2e0786fe
 date: 2021-05-07 10:56:34
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 

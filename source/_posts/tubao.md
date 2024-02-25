@@ -3,13 +3,14 @@ title: 凸包讲解
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/95.webp'
 tags: 凸包
 categories: 算法
+abbrlink: 4d10af4f
 date: 2021-02-08 17:22:42
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 凸包（百度百科）:

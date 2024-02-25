@@ -1,15 +1,16 @@
 ---
 title: 集训前缀和与差分
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/65.webp'
-date: 2020-07-14 17:35:43
 categories: 题目
 tags: 集训
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: a36c6b85
+date: 2020-07-14 17:35:43
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 ## 程序设计：蒜头君的数轴

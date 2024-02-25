@@ -1,15 +1,16 @@
 ---
 title: BFS练习
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/68.webp'
-date: 2020-07-23 18:12:40
 categories: 题目
 tags: BFS
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 3522c2e0
+date: 2020-07-23 18:12:40
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 ## A - Red and Black

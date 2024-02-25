@@ -1,15 +1,16 @@
 ---
 title: LCA最小公共祖先
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/81.webp'
-date: 2020-09-29 21:44:21
 categories: 算法
 tags: 算法
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 98bfed5f
+date: 2020-09-29 21:44:21
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 ## LCA 公共祖先

@@ -1,22 +1,21 @@
 ---
-
-title:   Leetcode-80
+title: Leetcode-80
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: 9c90cade
 date: 2022-02-22 10:56:34
-
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
 
-![img](https://img-blog.csdnimg.cn/d1b412323e4d4ad08e5c330fce47d2e4.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_19,color_FFFFFF,t_70,g_se,x_16)
+![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/d1b412323e4d4ad08e5c330fce47d2e4.png)
 
 写麻烦了，总之就是双指针，一个快指针一个慢指针
 

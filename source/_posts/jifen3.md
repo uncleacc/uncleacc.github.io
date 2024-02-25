@@ -1,15 +1,16 @@
 ---
 title: 积分赛3
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/70.webp'
-date: 2020-08-02 20:42:26
 categories: 题目
 tags: 集训
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: a5fa59a7
+date: 2020-08-02 20:42:26
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 学习了最短路后，感觉自己理解真的很一般，只会一些模板题目，稍微变一下就死了，而且发现我的思维很死，只会写套路题，做那些稍微灵活一点的题目感觉就很吃力，希望以后能有好转

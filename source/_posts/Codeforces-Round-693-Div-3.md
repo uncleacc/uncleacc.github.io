@@ -3,13 +3,14 @@ title: Codeforces Round
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/94.webp'
 tags: div3
 categories: 题目
+abbrlink: 682df6fc
 date: 2021-01-21 22:15:01
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 ## A. Cards for Friends

@@ -1,17 +1,18 @@
 ---
 title: CSS语法笔记
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/60.webp'
-date: 2020-06-28 18:36:47
 categories:
-- 技术
+  - 技术
 tags:
-- CSS
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+  - CSS
+abbrlink: efc0e1f0
+date: 2020-06-28 18:36:47
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 >对Web有点兴趣，可能它是可视化的，给我带来的成就感更多吧🐷标签不记了，w3school上都有
 

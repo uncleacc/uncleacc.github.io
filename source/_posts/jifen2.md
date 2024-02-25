@@ -1,15 +1,16 @@
 ---
 title: 积分赛2
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/69.webp'
-date: 2020-07-26 18:44:23
 categories: 题目
 tags: 集训
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: d2fd6931
+date: 2020-07-26 18:44:23
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 前两天打了第二场积分赛，难度明显比上次高，感觉更考验思维了，收集了一些我认为有价值的题目，因为太懒了，不想自己写思路题解了，搬来了别人的代码和题解，以后争取养成保存代码的习惯🐷

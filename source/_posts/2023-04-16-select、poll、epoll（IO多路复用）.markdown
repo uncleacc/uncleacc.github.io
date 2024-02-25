@@ -1,15 +1,16 @@
 ---
-title:   select、poll、epoll（IO多路复用）
+title: select、poll、epoll（IO多路复用）
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
 tags: ACM冷知识
 categories: 算法
 mathjax: true
+abbrlink: bc5cfa75
 date: 2023-10-01 16:49:38
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 

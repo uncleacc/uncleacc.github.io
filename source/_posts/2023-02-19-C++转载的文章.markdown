@@ -1,16 +1,16 @@
 ---
-
-title:   C++转载的文章
+title: C++转载的文章
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: d0810907
 date: 2023-10-01 10:56:34
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 

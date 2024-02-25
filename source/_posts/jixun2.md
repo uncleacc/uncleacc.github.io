@@ -1,15 +1,16 @@
 ---
 title: STL集训典型题目
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/64.webp'
-date: 2020-07-13 15:32:05
 categories: 题目
 tags: STL
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: c024eb61
+date: 2020-07-13 15:32:05
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 自己找题，做课件，还得学习新的东西，不得不说确实挺费时间的，光找找题目就花了2个小时左右，还是因为自己的题量少的原因，只能去搜一些题目自己再做做，不过粘贴题目AC的感觉真的美妙🐷

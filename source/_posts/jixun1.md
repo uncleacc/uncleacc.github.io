@@ -1,15 +1,16 @@
 ---
 title: 集训第一天
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/63.webp'
-date: 2020-07-10 17:29:58
 categories: 题目
 tags: 集训
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 1f97ad2b
+date: 2020-07-10 17:29:58
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 紧张刺激而又枯燥的集训开始了🐷

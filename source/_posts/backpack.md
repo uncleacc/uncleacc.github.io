@@ -1,15 +1,16 @@
 ---
 title: 浅谈01背包和完全背包
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/62.webp'
-date: 2020-07-07 19:21:27
 categories: 算法
 tags: 背包
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: e4f859ea
+date: 2020-07-07 19:21:27
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 今天做了查并集和01背包结合的一道题，致使我对背包开始了学习

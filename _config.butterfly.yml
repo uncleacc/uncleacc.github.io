@@ -233,7 +233,7 @@ aside:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/xxxxxx
+      link: https://github.com/uncleacc
   card_announcement:
     enable: true
     content: This is my Blog
@@ -570,11 +570,11 @@ messenger:
 
 # Baidu Analytics
 # https://tongji.baidu.com/web/welcome/login
-baidu_analytics:
+baidu_analytics: e5f1c961209bbe62fbceb50c9ef96345
 
 # Google Analytics
 # https://analytics.google.com/analytics/web/
-google_analytics:
+google_analytics: G-BDW0BKMDBE
 
 # Cloudflare Analytics
 # https://www.cloudflare.com/zh-tw/web-analytics/
@@ -582,7 +582,7 @@ cloudflare_analytics:
 
 # Microsoft Clarity
 # https://clarity.microsoft.com/
-microsoft_clarity:
+microsoft_clarity: jec82yg9m8
 
 # Advertisement
 # --------------------------------------
@@ -605,10 +605,10 @@ google_adsense:
 # --------------------------------------
 
 site_verification:
-  # - name: google-site-verification
-  #   content: xxxxxx
-  # - name: baidu-site-verification
-  #   content: xxxxxxx
+  - name: google-site-verification
+    content: KN6pnEmNs8iAPCiA4HK81_JOnb5b90LWJLxqyZdH0ko
+  - name: baidu-site-verification
+    content: codeva-fP6p2S4Tpw
 
 # Beautify/Effect (美化/效果)
 # --------------------------------------

@@ -1,21 +1,21 @@
 ---
-title:   每日一题-动态规划(从不同类型的物品中各挑选一个，使得最后花费总和等于1000)
+title: 每日一题-动态规划(从不同类型的物品中各挑选一个，使得最后花费总和等于1000)
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
 tags: ACM冷知识
 categories: 算法
 mathjax: true
+abbrlink: a6596b9
 date: 2023-10-05 16:49:38
-
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
 
-![img](https://img-blog.csdnimg.cn/189fa5e92dcf4e3482717f3905171ca3.jpeg) 四种类型的物品，每一种类型物品数量都是n，先要从每种类型的物品中挑选一件，使得最后花费总和等于1000 暴力做法10000^4 看到花费总和是1000，很小且固定的数字，肯定有玄机，从这里想应该是用dp，不难想到用dp[i][j]表示前i种类型的物品花费为j的方案数量，思考转移方程： dp[i][j] = dp[i-1][j-A] * js[i][A]，js[i][A]表示i类型的物件花销为A的方案数量，如此只需要枚举j和A，它们的范围就是1000以内
+![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/189fa5e92dcf4e3482717f3905171ca3.jpeg) 四种类型的物品，每一种类型物品数量都是n，先要从每种类型的物品中挑选一件，使得最后花费总和等于1000 暴力做法10000^4 看到花费总和是1000，很小且固定的数字，肯定有玄机，从这里想应该是用dp，不难想到用dp[i][j]表示前i种类型的物品花费为j的方案数量，思考转移方程： dp[i][j] = dp[i-1][j-A] * js[i][A]，js[i][A]表示i类型的物件花销为A的方案数量，如此只需要枚举j和A，它们的范围就是1000以内
 
 ```java
 #include <iostream>

@@ -1,15 +1,16 @@
 ---
-title:   Git如何推送当前代码到远程仓库
+title: Git如何推送当前代码到远程仓库
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
 tags: ACM冷知识
 categories: 算法
 mathjax: true
+abbrlink: d98274c
 date: 2023-10-01 16:49:38
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
@@ -46,7 +47,7 @@ highlight_shrink:
 ## 工作区、暂存区、版本库、远程仓库
 
 
-![img](https://img-blog.csdnimg.cn/587813a177974bbcb166f2fa91cd3b39.png) workspace: 工作区 staging：暂存区 local repository：本地仓库（版本库） remote repository：远程仓库
+![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/587813a177974bbcb166f2fa91cd3b39.png) workspace: 工作区 staging：暂存区 local repository：本地仓库（版本库） remote repository：远程仓库
 
 ## 本地分支名字必须和远程分支名字一样
 

@@ -1,15 +1,17 @@
 ---
 title: 纪念我逝去的ACM
-cover: 'https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/src=http___img.wendangwang.com_pic_19f35b1d7fad22bbd3b62c6c_1-810-jpg_6-1080-0-0-1080.jpg&refer=http___img.wendangwang.webp'
+cover: >-
+  https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/src=http___img.wendangwang.com_pic_19f35b1d7fad22bbd3b62c6c_1-810-jpg_6-1080-0-0-1080.jpg&refer=http___img.wendangwang.webp
 tags: 纪念我的ACM史
 categories: 生活
 mathjax: true
+abbrlink: c4e80fbc
 date: 2021-12-30 18:30:26
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 2021.12.04下午4点，第46届ACM/ICPC南京站圆满结束，同时这也寓意着我的ACM生涯到此也正式画上了句号。
@@ -116,17 +118,17 @@ highlight_shrink:
 
 &emsp;&emsp;但值得一提的是省赛又一次公费旅游，挺爽的，农大真真真TM漂亮！
 
-![](https://img-blog.csdnimg.cn/73820b9e01f1453cba0dcd81c7874deb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16 "农大校门")
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/73820b9e01f1453cba0dcd81c7874deb.jpg "农大校门")
 
-![](https://img-blog.csdnimg.cn/0ec1800dcc764628b3f4165a0d82d645.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16 "打卡网红餐厅")
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/0ec1800dcc764628b3f4165a0d82d645.jpg "打卡网红餐厅")
 
-![](https://img-blog.csdnimg.cn/3fd614f61f0a406fb241657ce00f6e5d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16 "打卡太原")
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/3fd614f61f0a406fb241657ce00f6e5d.jpg "打卡太原")
 
-![](https://img-blog.csdnimg.cn/7bdbd85a276a457b8baa6eb536ff0008.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16 "银川现场赛")
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/7bdbd85a276a457b8baa6eb536ff0008.jpg "银川现场赛")
 
-![](https://img-blog.csdnimg.cn/8fcc0b7dc089403ea89fbedfd1a01d1a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16 "比赛当前头上的云")
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/8fcc0b7dc089403ea89fbedfd1a01d1a.jpg "比赛当前头上的云")
 
-![夜晚的郑州](https://img-blog.csdnimg.cn/0a95736f2eca4a1eb91bbdf68993713d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16 "夜晚的郑州")
+![夜晚的郑州](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/0a95736f2eca4a1eb91bbdf68993713d.jpg "夜晚的郑州")
 
 ## 第二次暑期集训
 
@@ -138,7 +140,7 @@ highlight_shrink:
 
 &emsp;&emsp;集训里我见证了被淹没的理工大。
 
-![](https://img-blog.csdnimg.cn/0e9692d54db948a2b8571d62076d445f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16 "等待CF开始")
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/0e9692d54db948a2b8571d62076d445f.jpg "等待CF开始")
 
 ## 比赛末期
 
@@ -160,7 +162,7 @@ highlight_shrink:
 
 &emsp;&emsp;2021.12.04晚，算协余孽共聚一桌，享用了退役前最后的晚餐，这次酒席，我一杯酒也没挡。
 
-![](https://img-blog.csdnimg.cn/5d5dd9eaf9da41ddb6b69fe3eedb41fd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16 "最后的晚餐")
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/5d5dd9eaf9da41ddb6b69fe3eedb41fd.jpg "最后的晚餐")
 
 ## 总结
 

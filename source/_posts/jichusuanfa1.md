@@ -1,16 +1,16 @@
 ---
-
 title: 基础算法练习
 categories: 题目
-date: 2020-05-17 17:30:44
 tags: 基础算法练习
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/47.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/47.webp'
+abbrlink: d2d64791
+date: 2020-05-17 17:30:44
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 ## A 前M大的数
 暴力累加每两组数，再排序输出前M个

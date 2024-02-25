@@ -1,15 +1,16 @@
 ---
 title: Millionaire Madness
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/78.webp'
-date: 2020-09-11 15:26:43
 categories: 题目
 tags: BFS
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 8a005a29
+date: 2020-09-11 15:26:43
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 

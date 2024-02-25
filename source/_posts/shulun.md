@@ -1,15 +1,16 @@
 ---
 title: 数论的一些基本定理
 categories: 算法
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/55.webp
-date: 2020-06-03 08:56:46
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/55.webp'
 tags: 数论
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 5f67ec8b
+date: 2020-06-03 08:56:46
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 ## 欧几里得定理
 其实就是求gcd的辗转相除法，gcd(a,b)==gcd(a-b,b)，由此可以把a中的b全部拿掉，gcd(a,b)==gcd(a%b,b)， ~a是大于b的~   

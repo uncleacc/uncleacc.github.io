@@ -1,15 +1,16 @@
 ---
 title: 浅谈矩阵快速幂
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/67.webp'
-date: 2020-07-21 15:24:31
 categories: 算法
 tags: 矩阵快速幂
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: a28e20bb
+date: 2020-07-21 15:24:31
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 集训开始了对矩阵快速幂的讲解，但是讲解的非常不好，基本没讲，这导致我这个之前就不知道矩阵快速幂的蒟蒻不得不自己乖乖的去网上查资料学习，找到了两个比较不错的视频讲解，具体可以看**清单**里面的**转载**，我来记录一下矩阵快速幂的基本用法🐷

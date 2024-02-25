@@ -4,12 +4,13 @@ cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/117.webp'
 tags: 异或题
 categories: 题目
 mathjax: true
+abbrlink: 53b46afd
 date: 2021-04-27 20:46:26
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 ##   题目

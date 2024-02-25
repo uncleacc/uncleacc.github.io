@@ -1,22 +1,21 @@
 ---
-
-title:   Leetcode-82 含有重复元素集合的组合
+title: Leetcode-82 含有重复元素集合的组合
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: ea0f870d
 date: 2022-02-25 10:56:34
-
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
 
-![img](https://img-blog.csdnimg.cn/f1cd32f7ea404c54b57b319e0e2fb4ff.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_19,color_FFFFFF,t_70,g_se,x_16)
+![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/f1cd32f7ea404c54b57b319e0e2fb4ff.png)
 
 ```java
 class Solution {

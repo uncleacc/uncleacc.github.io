@@ -1,15 +1,16 @@
 ---
-title:   高并发浅析
+title: 高并发浅析
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
 tags: ACM冷知识
 categories: 算法
 mathjax: true
+abbrlink: 565b1d4d
 date: 2023-10-01 16:49:38
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
@@ -25,7 +26,7 @@ highlight_shrink:
 ## 水平扩容和垂直扩容
 
 
-那么如何实现高并发呢？ ![img](https://img-blog.csdnimg.cn/d6b7cf1a63604dc78036ceeb79fd1d34.png) 上图都是实现高并发的方法，而这里只介绍水平扩容和垂直扩容
+那么如何实现高并发呢？ ![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/d6b7cf1a63604dc78036ceeb79fd1d34.png) 上图都是实现高并发的方法，而这里只介绍水平扩容和垂直扩容
 
 ### 垂直扩容
 

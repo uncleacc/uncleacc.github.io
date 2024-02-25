@@ -4,12 +4,13 @@ cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/122.webp'
 tags: AC自动机
 categories: 算法
 mathjax: true
+abbrlink: 5c28c80e
 date: 2021-08-20 10:34:59
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 >  AC自动机以trie为基础，结合了kmp的next数组思想而创造出来的一种数据结构，用来解决多模式串匹配问题

@@ -1,15 +1,16 @@
 ---
 title: codeforces div4
 categories: 题目
-date: 2020-05-12 08:40:16
 tags: 比赛
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/25.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/25.webp'
+abbrlink: 6b47ae8
+date: 2020-05-12 08:40:16
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 <blockquote>
 唯一一场每道题都有思路的比赛，感觉还行，虽然有思路不代表能AC，不过还是很开心的，因为除了E题的桶没想到外其他都是自力更生做出来的😊   

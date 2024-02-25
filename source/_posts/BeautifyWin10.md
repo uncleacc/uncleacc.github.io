@@ -1,15 +1,16 @@
 ---
 title: win10美化
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/90.webp'
-date: 2020-12-10 21:48:52
 tags: win10
 categories: 技术
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 6c8ada9b
+date: 2020-12-10 21:48:52
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 你是否还在为这丑陋的window10界面而叹气(~~win10界面其实还可以~~)，你是否还在为怎么美化界面而烦恼？不用叹气，不用烦恼！这篇博客可以解决你的问题

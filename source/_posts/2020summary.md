@@ -3,13 +3,14 @@ title: 2020summary
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/92.webp'
 tags: 2020
 categories: 生活
+abbrlink: a53cc33d
 date: 2021-01-07 12:16:36
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 # 2020年度总结

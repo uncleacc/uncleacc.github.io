@@ -1,15 +1,16 @@
 ---
 title: 皇后问题
 categories: 题目
-date: 2020-04-14 23:05:13
 tags: dfs
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/5.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/5.webp'
+abbrlink: c4be8714
+date: 2020-04-14 23:05:13
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 ## 题目
 题目描述

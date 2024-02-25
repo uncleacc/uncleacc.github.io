@@ -1,16 +1,16 @@
 ---
-
-title:   706. 设计哈希映射
+title: 706. 设计哈希映射
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: 35f83738
 date: 2023-10-01 10:56:34
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 

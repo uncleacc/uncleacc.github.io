@@ -1,15 +1,16 @@
 ---
 title: KMP
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/80.webp'
-date: 2020-11-05 21:58:19
 categories: 算法
 tags: KMP
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: ad32db8f
+date: 2020-11-05 21:58:19
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 暑假学习了KMP，奈何掌握不深，现在又来复习，结果又是从零开始

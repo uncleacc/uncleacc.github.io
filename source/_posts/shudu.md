@@ -1,15 +1,16 @@
 ---
 title: 数独
 categories: 题目
-date: 2020-04-14 23:05:26
 tags: dfs
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/14.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/14.webp'
+abbrlink: def1d7a0
+date: 2020-04-14 23:05:26
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 ## 题目
 题目描述

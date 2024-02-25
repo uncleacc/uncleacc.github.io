@@ -1,19 +1,20 @@
 ---
 title: 二进制补码
 categories: 记录
-date: 2020-04-12 22:49:22
 tags: 二进制
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/3.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/3.webp'
+abbrlink: ccdf9d65
+date: 2020-04-12 22:49:22
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 这道题看百度上的题解把我看蒙了，想了半天没想通，直到我看见在计算机中负数是用补码来表示的，我才恍然大悟，咋把这个给忘了（抓狂）
-![]( https://img-blog.csdnimg.cn/20200703225037185.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70 )
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/20200703225037185.png )
 
 ## 题目
 蒜头君有一个 int\text{int}int 的整数，输出它的 323232 位二进制补码。

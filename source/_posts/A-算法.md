@@ -4,12 +4,13 @@ cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/124.webp'
 tags: A*算法
 categories: 算法
 mathjax: true
+abbrlink: edfb9eba
 date: 2021-09-07 16:39:28
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > A\*算法在求一个点到目标点的最短距离时，可以加快速度，如果使用dijstla是nlogn的时复，但是A\*更快，当节点足够多，边足够大时，可能不能求起点到所有点的最短距离，空间不够或者时复顶不住，这个时候A\***或许**能做，A*使用了一个启发式函数f()，其含义是节点到终点的估计距离，这个距离可以是曼哈顿距离，可以是实际到终点的最短距离等等，只要满足**估计距离小于等于实际距离**即可，只要满足了这个，那么用f(u)+dis(u)当作优先队列的排序规则，每次取出最小值，这个点的最短距离就确定了，证明我找不到，`画个图可以想一下是有道理的`

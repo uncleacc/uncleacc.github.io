@@ -1,15 +1,16 @@
 ---
 title: 全排列问题
 categories: 记录
-date: 2020-05-05 10:44:09
 tags: 全排列
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/40.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/40.webp'
+abbrlink: '543746'
+date: 2020-05-05 10:44:09
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 # STL next_permutation函数实现
 [原文链接](https://www.cnblogs.com/luruiyuan/p/5914909.html)    

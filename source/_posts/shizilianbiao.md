@@ -1,15 +1,16 @@
 ---
 title: 十字链表存储稀疏矩阵
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/89.webp'
-date: 2020-12-03 22:00:40
 categories: 算法
 tags: 数据结构
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: f0a66312
+date: 2020-12-03 22:00:40
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 课程设计

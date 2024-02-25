@@ -1,15 +1,16 @@
 ---
 title: Binary Tree
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/88.webp'
-date: 2020-11-30 22:11:18
 categories: 算法
 tags: 数据结构
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: e0e2589a
+date: 2020-11-30 22:11:18
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 实验目标：

@@ -1,16 +1,16 @@
 ---
-
-title:   指针笔记（指针数组和指向数组的指针，数组中a和&a的区别等）
+title: 指针笔记（指针数组和指向数组的指针，数组中a和&a的区别等）
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: 23a3191d
 date: 2023-10-01 10:56:34
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
@@ -18,13 +18,13 @@ highlight_shrink:
 
 
 
-int *p[4]和int (*p)[4]有何区别？ 前者是一个指针数组，数组大小为4，每一个元素都是一个指向int的指针 后者是指向int[4]类型数组的指针 ![img](https://img-blog.csdnimg.cn/43a71c451b20467fac3fc113d84a02e1.png) 以上代码若运行会报如下错误 ![img](https://img-blog.csdnimg.cn/05e85d7085f640cfa68b4e2d5794719e.png) main函数中定义的a数组本质是一个指向int[2]的指针，而函数形参则是一个指针数组，即形参的a是一个二维指针，所以会报错类型不匹配 若将形参改为int (*a)[2]则编译通过
+int *p[4]和int (*p)[4]有何区别？ 前者是一个指针数组，数组大小为4，每一个元素都是一个指向int的指针 后者是指向int[4]类型数组的指针 ![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/43a71c451b20467fac3fc113d84a02e1.png) 以上代码若运行会报如下错误 ![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/05e85d7085f640cfa68b4e2d5794719e.png) main函数中定义的a数组本质是一个指向int[2]的指针，而函数形参则是一个指针数组，即形参的a是一个二维指针，所以会报错类型不匹配 若将形参改为int (*a)[2]则编译通过
 
 ## 数组中a和&a的区别
 
 
 
-假如a是一个一维数组，输出a和&amp;a发现结果相同，都是一维数组首元素的地址，但两者虽然值相同，却是不同的 ![img](https://img-blog.csdnimg.cn/9057c28b1d0d4acdbfaa1d2ccb9b0b0b.png) 这段代码是没问题的，但若将第二行的&amp;a改为a，则会报错 ![img](https://img-blog.csdnimg.cn/3667b35f35634f0db37c9078454c7fcf.png) 即编译器认为a是int *类型的，而&a则是int (* )[4]类型的，用大白话讲就是&amp;a编译器可以认出a是一个数组，a则不行
+假如a是一个一维数组，输出a和&amp;a发现结果相同，都是一维数组首元素的地址，但两者虽然值相同，却是不同的 ![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/9057c28b1d0d4acdbfaa1d2ccb9b0b0b.png) 这段代码是没问题的，但若将第二行的&amp;a改为a，则会报错 ![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/3667b35f35634f0db37c9078454c7fcf.png) 即编译器认为a是int *类型的，而&a则是int (* )[4]类型的，用大白话讲就是&amp;a编译器可以认出a是一个数组，a则不行
 
 ```java
 #include "stdio.h"

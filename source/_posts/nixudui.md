@@ -1,15 +1,16 @@
 ---
 title: 数状数组求逆序对&&二维树状数组
 categories: 算法
-date: 2020-04-29 21:04:20
 tags: 树状数组
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/35.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/35.webp'
+abbrlink: 142f8d42
+date: 2020-04-29 21:04:20
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 参考原文：[](https://blog.csdn.net/GodJing007/article/details/81158288)
 # 二维树状数组

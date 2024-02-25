@@ -1,15 +1,16 @@
 ---
 title: python_arrange
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/77.webp'
+tags: python
+abbrlink: cd2bd376
 date: 2020-09-03 18:43:13
 categories:
-tags: python
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 >写这个代码花了一个小时，因为刚学了一点点OS模块，还不是很熟悉，写完后功能也都有，但是！！！导出为exe文件时不小心误删了py文件，气死我了！又重新写了一遍。

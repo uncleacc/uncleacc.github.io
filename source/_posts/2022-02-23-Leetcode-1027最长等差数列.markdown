@@ -1,22 +1,21 @@
 ---
-
-title:   Leetcode-1027最长等差数列
+title: Leetcode-1027最长等差数列
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: b2c9ee6e
 date: 2022-02-23 10:56:34
-
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
 
-![img](https://img-blog.csdnimg.cn/27ba9d758d86403e884e0ebea8971439.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_18,color_FFFFFF,t_70,g_se,x_16) 和最长上升子序列类似，这里多加了公差的性质，第一种想法是开一个结构体dp一维数组，dp[i].val表示以i位置结尾的最长长度，dp[i].cha表示以i位置结尾的子序列公差，你会发现无法进行状态转移，假设i&lt;j&lt;k，dp[k]被dp[j]更新了，并且更新后长度最大，但这不代表i这个位置就一定不是最长等差序列之一，因为可能dp[i].val和dp[j].val只相差1甚至相同，但两者公差不一样，如果后面再来几个公差和dp[i].cha一样的，而你又没有把k位置给添加到序列中，这个状态没有被考虑，导致错误。 因此需要dp[i][j]表示第i个位置添加到末尾并且公差是j的最长长度。 之后再仿照最长上升子序列进行更新即可。
+![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/27ba9d758d86403e884e0ebea8971439.png) 和最长上升子序列类似，这里多加了公差的性质，第一种想法是开一个结构体dp一维数组，dp[i].val表示以i位置结尾的最长长度，dp[i].cha表示以i位置结尾的子序列公差，你会发现无法进行状态转移，假设i&lt;j&lt;k，dp[k]被dp[j]更新了，并且更新后长度最大，但这不代表i这个位置就一定不是最长等差序列之一，因为可能dp[i].val和dp[j].val只相差1甚至相同，但两者公差不一样，如果后面再来几个公差和dp[i].cha一样的，而你又没有把k位置给添加到序列中，这个状态没有被考虑，导致错误。 因此需要dp[i][j]表示第i个位置添加到末尾并且公差是j的最长长度。 之后再仿照最长上升子序列进行更新即可。
 
 ```java
 int dp[1100][1100];

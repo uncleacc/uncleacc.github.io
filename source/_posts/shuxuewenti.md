@@ -1,15 +1,16 @@
 ---
 title: 数学问题模板
 categories: 记录
-date: 2020-04-28 09:46:42
 tags: 数学问题记录
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/32.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/32.webp'
+abbrlink: d6ebbabc
+date: 2020-04-28 09:46:42
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 ## 筛选质因子
 ```c

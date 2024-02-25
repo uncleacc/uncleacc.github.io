@@ -1,15 +1,16 @@
 ---
 title: 积分赛5
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/72.webp'
-date: 2020-08-15 22:19:23
 categories: 题目
 tags: 集训
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 4c99fc92
+date: 2020-08-15 22:19:23
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > ~~最友好的一次积分赛2333~~应该也是最后一个个人积分赛了，不知道最后一次会不会是团队赛，再说吧，已经八月十五了，自从集训以来每天都有训练，虽然晚上一般都是有些时间去记录一些题解的，但是懒癌晚期的我真的不想去写，终于今天下定决心，趁着这两天我要补一下题解，把最近有意义的题目记录一下，也算是一个复习吧🎉

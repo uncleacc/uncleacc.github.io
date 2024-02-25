@@ -1,16 +1,17 @@
 ---
 layout: post
 title: 容斥原理
-date: 2020-04-07 17:52:08
 tags: 算法
 categories: 算法
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/4.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/4.webp'
+abbrlink: bb1025ee
+date: 2020-04-07 17:52:08
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 今天学习了容斥原理，感觉智商又一次遭到了蹂躏（eoe），百度了CSDN上面的讲解，感觉讲的都不是很详细（或许真的是我笨吧，哎~），还是结合题目来讲吧，上题：
@@ -52,7 +53,7 @@ In the first test case, the five integers in range [1,10] which are relatively p
 ## 原理
 举个例子，如何把一个区间中2，3，5的的倍数全部筛掉，假如区间是1-20，我们先筛2的倍数，那么筛掉的数量就是20/2=10，同理筛3的倍数筛掉的数量就是20/3（注意向下取整），5同理，ok，筛完了，但是实际上答案是不对的，细心的你一定发现了，2和3的乘积6被多次筛选了，同理2和5，3和5也被多次筛选了，因此我们还要把6，10，15的倍数再减一遍，然后我们再去找2，3，5的乘积筛了几遍，上面我们单独筛2，3，5的时候我们是把2，3，5的乘积筛了3遍，之后又筛选两两乘积的时候又筛了三遍，因为单独筛选时用的是加法，而两两乘积的筛选用的是减法，这就导致了2，3，5的乘积实际上一次没有筛，所以我们最后还要加上2，3，5的乘积的筛选个数，什么？看不懂，行，给你画图：
 
-![](https://img-blog.csdnimg.cn/20200703230236206.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70 )
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/20200703230236206.png )
 
 其实就是求图形的面积，我们第一次加上了2，3，5的3个大圆面积，之后又减去了6，10，15的3个椭圆的面积，而最中间的小圆相当于一次没加，最后加上就行了，然后我们会发现，出现奇数个数，就用加法，偶数个数用减法。
 

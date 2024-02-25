@@ -1,15 +1,16 @@
 ---
 title: CCPC打铁记
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/83.webp'
-date: 2020-10-22 12:18:00
 categories: 生活
 tags: 竞赛
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 3099d076
+date: 2020-10-22 12:18:00
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 2020年10月18日，这一天是我第一次打比赛的日子，非常有纪念意义，但是时至今日我才补了这篇文章

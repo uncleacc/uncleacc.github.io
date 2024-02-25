@@ -1,16 +1,17 @@
 ---
 layout: post
 title: 快速幂详解
-date: 2020-04-05 19:39:12
 tags: 基础数学
 categories: 算法
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/8.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/8.webp'
+abbrlink: 3fe565b1
+date: 2020-04-05 19:39:12
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 ## 原理

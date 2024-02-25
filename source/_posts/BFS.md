@@ -1,15 +1,16 @@
 ---
 title: BFS模板题
-date: 2020-04-04 22:54:10
 tags: BFS
 categories: 算法
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/20.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/20.webp'
+abbrlink: 7247b6a5
+date: 2020-04-04 22:54:10
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 上一篇文章讲了dfs的记忆化搜索，来看看上一道题 “仙岛求药” 
@@ -96,15 +97,15 @@ highlight_shrink:
 
 ok，如果直接用dfs做而不加任何优化会TLE，现在我们来用BFS做，BFS和DFS比较，它的优点就是时间快，但相应的空间上也耗损的更多，个人感觉如果仅仅是打ACM，这个特点比较好，毕竟大多数题还是卡时间而不是卡空间，来 see yi see BFS吧
 
-![](https://img-blog.csdnimg.cn/20200416093927119.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70)
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/20200416093927119.png)
 
 ![https://img-blog.csdnimg.cn/20200416093935363.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70]()
 
-![https://img-blog.csdnimg.cn/20200416093942750.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70](https://img-blog.csdnimg.cn/20200416093942750.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70)
+![https://img-blog.csdnimg.cn/20200416093942750.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/20200416093942750.png)
 
-![https://img-blog.csdnimg.cn/20200416093956703.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70](https://img-blog.csdnimg.cn/20200416093956703.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70)
+![https://img-blog.csdnimg.cn/20200416093956703.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/20200416093935363.png)
 
-![](https://img-blog.csdnimg.cn/20200416094004328.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70)
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/20200416094004328.png)
 
 还是比较容易理解的吧，毕竟只是一个模板没有加任何优化
 

@@ -1,15 +1,16 @@
 ---
 title: 飞翔的小鸟C语言小游戏
 categories: 技术
-date: 2020-05-26 19:01:49
 tags: 小游戏
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/51.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/51.webp'
+abbrlink: 3e57986e
+date: 2020-05-26 19:01:49
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 >今天有些疲倦，不想学习，就去网上学习做了一个小游戏，如果你是网友，没接触过图形库，要先安装esayx库，网上有许多，在这里不贴了，素材地址： https://pan.baidu.com/s/1GWnLePCiLcxlJHOaBKEeaA 密码：pmzq 💪
 

@@ -1,17 +1,16 @@
 ---
-
-title:   LeetCode162-寻找峰值
+title: LeetCode162-寻找峰值
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: ac816005
 date: 2023-01-09 10:56:34
-
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 

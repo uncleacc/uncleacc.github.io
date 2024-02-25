@@ -1,15 +1,16 @@
 ---
 title: 倍增与tarjan求解lca
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/86.webp'
-date: 2020-11-23 21:50:44
 categories: 算法
 tags: tarjan
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 8c7b4dc1
+date: 2020-11-23 21:50:44
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > **倍增**

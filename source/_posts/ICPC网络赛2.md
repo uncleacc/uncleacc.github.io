@@ -4,12 +4,13 @@ cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/101.webp'
 tags: 线段树+欧拉函数
 categories: 题目
 mathjax: true
+abbrlink: c35e724f
 date: 2021-09-30 09:19:15
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 ## 

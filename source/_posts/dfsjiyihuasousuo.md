@@ -1,15 +1,16 @@
 ---
 title: dfs记忆化搜索
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/75.webp'
-date: 2020-08-05 11:08:45
 categories: 题目
 tags: 集训
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: b58a3aa9
+date: 2020-08-05 11:08:45
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > dfs标记的位置太重要了，放在不同位置产生的效果都有巨大的差别，记录今天的一些dfs记忆化搜索题目

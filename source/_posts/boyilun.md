@@ -1,15 +1,16 @@
 ---
 title: 博弈论
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/79.webp'
-date: 2020-09-24 22:01:26
 categories: 算法
 tags: 博弈论
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 12bcd26e
+date: 2020-09-24 22:01:26
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 **注意注意注意：** 异或运算符优先级比等于还要低！！！！二进制的运算符尽量都加上括号

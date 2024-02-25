@@ -1,15 +1,16 @@
 ---
 title: PPT上例题(含倍增)
 categories: 题目
-date: 2020-05-22 09:29:58
 tags: 倍增
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/49.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/49.webp'
+abbrlink: f79e8551
+date: 2020-05-22 09:29:58
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 >PPT上面的好多题都做不了，ACWING上的题要报名才能做，Codeforces 1000C搜不出来，就做了剩下的，不过二维差分前缀和早就掌握了
 

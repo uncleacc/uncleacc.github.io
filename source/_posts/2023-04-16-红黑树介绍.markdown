@@ -1,16 +1,16 @@
 ---
-title:   红黑树介绍
+title: 红黑树介绍
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
 tags: ACM冷知识
 categories: 算法
 mathjax: true
+abbrlink: c9f4dad
 date: 2023-10-01 16:49:38
-
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 

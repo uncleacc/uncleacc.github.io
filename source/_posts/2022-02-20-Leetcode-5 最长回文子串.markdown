@@ -1,23 +1,23 @@
 ---
-
-title:   Leetcode-5 最长回文子串
+title: Leetcode-5 最长回文子串
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: b5949c1f
 date: 2022-02-20 10:56:34
-
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
 
+![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/c4268e9784f84075b08ed979f60d2f7d.png) 动态规划
 
-![img](https://img-blog.csdnimg.cn/c4268e9784f84075b08ed979f60d2f7d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16) 动态规划 ![img](https://img-blog.csdnimg.cn/8ce61f447b95410ebd98bb7547c8347a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAUG9ja2V0X0NhdA==,size_20,color_FFFFFF,t_70,g_se,x_16)
+ ![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/8ce61f447b95410ebd98bb7547c8347a.png)
 
 ```java
 class Solution {

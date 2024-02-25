@@ -1,17 +1,18 @@
 ---
 layout: post
-categories: 算法	
+categories: 算法
 title: dfs记忆化搜索
-date: 2020-04-04 22:19:57
 tags: 算法
-photos: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/21.webp
-cover: 
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+photos: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/21.webp'
+abbrlink: b58a3aa9
+date: 2020-04-04 22:19:57
+cover:
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 今天学习了记忆化搜索，也练习了许多题，我果然是一个蒟蒻（qwq）

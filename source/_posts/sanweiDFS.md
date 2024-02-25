@@ -1,15 +1,16 @@
 ---
 title: 简单三维DFS搜索
 categories: 题目
-date: 2020-05-03 16:24:11
 tags: DFS
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/37.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/37.webp'
+abbrlink: bfeaea3b
+date: 2020-05-03 16:24:11
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 # 题目
 [problem link](http://acm.hdu.edu.cn/showproblem.php?pid=2102)   

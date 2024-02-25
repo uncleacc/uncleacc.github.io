@@ -1,16 +1,16 @@
 ---
-title:   函数对象以及labbda表达式浅析
+title: 函数对象以及labbda表达式浅析
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: ACM冷知识
 categories: 算法
 mathjax: true
+abbrlink: fc600b6
 date: 2023-10-03 16:49:38
-
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 

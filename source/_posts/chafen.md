@@ -1,15 +1,16 @@
 ---
 title: 差分
 categories: 算法
-date: 2020-04-14 16:06:07
 tags: 算法
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/2.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/2.webp'
+abbrlink: a0b0b7bd
+date: 2020-04-14 16:06:07
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 # 题目

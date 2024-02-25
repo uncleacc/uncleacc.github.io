@@ -1,15 +1,16 @@
 ---
 title: 我的第一篇博客
-date: 2020-03-29 21:25:58
 tags: 随笔
 categories: 生活
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/16.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/16.webp'
+abbrlink: d95d7e09
+date: 2020-03-29 21:25:58
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38592976&auto=0&height=66"></iframe>
 

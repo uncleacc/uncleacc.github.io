@@ -2,14 +2,15 @@
 title: 扩展KMP
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/110.webp'
 tags: 字符串
-categories: 算法 
+categories: 算法
 mathjax: true
+abbrlink: 82a15c1d
 date: 2021-04-07 20:15:12
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 #  扩展KMP

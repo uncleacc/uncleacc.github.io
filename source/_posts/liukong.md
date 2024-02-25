@@ -1,15 +1,16 @@
 ---
 title: 解决Leancloud流控问题
-date: 2020-07-02 20:25:25
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/61.webp'
 categories: 技术
 tags: 流控
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: '260e182'
+date: 2020-07-02 20:25:25
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 <blockquote>
 文章背景
@@ -29,7 +30,7 @@ Leancloud最近实行了流控: 自唤醒任务是无法唤醒已经休眠的机
 
 点击`云引擎`->`设置`，找到Web主机域名，这里没有限制，你可以随便填写，一般都是自己博客的字母，比如我的就是fezhu，`注意不用加后缀和前面的www`！！！
 
-![](https://img-blog.csdnimg.cn/20200702205200250.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70)
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/20200702205200250.png)
 
 <blockquote>
 改域名作用
@@ -38,7 +39,7 @@ Leancloud最近实行了流控: 自唤醒任务是无法唤醒已经休眠的机
 
 然后点击上面的添加新变量，前面填ADMIN_URL，后面填Web主机域名，这个Web主机域名有什么用呢？你可以访问这个域名，这个网址就是你的评论后台地址
 
-![](https://img-blog.csdnimg.cn/20200702205849784.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70)
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/20200702205849784.png)
 
 打开页面就是这个样子，接下来添加账户名和密码：
 

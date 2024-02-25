@@ -4,12 +4,13 @@ cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/112.webp'
 tags: DFS
 categories: 题目
 mathjax: true
+abbrlink: d641c02f
 date: 2021-04-15 12:10:18
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 #  ICPC训练赛-Philosopher‘s Walk

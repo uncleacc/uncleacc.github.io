@@ -1,15 +1,16 @@
 ---
 title: 高精加减乘除
 categories: 算法
-date: 2020-04-18 22:51:21
 tags: 高精
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/4.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/4.webp'
+abbrlink: b98ecf14
+date: 2020-04-18 22:51:21
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 ## 加法

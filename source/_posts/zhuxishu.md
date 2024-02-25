@@ -4,12 +4,13 @@ cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/113.webp'
 tags: 主席树
 categories: 算法
 mathjax: true
+abbrlink: fbeda914
 date: 2021-04-10 21:04:00
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 #  主席树(可持续化权值线段树)

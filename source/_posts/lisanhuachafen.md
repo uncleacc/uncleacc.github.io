@@ -1,15 +1,16 @@
 ---
 title: 离散化加差分求解
 categories: 算法
-date: 2020-04-14 16:58:03
 tags: 离散化差分
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/9.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/9.webp'
+abbrlink: aa71e9f5
+date: 2020-04-14 16:58:03
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 # 题目
 Covered Points Count 

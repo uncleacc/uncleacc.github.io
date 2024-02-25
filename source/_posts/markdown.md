@@ -1,15 +1,16 @@
 ---
 title: markdown语法
 categories: 记录
-date: 2020-04-11 16:52:13
 tags: Hexo
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/22.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/22.webp'
+abbrlink: f134a8e5
+date: 2020-04-11 16:52:13
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 [文章链接](https://www.jianshu.com/p/191d1e21f7ed/)

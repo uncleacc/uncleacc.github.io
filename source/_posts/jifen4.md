@@ -1,15 +1,16 @@
 ---
 title: 积分赛4
-date: 2020-08-10 22:53:10
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/73.webp'
 categories: 题目
 tags: 集训
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 3b9ecc04
+date: 2020-08-10 22:53:10
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 [题目面板](https://pan.baidu.com/s/1aWuvSuQW7LylPAX3pNOn4Q) 提取码：k2fu

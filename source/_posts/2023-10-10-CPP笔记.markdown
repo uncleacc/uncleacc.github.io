@@ -1,15 +1,16 @@
 ---
-title:   C++ 笔记
+title: C++ 笔记
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
 tags: 01字典树
 categories: 算法
 mathjax: true
+abbrlink: 2da2039a
 date: 2023-10-10 10:56:34
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
@@ -28,7 +29,7 @@ highlight_shrink:
 ### argc和argv
 
 
-如果在命令行中编译运行C或C++文件，可能会传入某些参数，argc为参数的个数，argv为每一个参数的名称 main(int argc, char *argv[]) argv[0]为运行文件的目录地址（第一个参数） argv[1]为传入的第二个参数 … argv[argc-1]为传入的argc个参数 argv[argc]为NULL ![img](https://img-blog.csdnimg.cn/5eab799b38fd46d0b0edfca3ccf60cce.png) 图片中hello即为传入的第二个参数
+如果在命令行中编译运行C或C++文件，可能会传入某些参数，argc为参数的个数，argv为每一个参数的名称 main(int argc, char *argv[]) argv[0]为运行文件的目录地址（第一个参数） argv[1]为传入的第二个参数 … argv[argc-1]为传入的argc个参数 argv[argc]为NULL ![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/5eab799b38fd46d0b0edfca3ccf60cce.png) 图片中hello即为传入的第二个参数
 
 ### 函数的分文件编写
 
@@ -1062,7 +1063,7 @@ int main()
 
 ### 指针常量和常量指针
 
-指针**常量**int *const p 指针的值不能改变，即指向的地址无法改变，但可以修改该地址的值 常量**指针**const int *p | int const *p 指针的值可以改变，但指针指向的内容不可以改变，即指向常量的指针
+指针**常量**int \*const p 指针的值不能改变，即指向的地址无法改变，但可以修改该地址的值 常量**指针**const int \*p | int const \*p 指针的值可以改变，但指针指向的内容不可以改变，即指向常量的指针
 
 ### 内联函数
 

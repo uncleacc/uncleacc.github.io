@@ -1,15 +1,16 @@
 ---
 title: 查并集
-date: 2020-04-05 22:05:45
 categories: 算法
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/1.webp
-mathjax: 
-updated: 
-tags: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/1.webp'
+abbrlink: 1f0cd9a2
+date: 2020-04-05 22:05:45
+mathjax:
+updated:
+tags:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 查并集也是一种比较常用的算法，有必要掌握

@@ -1,15 +1,16 @@
 ---
 title: Shoka主题配置Algolia搜索
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/91.webp'
-date: 2020-12-25 21:21:41
 tags: hexo
 categories: 技术
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+abbrlink: 6a52303e
+date: 2020-12-25 21:21:41
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 > 原来使用的Sakura主题已经没人维护了，写作时因为没有集成插件很多标签都没有，因此写出来的文章就比较丑，最重要的原因还是shoka这个主题太好看了，个人实在是喜欢(❤ ω ❤)，忍不住就咕哝了两天，在这里记录一下迁移过程遇到最棘手的问题Algolia的配置吧。

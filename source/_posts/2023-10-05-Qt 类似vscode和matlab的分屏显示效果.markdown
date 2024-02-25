@@ -1,15 +1,16 @@
 ---
-title:   Qt 类似vscode和matlab的分屏显示效果
+title: Qt 类似vscode和matlab的分屏显示效果
 cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
 tags: ACM冷知识
 categories: 算法
 mathjax: true
+abbrlink: 4e9af57f
 date: 2023-10-01 16:49:38
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 
@@ -18,7 +19,7 @@ highlight_shrink:
 
 
 
-向右分屏 ![img](https://img-blog.csdnimg.cn/d12ee987ffbe45ffb733304de299cdbf.png) 多分屏 ![img](https://img-blog.csdnimg.cn/744aa251f91a4112a2e6c5cf80d82adf.png) 全屏显示 ![img](https://img-blog.csdnimg.cn/68b7863013584ed097e8932f31b01566.png)
+向右分屏 ![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/d12ee987ffbe45ffb733304de299cdbf.png) 多分屏 ![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/744aa251f91a4112a2e6c5cf80d82adf.png) 全屏显示 ![img](C:\Users\60116\Desktop\img\68b7863013584ed097e8932f31b01566.png)
 
 ## 介绍
 

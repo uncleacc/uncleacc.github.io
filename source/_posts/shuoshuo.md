@@ -1,15 +1,16 @@
 ---
 title: 如何给Hexo博客添加说说页面
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/11.webp'
+abbrlink: fa2b1812
 date: 2020-04-22 21:27:19
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/11.webp
-mathjax: 
-updated: 
-tags: 
-categories: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+mathjax:
+updated:
+tags:
+categories:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 # 前言
 > 本文已经过期，说说已经更名为artitalk具体百度
@@ -19,7 +20,7 @@ highlight_shrink:
 >看看效果吧:
 
 
-![](https://img-blog.csdnimg.cn/20200703225932343.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FHTklORw==,size_16,color_FFFFFF,t_70)
+![](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/20200703225932343.png)
 这个和QQ空间里面的说说类似，用来记录自己的生活以及心情都挺好的，请忽略内容里面的表情符号:sleeping:我太菜了，这些原本是要被转成表情的，但说说页面好像不支持，/手动流汗/，如果哪位大佬看到了这篇文章，祈求您留言指教我
 
 好了，废话少说，正文开始：

@@ -1,15 +1,16 @@
 ---
 title: 进制转换模板
 categories: 算法
-date: 2020-04-12 11:41:34
 tags: 算法
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/6.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/6.webp'
+abbrlink: 6bf2ab0f
+date: 2020-04-12 11:41:34
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 
 ## 题目描述

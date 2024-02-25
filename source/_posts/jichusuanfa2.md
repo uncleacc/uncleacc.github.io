@@ -1,15 +1,16 @@
 ---
 title: 基础算法2(快速幂，二分)
 categories: 题目
-date: 2020-05-24 09:21:54
 tags: 基础算法练习
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/50.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/50.webp'
+abbrlink: 8f3622b8
+date: 2020-05-24 09:21:54
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 >发现了一些快速幂上的小问题，可以说很细节的问题了，导致我第一题巨水的一道题wrong了5次！！当时都懵了，感觉代码一点毛病都没有🐷（菜是原罪）
 

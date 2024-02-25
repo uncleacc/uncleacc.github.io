@@ -1,15 +1,16 @@
 ---
 title: Github突然访问不到解决方案
 categories: 技术
-date: 2020-06-05 09:16:42
 tags: Github
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/58.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/58.webp'
+abbrlink: 37338f48
+date: 2020-06-05 09:16:42
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 >小林下午老老实实的写着博客，当完成后网上提交时突然发现连接不上Github，当时还没有意识到问题严重性，因为以前也经常遇到这类问题，网络不好的原因，多试几次就行了，好的，又试了N次，都说找不到仓库，好家伙！这下我傻了，在浏览器上打开Github打不开！！！我懵了，博客部署不上我的博客不久毁于一旦了？不能！！
 

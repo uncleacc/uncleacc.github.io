@@ -1,15 +1,16 @@
 ---
 title: 筛选素数的n种方法
-date: 2020-03-31 09:33:15
 tags: 算法
 categories: 算法
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/24.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/24.webp'
+abbrlink: fe6d75ae
+date: 2020-03-31 09:33:15
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 ># 暴力筛选
 这种方法我就不多说了，一个数是素数则其只能被1和它本身整除，抓住这个特性，从2开始遍历到这个数减1，如果该数能整除其中任意一个数，则其都不是素数，如果想筛选某个范围内的，则遍历这个区间，从左端点遍历到右端点，该数是素数则将其标记为0，遍历完以后，数组中是0的就是合数，非0是素数，时间复杂度On^2

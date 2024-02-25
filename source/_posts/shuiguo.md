@@ -1,15 +1,16 @@
 ---
 title: 水果
 categories: 题目
-date: 2020-05-16 22:43:16
 tags: STL
-cover: https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/45.webp
-mathjax: 
-updated: 
-keywords: 
-description: 
-comments: 
-highlight_shrink: 
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img/textbg/45.webp'
+abbrlink: 481c5c0c
+date: 2020-05-16 22:43:16
+mathjax:
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
 ---
 # 题目
 <font color="red" size=4>
