@@ -1,0 +1,35 @@
+---
+title: Git命令
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+abbrlink: b6ef4fe0
+date: 2022-12-31 10:56:34
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+.gitnore文件配置忽视规则
+
+```java
+/文件夹	#忽略此文件夹
+!/文件夹  #表示此文件夹不忽略
+```
+
+```java
+git init //初始化为git仓库
+git status	//查看状态
+git add file1 file2 //未跟踪或改变文件推送到暂存区
+git add.	//添加所有文件到缓存区
+git commit -m "备注信息"	//将暂存区的文件提交到本地仓库
+git remote add origin "https://....git"		//将本地仓库关联到远程仓库，origin是默认的代表远程仓库在本地的名称
+git remote -v	//查看远程仓库在本地的名称及地址
+git pull --rebase origin master	//和远程仓库的master分支建立联系
+git push -u origin master	//推送到远程仓库，origin代表远程仓库，master代表本地分支
+```
+

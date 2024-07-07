@@ -1,0 +1,24 @@
+---
+title: 环境配置-转载的文章
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
+tags: ACM冷知识
+categories: 算法
+mathjax: true
+abbrlink: f4a92650
+date: 2023-10-01 16:49:38
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+## 1. opencv+qt+MinGW
+
+ [click here](https://cxymm.net/article/f9547064141/112427355)
+
+## 2. CLion+opencv
+
+ [click here](https://www.jianshu.com/p/cf56d771a934)
+

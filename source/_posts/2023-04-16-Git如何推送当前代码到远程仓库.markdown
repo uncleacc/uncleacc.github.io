@@ -1,0 +1,81 @@
+---
+title: Git如何推送当前代码到远程仓库
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
+tags: ACM冷知识
+categories: 算法
+mathjax: true
+abbrlink: d98274c
+date: 2023-10-01 16:49:38
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+## 第一种方法
+
+（建立在已经配置好用户变量和ssh基础上） 在本地创建git仓库
+
+>git init
+
+绑定远程仓库，origin是给远程仓库起的别名，也可以起其他名字，但是如果用origin，git push时可以不指出名字，如果用其他名字需要指出名字，git push 名字
+
+>git remote add origin git@github.com:*******/test.git
+
+提交到暂存区，提交所有文件
+
+>git add .
+
+从暂存区提交到本地仓库
+
+>git commit -m “time”
+
+从本地仓库推送到远程仓库
+
+>git push
+
+## 第二种方法
+
+与第一种方法不同的只有绑定远程仓库的方法不同
+
+>git clone [远程仓库地址]
+
+之后的步骤一样，git add. git commit git push
+
+## 工作区、暂存区、版本库、远程仓库
+
+
+![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/587813a177974bbcb166f2fa91cd3b39.png) workspace: 工作区 staging：暂存区 local repository：本地仓库（版本库） remote repository：远程仓库
+
+## 本地分支名字必须和远程分支名字一样
+
+本地分支名字必须和远程分支名字一样才能push成功，现在GitHub默认分支为main，而git默认分支为master，这样push上去后GitHub就有两个分支，可以去GitHub把默认分支修改为master
+
+## 补充
+
+### 查看本地分支
+
+git branch
+
+### 创建本地分支
+
+git branch [name]
+
+### 修改本地分支名字
+
+git branch -m [src] [dst]
+
+### 切换分支
+
+git checkout [分支名]
+
+### 删除分支
+
+git branch -d [分支名]
+
+### 查看当前状态
+
+git status
+

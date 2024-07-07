@@ -1,0 +1,83 @@
+---
+title: 706. 设计哈希映射
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+abbrlink: 35f83738
+date: 2023-10-01 10:56:34
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+## 706. 设计哈希映射
+
+处理冲突方法采用链表法，利用list
+
+```java
+class MyHashMap {
+   
+public:
+    vector<list<pair<int, int>>> data;
+    static const int base = 769;
+    static int hash(int x) {
+   
+        return x % base;
+    }
+    MyHashMap(): data(base) {
+   }
+    
+    void put(int key, int value) {
+   
+        for(auto it = data[hash(key)].begin(); it != data[hash(key)].end(); it ++) {
+   
+            if((*it).first == key) {
+   
+                (*it).second = value;
+                return ;
+            }
+        }
+        data[hash(key)].push_back(make_pair(key, value));
+        return ;
+    }
+    
+    int get(int key) {
+   
+        int h = hash(key);
+        for(auto it = data[h].begin(); it != data[h].end(); it ++) {
+   
+            if((*it).first == key) {
+   
+                return (*it).second;
+            }
+        }
+        return -1;
+    }
+    
+    void remove(int key) {
+   
+        int h = hash(key);
+        for(auto it = data[h].begin(); it != data[h].end(); it ++) {
+   
+            if((*it).first == key) {
+   
+                data[h].erase(it);
+                return;
+            }
+        }
+    }
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap* obj = new MyHashMap();
+ * obj->put(key,value);
+ * int param_2 = obj->get(key);
+ * obj->remove(key);
+ */
+```
+

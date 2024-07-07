@@ -1,0 +1,43 @@
+---
+title: Typora使用配置
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+abbrlink: 5655ac3f
+date: 2021-05-07 10:56:34
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+
+
+
+
+
+### 取消拼写检查
+
+默认会检查拼写错误，并在下方给予红线提示。 偏好设置-&gt;拼写检查-&gt;不使用拼写检查
+
+### 取消自动保存
+
+偏好设置-&gt;自动保存
+
+### 取消自动检查更新
+
+### 图像上传路径
+
+偏好设置-&gt;图像-&gt;插入图像时-&gt;复制到指定路径-&gt;设置图片保存路径
+
+### 开启markdown扩展语法
+
+偏好设置-&gt;markdown-&gt;markdown扩展语法
+
+### 代码块显示行号
+
+偏好设置-&gt;markdown-&gt;代码块
+

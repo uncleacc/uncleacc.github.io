@@ -1,0 +1,57 @@
+---
+title: Leetcode-2 两数相加
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+abbrlink: cbf78b69
+date: 2022-02-20 10:56:34
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+
+考察了对链表的使用 
+
+![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/f32296771e0e43e7b64b06a748d3b5da.png) 特别注意的是**在一个自己声明的函数**中**直接定义变量**和**使用new声明**内存分配机制是不一样的，**直接定义是由系统管理内存的分配与回收**，而**new则是由程序员自己分配与回收**，所以在自定义函数中直接定义变量，然后把指针指向此变量会导致在函数结束后内存回收指针指向无效地址的错误，而new则避免了此问题。
+
+```java
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *head = nullptr, *tail = nullptr;
+        int last=0;	//保存进位
+        while(l1 || l2) {	//有一个链表非空则继续计算
+            int sum = 0;	//保存当前和
+            if(l1) sum += l1->val;
+            if(l2) sum += l2->val;
+            sum += last;
+            last=sum/10;	//更新进位
+            if(!head) head = tail = new ListNode(sum%10);	//没有头结点，所以第一个节点就是结构体节点，需要特判一下
+            else {
+                tail->next = new ListNode(sum%10);
+                tail = tail->next;
+            }
+            if(l1) l1 = l1->next;
+            if(l2) l2 = l2->next;
+        }
+        if(last) tail->next = new ListNode(last);	//最后特判是否进位
+        return head;
+    }
+};
+```
+

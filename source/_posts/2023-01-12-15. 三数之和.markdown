@@ -1,0 +1,60 @@
+---
+title: 15. 三数之和
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+abbrlink: e192590d
+date: 2021-05-07 10:56:34
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+先排序，两层for循环，二分寻找-(nums[i]+nums[j])，用map去重 时复：O(n2logn) 算上常数差不多9e8左右 刚好超时 寻找能优化的地方 因为排过序了，如果-(nums[i]+nums[j])&lt;nums[j]就没必要找了，加上这句正好卡过去
+
+```java
+struct node {
+   
+    int a, b, c;
+    bool operator<(const node &o) const {
+   
+        return a == o.a ? (b == o.b ? (c < o.c) : b < o.b) : a < o.a;
+    }
+    node(int ta, int tb, int tc):a(ta),b(tb),c(tc){
+   };
+};
+map<node, bool> vis;
+class Solution {
+   
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+   
+        vis.clear();
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i < nums.size(); i ++) {
+   
+            for(int j = i + 1; j < nums.size(); j ++) {
+   
+                if(-(nums[i]+nums[j]) < nums[j]) continue;
+                int id = lower_bound(nums.begin()+j+1, nums.end(), -(nums[i]+nums[j])) - nums.begin();
+                if(id != nums.size() && nums[id] == -(nums[i] + nums[j])) {
+   
+                    if(!vis[node(nums[i], nums[j], nums[id])]) {
+   
+                    	vis[node(nums[i], nums[j], nums[id])] = 1;
+                        res.push_back({
+   nums[i], nums[j], nums[id]});
+                    }
+                }
+            }
+        }
+        return res;
+    }
+};
+```
+

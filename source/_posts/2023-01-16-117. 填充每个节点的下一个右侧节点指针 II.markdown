@@ -1,0 +1,138 @@
+---
+title: 117. 填充每个节点的下一个右侧节点指针 II
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+abbrlink: 8dbab94f
+date: 2021-05-07 10:56:34
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+ [117. 填充每个节点的下一个右侧节点指针 II](https://leetcode.cn/problems/populating-next-right-pointers-in-each-node-ii/) 题目有点类似于层序线索化，就是在层序遍历的基础上魔改一下，使得可以获得当前遍历到第几层的信息。
+
+```java
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+*/
+
+class Solution {
+   
+public:
+    void bfs(Node *root) {
+   
+        if(root == NULL) return ;
+        queue<Node*> q;
+        q.push(root);
+        //cnt:当前正在遍历的这一层已经遍历了几个节点
+        //tail:当前正在遍历的这一层一共有几个节点
+        //num:下一层一共有几个节点
+        //pre:这一层上一个遍历到的节点
+        int cnt = 0, tail = 1, num = 0;
+        Node *pre = NULL;
+        while(!q.empty()) {
+   
+            Node *u = q.front();
+            q.pop();
+            if(pre) pre->next = u;
+            pre = u;
+            ++ cnt;
+            if(u->left) {
+   
+                q.push(u->left);
+                ++ num;
+            }
+            if(u->right) {
+   
+                q.push(u->right);
+                ++ num;
+            }
+            if(cnt == tail) {
+   
+                cnt = 0;
+                tail = num;
+                num = 0;
+                u->next = NULL;
+                pre = NULL;
+            }
+        }
+    }
+    Node* connect(Node* root) {
+   
+        bfs(root);
+        return root;
+    }
+};
+```
+
+还有一种简单的写法，直接得出当前层节点个数
+
+```java
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* left;
+    Node* right;
+    Node* next;
+
+    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+
+    Node(int _val, Node* _left, Node* _right, Node* _next)
+        : val(_val), left(_left), right(_right), next(_next) {}
+};
+*/
+
+class Solution {
+   
+public:
+    void bfs(Node *root) {
+   
+        if(root == NULL) return ;
+        queue<Node*> q;
+        q.push(root);
+        while(!q.empty()) {
+   
+            Node *pre = NULL;
+            int len = q.size();	//为当前层的总节点数
+            for(int i = 0; i < len; i ++) {
+   	//遍历当前层节点
+                Node *u = q.front();
+                q.pop();
+                if(pre) pre->next = u;
+                pre = u;
+                if(u->left) q.push(u->left);
+                if(u->right) q.push(u->right);
+            }
+        }
+    }
+    Node* connect(Node* root) {
+   
+        bfs(root);
+        return root;
+    }
+};
+```
+

@@ -1,0 +1,54 @@
+---
+title: Leetcode-82 含有重复元素集合的组合
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+abbrlink: ea0f870d
+date: 2022-02-25 10:56:34
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+
+![img](https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/f1cd32f7ea404c54b57b319e0e2fb4ff.png)
+
+```java
+class Solution {
+   
+public:
+    vector<vector<int>> res;
+    void dfs(vector<int>& candidates,vector<int>& ans,int sum,int pos, int &target){
+   
+        ans.push_back(candidates[pos]);
+        if(sum+candidates[pos]==target) res.push_back(ans);
+        else if(sum+candidates[pos]<target){
+   
+            for(int i=pos+1;i<candidates.size();i++){
+   
+                if(i>pos+1 && candidates[i]==candidates[i-1]) continue;
+                dfs(candidates,ans,sum+candidates[pos],i,target);
+            }
+        }
+        ans.pop_back();
+        return ;
+   }
+
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+   
+        sort(candidates.begin(),candidates.end());
+        vector<int> ans;
+        for(int i=0;i<candidates.size();i++){
+   
+            if(i>0 && candidates[i]==candidates[i-1]) continue;
+            dfs(candidates,ans,0,i,target);	//每一次dfs都把以i这个元素作为第一个元素的组合都找出来了，那么后面再以i这个元素作为第一个元素就是重复的
+        }
+        return res;
+    }
+};
+```
+

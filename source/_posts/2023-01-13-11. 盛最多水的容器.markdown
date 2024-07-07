@@ -1,0 +1,37 @@
+---
+title: 11. 盛最多水的容器
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/123.webp'
+tags: 01字典树
+categories: 算法
+mathjax: true
+abbrlink: d910afda
+date: 2021-05-07 10:56:34
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+ [11. 盛最多水的容器](https://leetcode.cn/problems/container-with-most-water/) 题目所求即为最大面积，面积=(较短边*两线段距离)，答案即为max{以每一条线段作为较短边的最大面积}，当较短边确定时，两线段距离越长越好，因此考虑双指针从两端向内进行移动 考虑以下状态： 两指针在两端时，对于较短边而言，以此线段为较短边的最大面积就是线段长度乘以两指针位置之差，因此较短边对应的指针就可以向前或向后移动了。 移动后的状态又是以上状态。 因此每次较短边指针移动
+
+```java
+class Solution {
+   
+public:
+    int maxArea(vector<int>& height) {
+   
+        int i = 0, j = height.size() - 1, res = 0;
+        while(i < j) {
+   
+            res = max(res, min(height[i], height[j])*(j-i));
+            if(height[i] > height[j]) j --;
+            else if(height[i] < height[j]) i ++;
+            else i ++,j --;
+        }
+        return res;
+    }
+};
+```
+

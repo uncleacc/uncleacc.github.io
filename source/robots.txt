@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /categories/
+Allow: /tags/
+Allow: /about/
+Allow: /posts/
+Allow: /link/
+
+Disallow: /talk/
+
+Sitemap: https://www.fezhu.top/sitemap.xml
+Sitemap: https://www.fezhu.top/baidu_sitemap.xml

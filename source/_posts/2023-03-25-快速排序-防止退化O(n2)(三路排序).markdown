@@ -1,0 +1,100 @@
+---
+title: 快速排序-防止退化O(n2)(三路排序)
+cover: 'https://cdn.jsdelivr.net/gh/uncleacc/Img2/104.webp'
+tags: ACM冷知识
+categories: 算法
+mathjax: true
+abbrlink: be43ae97
+date: 2023-10-01 16:49:38
+updated:
+keywords:
+description:
+comments:
+highlight_shrink:
+---
+
+
+## 题目
+
+ [click here](https://leetcode.cn/problems/sort-an-array/)
+
+## 题解
+
+### 传统快速排序
+
+```java
+void quickSort(int a[], int l, int r) {
+   
+	if(l >= r) return ;
+	int bas = a[l];
+	int i = l, j = r;
+	while(i < j) {
+   
+		while(i < j && a[j] >= bas) j --;
+		a[i] = a[j];
+		while(i < j && a[i] <= bas) i ++;
+		a[j] = a[i];
+	}
+	a[i] = bas;
+	quickSort(a, l, i-1);
+	quickSort(a, i+1, r);
+}
+```
+
+### Hack数据1
+
+严格单调有序的数组 时间复杂度会退化为O(n2) 解决方案：随机化数组或者随机取基准值（而非第一个）
+
+```java
+int id = l + rand() % (r - l + 1);
+int bas = a[id];
+```
+
+### Hack数据2
+
+所有数据都相等的数组 时间复杂度会退化为O(n2) 解决方案： [三路排序（详解点击）](https://blog.csdn.net/Tanyongyin/article/details/114841898)
+
+```java
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+void swap(int *a, int *b) {
+   
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+void quickSort(int a[], int l, int r) {
+   
+	if(l >= r) return ;
+    int index = l + rand()%(r - l + 1);
+    swap(&a[l], &a[index]);
+	int bas = a[l];
+	int i = l, j = r, k = l + 1;
+	while(k <= j) {
+   
+        if(a[k] == bas) k ++;
+        else if(a[k] < bas) {
+   
+            swap(&a[k], &a[i]);
+            i ++;
+            k ++;
+        }
+        else {
+   
+            swap(&a[k], &a[j]);
+            j --;
+        }
+    }
+	quickSort(a, l, i-1);
+	quickSort(a, j + 1, r);
+}
+int* sortArray(int* nums, int numsSize, int* returnSize){
+   
+    int i;
+    quickSort(nums, 0, numsSize-1);
+    *returnSize = numsSize;
+    return nums;
+}
+```
+
