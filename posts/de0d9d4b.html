@@ -1,0 +1,283 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>JAVA的三种IO模型 | Doraemon's Blog</title><meta name="author" content="Doraemon,601162956@qq.com"><meta name="copyright" content="Doraemon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="本文介绍了JAVA中的三种IO模型原理，以及优缺点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA的三种IO模型">
+<meta property="og:url" content="http://example.com/posts/de0d9d4b.html">
+<meta property="og:site_name" content="Doraemon&#39;s Blog">
+<meta property="og:description" content="本文介绍了JAVA中的三种IO模型原理，以及优缺点">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img2/134.webp">
+<meta property="article:published_time" content="2025-03-02T14:36:38.000Z">
+<meta property="article:modified_time" content="2025-09-14T08:16:15.130Z">
+<meta property="article:author" content="Doraemon">
+<meta property="article:tag" content="AIO">
+<meta property="article:tag" content="NIO">
+<meta property="article:tag" content="BIO">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img2/134.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/posts/de0d9d4b.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="KN6pnEmNs8iAPCiA4HK81_JOnb5b90LWJLxqyZdH0ko"/><meta name="baidu-site-verification" content="codeva-fP6p2S4Tpw"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?e5f1c961209bbe62fbceb50c9ef96345";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BDW0BKMDBE"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BDW0BKMDBE');
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "jec82yg9m8");</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'JAVA的三种IO模型',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-14 16:16:15'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">158</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">98</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/talk/"><i class="fa-fw fa-regular fa-comment"></i><span> 说说</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/uncleacc/Img2/134.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Doraemon's Blog"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/blogIcon.png"/><span class="site-name">Doraemon's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/talk/"><i class="fa-fw fa-regular fa-comment"></i><span> 说说</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">JAVA的三种IO模型</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-03-02T14:36:38.000Z" title="发表于 2025-03-02 22:36:38">2025-03-02</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-14T08:16:15.130Z" title="更新于 2025-09-14 16:16:15">2025-09-14</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%B0%E5%BD%95/">记录</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/posts/de0d9d4b.html" data-flag-title="JAVA的三种IO模型"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/de0d9d4b.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/posts/de0d9d4b.html" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
+<p>之前一直看不明白的IO模型，今天看了一会就明白了，知识真的是迭代学习的过程</p>
+</blockquote>
+<h1 id="BIO（Blocking-IO）"><a href="#BIO（Blocking-IO）" class="headerlink" title="BIO（Blocking IO）"></a>BIO（Blocking IO）</h1><p>IO的过程就是读取数据的过程，这里以客户端请求服务端的过程为例，客户端向服务端请求的过程本质上就是服务端读取客户端发送来的数据的过程，下文也用这个例子讲解，BIO就是阻塞式IO，见下图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/img/cf83d636acab3073c6dc2de894579b08.png" alt="img"></p>
+<p>BIO中一个线程只能同时处理一个IO，多个客户端发起请求时，只能创建多个线程处理，线程读取数据调用read指令，read是阻塞的，线程等待数据从内核态拷贝到用户态，拷贝完毕后线程才能继续处理。</p>
+<h1 id="NIO（NonBlocking-IO，多路复用模型）"><a href="#NIO（NonBlocking-IO，多路复用模型）" class="headerlink" title="NIO（NonBlocking IO，多路复用模型）"></a>NIO（NonBlocking IO，多路复用模型）</h1><p>NIO与BIO的区别有两点，第一，一个线程可以同时处理多个IO，宏观上同时处理，微观上串行处理，NIO引入了Selector（选择器）、Channel、Buufer，模型如下图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/img/90b3b0258bae91f00336952f874b4262.png" alt="img"></p>
+<p>客户端会把数据写到Buffer里面，然后Channel负责把数据从Buffer交给线程，Channel本身无法存储数据，其内部没有存储结构，Selector和Channel的结合就是多路复用的实现，这就是第二个区别，操作系统提供了三种操作select、poll、epoll，Selector对这三种操作进行了封装，提供上层调用接口，实现的效果就是，线程不需要轮询每个通道看数据是不是准备好了，而是数据准备好了通知线程，这三个系统调用的区别如下，具体见下文的多路服用模型，大白话说明区别就是<strong>select有限，poll无限，epoll具体到文件描述符和提高性能</strong>：</p>
+<ul>
+<li><strong>select</strong>：是最早实现的 I/O 多路复用机制，几乎所有的操作系统都支持。它使用一个 <code>fd_set</code> 数据结构来存储需要监视的文件描述符集合，调用 <code>select</code> 函数时，进程会被阻塞，直到集合中的某个或多个文件描述符的 I/O 事件就绪，或者超时。<code>select</code> 函数返回后，需要遍历整个 <code>fd_set</code> 来找出哪些文件描述符的事件就绪。</li>
+<li><strong>poll</strong>：与 <code>select</code> 类似，也是用于监视多个文件描述符的 I/O 事件。它使用一个 <code>pollfd</code> 结构体数组来存储需要监视的文件描述符及其感兴趣的事件。<code>poll</code> 函数会阻塞进程，直到有文件描述符的事件就绪。与 <code>select</code> 不同的是，<code>poll</code> 没有最大文件描述符数量的限制。</li>
+<li><strong>epoll</strong>：是 Linux 特有的 I/O 多路复用机制，它使用事件驱动的方式来处理 I/O 事件。<code>epoll</code> 通过 <code>epoll_create</code> 创建一个 <code>epoll</code> 实例，使用 <code>epoll_ctl</code> 来添加、修改或删除需要监视的文件描述符及其事件，使用 <code>epoll_wait</code> 等待事件的发生。当有事件就绪时，<code>epoll</code> 会直接返回就绪的文件描述符列表，无需遍历所有文件描述符。</li>
+</ul>
+<p>通道判断数据是不是准备好了也是通过read命令，但是这里的read是非阻塞的，如果没有准备好会直接返回结果，这个表现就体现了NIO的NonBlocking，不是说线程调用select等不会阻塞，线程调用select还是会被阻塞，直到有数据准备好了才会提醒，当数据准备好了读取的过程还是阻塞的，只有读完了再次调用select才能继续监控其他数据。</p>
+<h1 id="AIO（Aysc-IO）"><a href="#AIO（Aysc-IO）" class="headerlink" title="AIO（Aysc IO）"></a>AIO（Aysc IO）</h1><p>而AIO对NIO的优化是：读取数据不阻塞，把读取数据的工作交给操作系统，操作系统读完了通过回调函数告诉线程一声，因此这是真正实现了非阻塞式IO。</p>
+<h1 id="多路复用模型"><a href="#多路复用模型" class="headerlink" title="多路复用模型"></a>多路复用模型</h1><p>I/O 多路复用（I/O Multiplexing）中的 “多路复用” 意味着在单个线程中同时管理多个 I/O 通道（如网络连接、文件描述符等），让一个线程可以处理多个 I/O 流的 I/O 事件，避免为每个 I/O 流创建一个单独的线程，从而提高系统资源的利用率和程序的并发处理能力。</p>
+<ol>
+<li>select<br>select 是最古老的 I/O 多路复用机制之一，在 Unix 系统中使用较为广泛。<br>select 使用一个<strong>位图</strong>来存储文件描述符，<strong>监视的文件描述符数量有限制</strong>，通常是 1024 个（可以通过修改文件描述符限制来提高数量，但仍受限制）。<br>select 每次调用时都需要将待监视的文件描述符集合<strong>从用户态拷贝到内核态</strong>，这会导致性能开销随着文件描述符数量的增加而增加。<br>select 对监视的文件描述符集合的扫描是线性的，随着文件描述符数量的增加，性能下降明显。</li>
+<li>poll<br> <code>poll</code> 函数通过 <code>struct pollfd</code> 结构体数组来表示要监视的文件描述符集合<br> 与 select 类似，poll 每次调用时需要将待监视的文件描述符集合<strong>从用户态拷贝到内核态</strong>，但性能上相对于 select 有所提升。<br> poll 的主要缺点是，随着文件描述符数量的增加，性能会逐渐下降，因为 poll 仍然是线性扫描文件描述符集合。</li>
+<li>epoll<br> epoll 是 Linux 下的一种高性能 I/O 多路复用机制，相比于 select 和 poll，epoll 的性能更好。<br> epoll 使用了<strong>事件驱动</strong>的方式，<strong>不需要每次调用时将待监视的文件描述符集合从用户态拷贝到内核态</strong>，而是采用了基于回调的方式，当文件描述符就绪时，内核直接通知应用程序。<br> epoll 支持三种工作模式：EPOLLIN（可读）、EPOLLOUT（可写）、EPOLLET（边缘触发模式），可以更加灵活地满足不同的需求。<br> epoll 对于大量文件描述符的管理具有更好的性能和扩展性，不会因为文件描述符数量的增加而导致性能下降。</li>
+</ol>
+<p>触发模式：在 epoll 中，有两种触发模式可以选择：水平触发（Level-Triggered，简称 LT）和边缘触发（Edge-Triggered，简称 ET）。这两种触发模式在处理文件描述符就绪事件时有所不同：</p>
+<p>1.水平触发（LT）<strong>（只要没准备好每次都告诉）</strong></p>
+<p>在水平触发模式下，当文件描述符就绪时，epoll_wait 函数会立即返回，并且会返回所有处于就绪状态的文件描述符。<br>如果应用程序没有处理完所有就绪事件，并且该文件描述符上的事件状态没有改变，下一次调用 epoll_wait 时，该文件描述符仍然会被返回。<br>水平触发模式是 epoll 的默认触发模式。<br>2.边缘触发（ET）<strong>（只提醒一次，这次你没处理好，下次我再也不提醒了）</strong></p>
+<p>在边缘触发模式下，当文件描述符就绪时，epoll_wait 函数只会返回一次，并且只返回该文件描述符上自上次 epoll_wait 调用后发生的就绪事件。<br>如果应用程序没有处理完所有就绪事件，并且该文件描述符上的事件状态没有改变，下一次调用 epoll_wait 时，该文件描述符不会再次被返回，除非有新的就绪事件发生。<br>边缘触发模式要求应用程序对文件描述符的就绪事件立即进行处理，否则可能会错过事件。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Doraemon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/posts/de0d9d4b.html">http://example.com/posts/de0d9d4b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Doraemon's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AIO/">AIO</a><a class="post-meta__tags" href="/tags/NIO/">NIO</a><a class="post-meta__tags" href="/tags/BIO/">BIO</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/uncleacc/Img2/134.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/3db80a64.html" title="事务隔离级别及实现方式"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img2/135.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">事务隔离级别及实现方式</div></div></a></div><div class="next-post pull-right"><a href="/posts/dc55cf3c.html" title="Java的线程池"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img2/135.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java的线程池</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BIO%EF%BC%88Blocking-IO%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">BIO（Blocking IO）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NIO%EF%BC%88NonBlocking-IO%EF%BC%8C%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">NIO（NonBlocking IO，多路复用模型）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AIO%EF%BC%88Aysc-IO%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">AIO（Aysc IO）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">多路复用模型</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2025 By Doraemon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a target="_blank" rel="noopener external nofollow noreferrer" href="https://fezhu.top/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'fbMkGCqFR4CUHufZzPUvIprm-MdYXbMMI',
+      appKey: '3J39KYN5r1aiDyQofBtAPNNj',
+      avatar: '',
+      serverURLs: 'https://fbmkgcqf.api.lncldglobal.com',
+      emojiMaps: "",
+      master: '71a69a31286a700ee0738a6e0942e102',
+      tagMeta: ["博主","小伙伴","访客"],
+      friends:  [], 
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
