@@ -19,7 +19,7 @@ highlight_shrink:
 
 所有与线程池相关的类继承关系如下：
 
-![img](https://i-blog.csdnimg.cn/blog_migrate/053d62afe1824cf129a96af9f5909559.jpeg)
+![img](https://dora-blog.oss-cn-beijing.aliyuncs.com/20250915111018.png)
 
 因为`ExecutorService`只是接口，Java标准库提供的几个常用实现类有：
 
