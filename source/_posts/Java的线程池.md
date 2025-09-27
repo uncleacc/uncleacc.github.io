@@ -156,7 +156,7 @@ public static ExecutorService newSingleThreadExecutor(ThreadFactory threadFactor
 - **特点**：只有 1 个核心线程，无非核心线程，执行完立即回收，任务队列为链表结构的有界队列。
 - **应用场景**：不适合并发但可能引起 IO 阻塞性及影响 UI 线程响应的操作，如数据库操作、文件操作等。
 
-![img](https://i-blog.csdnimg.cn/blog_migrate/d1163af0928ceaaa1ec8661e7051f321.png)
+![img](https://dora-blog.oss-cn-beijing.aliyuncs.com/d1163af0928ceaaa1ec8661e7051f321.png)
 
 ## ThreadPoolExecutor
 

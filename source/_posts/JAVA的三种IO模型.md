@@ -30,7 +30,7 @@ BIO中一个线程只能同时处理一个IO，多个客户端发起请求时，
 
 # NIO（NonBlocking IO，多路复用模型）
 
-NIO与BIO的区别有两点，第一，一个线程可以同时处理多个IO，宏观上同时处理，微观上串行处理，NIO引入了Selector（选择器）、Channel、Buufer，模型如下图
+NIO与BIO的区别有两点，第一，一个线程可以同时处理多个IO，宏观上同时处理，微观上串行处理，NIO引入了Selector（选择器）、Channel、Buufer，Selector 相当于对 select、poll 和 epoll 的封装，Channel 是对 FD 的封装，模型如下图：
 
 ![img](https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/img/90b3b0258bae91f00336952f874b4262.png)
 
