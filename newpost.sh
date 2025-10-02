@@ -41,8 +41,9 @@ trap 'rollback' ERR INT TERM
 # 使用方式：
 # ./newpost.sh "文章标题"
 
-if [ -z "$1" ]; then
-  echo "用法: $0 \"文章标题\""
+if [ $# -eq 0 ]; then
+  echo "请输入文章名称" >&2
+  echo "用法: $0 \"文章标题\"" >&2
   exit 1
 fi
 
