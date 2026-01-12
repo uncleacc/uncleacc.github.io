@@ -15,7 +15,7 @@ highlight_shrink:
 
 
 
-## 0. 开篇：为什么一定要把用户特征变成向量？
+## 开篇：为什么一定要把用户特征变成向量？
 
 在推荐 / 广告 / 搜索这类场景里，我们最常做的一件事就是：
 
@@ -49,9 +49,9 @@ highlight_shrink:
 6. 一个完整的音乐推荐例子从头走到尾；
 7. 常见坑和经验小结。
 
-## 1. Embedding 是什么？为什么它是“用户向量”的核心？
+## Embedding 是什么？为什么它是“用户向量”的核心？
 
-### 1.1 专业一点的定义
+### 专业一点的定义
 
 从数学上讲，**embedding** 就是一个映射：
 
@@ -72,7 +72,7 @@ $f: \text{对象空间} \rightarrow \mathbb{R}^d$
 - 两个都爱听摇滚的用户，user embedding 会相近；
 - 两首风格接近的歌曲，song embedding 会相近。
 
-### 1.2 通俗一点的理解
+### 通俗一点的理解
 
 你可以把 embedding 想象成一张 **高维“性格雷达图”**：
 
@@ -93,12 +93,12 @@ $f: \text{对象空间} \rightarrow \mathbb{R}^d$
 
 ---
 
-## 2. 用户特征长什么样？先把“原料”分分类
+## 用户特征长什么样？先把“原料”分分类
 
 在真正“转成 embedding”之前，先把常见的用户特征按类型分一下类。  
 这一步很重要，因为 **不同类型的特征，处理方式完全不同**。
 
-### 2.1 枚举类 / 类别类特征
+### 枚举类 / 类别类特征
 
 典型例子：
 
@@ -112,7 +112,7 @@ $f: \text{对象空间} \rightarrow \mathbb{R}^d$
 - 取值是离散的、有限套枚举；
 - 本身没有大小关系（“北京”不比“上海”大）。
 
-### 2.2 数值类特征
+### 数值类特征
 
 典型例子：
 
@@ -126,7 +126,7 @@ $f: \text{对象空间} \rightarrow \mathbb{R}^d$
 - 有自然的大小 / 数值关系；
 - 常需要做归一化、log 等处理。
 
-### 2.3 时间类特征
+### 时间类特征
 
 典型例子：
 
@@ -139,7 +139,7 @@ $f: \text{对象空间} \rightarrow \mathbb{R}^d$
 - 所在小时（0~23，是否晚上）；
 - 是周几（工作日 or 周末）……
 
-### 2.4 序列类特征（行为序列）
+### 序列类特征（行为序列）
 
 典型例子：
 
@@ -152,7 +152,7 @@ $f: \text{对象空间} \rightarrow \mathbb{R}^d$
 - 不是一个值，而是一个 **有顺序的列表**；
 - 能很好表达“短期兴趣”和“行为轨迹”。
 
-### 2.5 文本类特征
+### 文本类特征
 
 不一定经常用到用户侧，但也存在：
 
@@ -162,9 +162,7 @@ $f: \text{对象空间} \rightarrow \mathbb{R}^d$
 
 这些一般需要 NLP 模型，将句子 → 向量。
 
----
-
-## 3. 单个特征：从“文字/枚举”到“数值/小 embedding”
+## 单个特征：从“文字/枚举”到“数值/小 embedding”
 
 这一节我们只关注 **“一列特征”**，问的问题是：
 
@@ -172,11 +170,9 @@ $f: \text{对象空间} \rightarrow \mathbb{R}^d$
 
 后面再讲“多列特征融合成用户 embedding”。
 
----
+### 类别特征：性别、城市、设备…怎么编码？
 
-### 3.1 类别特征：性别、城市、设备…怎么编码？
-
-#### 3.1.1 步骤 1：先做 ID 映射（Label Encoding）
+#### 步骤 1：先做 ID 映射（Label Encoding）
 
 例如城市：
 
@@ -197,7 +193,7 @@ $f: \text{对象空间} \rightarrow \mathbb{R}^d$
 
 这一步只是把字符串变成整数标号，方便后面作为索引。
 
-#### 3.1.2 步骤 2：用 embedding 表把离散取值变成向量
+#### 步骤 2：用 embedding 表把离散取值变成向量
 
 对每个类别特征，我们建一张 embedding 表，比如城市：
 
@@ -231,9 +227,9 @@ city_emb = city_emb_table[city_id]
 
 ------
 
-### 3.2 数值特征：听歌次数、年龄……怎么处理？
+### 数值特征：听歌次数、年龄……怎么处理？
 
-#### 3.2.1 简单方式：直接归一化
+#### 简单方式：直接归一化
 
 例子：最近一小时听歌次数 `cnt_1h = 17`，假设认为 >50 都算“很多”。
 
@@ -252,7 +248,7 @@ cnt_log = log(1 + cnt_1h)
 
 此时我们得到一个数值特征，可以直接当作模型输入的一维浮点数。
 
-#### 3.2.2 稍复杂的方式：数值 → 区间 → embedding
+#### 稍复杂的方式：数值 → 区间 → embedding
 
 有时我们希望模型更灵活处理数值，也会：
 
@@ -278,7 +274,7 @@ cnt_bucket → bucket_id → bucket_emb (R^d)
 
 ------
 
-### 3.3 时间特征：最近一次听歌时间怎么变？
+### 时间特征：最近一次听歌时间怎么变？
 
 假设有字段：`last_play_time = "2026-01-12 10:30:00"`
 
@@ -317,7 +313,7 @@ hour_of_day = 10
 
 ------
 
-### 3.4 序列特征：最近听过的 N 首歌
+### 序列特征：最近听过的 N 首歌
 
 假设有序列：
 
@@ -354,7 +350,7 @@ seq_emb = Σ(weight_i * song_emb_i) / Σ(weight_i)
 
 ------
 
-### 3.5 文本特征：用户签名 / 搜索词
+### 文本特征：用户签名 / 搜索词
 
 不展开讲太深，只给个直觉：
 
@@ -370,7 +366,7 @@ seq_emb = Σ(weight_i * song_emb_i) / Σ(weight_i)
 
 ![image-20260112160440941](https://dora-blog.oss-cn-beijing.aliyuncs.com/image-20260112160440941.png)
 
-## 4. 把多个特征融合成“用户 embedding”
+## 把多个特征融合成“用户 embedding”
 
 到目前为止，我们知道了如何把 **单个特征列** 变成数值 / 小向量。
 
@@ -387,7 +383,7 @@ seq_emb = Σ(weight_i * song_emb_i) / Σ(weight_i)
 
 ------
 
-### 4.1 行为级特征 → 行为 embedding（behavior embedding）
+### 行为级特征 → 行为 embedding（behavior embedding）
 
 假设我们有这样一条“当前请求”的用户特征：
 
@@ -449,7 +445,7 @@ behavior_emb = h2             # 这就是“行为 embedding”
 
 ------
 
-### 4.2 长期兴趣：用历史行为序列构建 user embedding
+### 长期兴趣：用历史行为序列构建 user embedding
 
 上面是 “当前行为+短期历史” 的表示。
 有时我们还想有一个 **长期稳定兴趣** 的 user embedding：
@@ -459,7 +455,7 @@ behavior_emb = h2             # 这就是“行为 embedding”
 
 常见做法：
 
-#### 4.2.1 方法 1：历史内容 embedding 平均
+#### 方法 1：历史内容 embedding 平均
 
 1. 对用户过去 N 条行为，每条行为都能得到一个行为 embedding（如 `behavior_emb_t`）；
 2. 对这些 embedding 做平均 / 加权平均：
@@ -471,7 +467,7 @@ user_long_emb = Σ(weight_t * behavior_emb_t) / Σ(weight_t)
 - 权重可以根据时间衰减（越近越重）；
 - 简单但非常常用。
 
-#### 4.2.2 方法 2：序列模型（RNN / Transformer）
+#### 方法 2：序列模型（RNN / Transformer）
 
 把过去的行为 embedding 当作一个序列：
 
@@ -496,7 +492,7 @@ user_long_emb = Σ(weight_t * behavior_emb_t) / Σ(weight_t)
 > 方法1是“简单算平均成绩”，
 > 方法2则更像“看整段历史的走势和结构”。
 
-#### 4.2.3 最终 user embedding
+#### 最终 user embedding
 
 实战中，经常把 **长期 + 短期** 结合：
 
@@ -514,11 +510,11 @@ user_emb_final = concat(user_long_emb, user_short_emb)
 
 ![image-20260112160658057](https://dora-blog.oss-cn-beijing.aliyuncs.com/image-20260112160658057.png)
 
-## 5. 这些 embedding 是怎么“学”出来的？
+## 这些 embedding 是怎么“学”出来的？
 
 一个关键点：**所有这些 embedding 和 MLP 权重，最初都是随机的，是通过训练“学出来”的，不是拍脑袋写死的。**
 
-### 5.1 训练的监督信号：点击 / 播放 / 下单 / 停留时间
+### 训练的监督信号：点击 / 播放 / 下单 / 停留时间
 
 在推荐/广告里，最常见的训练目标是：
 
@@ -549,13 +545,11 @@ user_emb_final = concat(user_long_emb, user_short_emb)
 > 就反思一下，把 embedding 和网络参数微调一点点。
 > 经过大量这样的训练，embedding 里就隐含地学到了“谁像谁、谁喜欢什么”。
 
-------
-
-## 6. 一个完整的小例子：音乐 APP 的用户 embedding
+## 一个完整的小例子：音乐 APP 的用户 embedding
 
 我们用一个具体例子，把前面所有环节串起来。
 
-### 6.1 假设有的用户特征
+### 假设有的用户特征
 
 某音乐 App 的一条“当前请求”用户特征：
 
@@ -571,9 +565,7 @@ user_emb_final = concat(user_long_emb, user_short_emb)
 
 我们要把这些东西，变成一条最终 `user_emb_final`。
 
-------
-
-### 6.2 单个特征怎么变成数值/向量？
+### 单个特征怎么变成数值/向量？
 
 1. `gender`
    - "男" → id=0 → `gender_emb` (R^4)
@@ -595,9 +587,7 @@ user_emb_final = concat(user_long_emb, user_short_emb)
 8. `user_profile`（可选）
    - 文本 → 分词 → 词 embedding → 平均 → `profile_emb` (R^32)
 
-------
-
-### 6.3 拼接 + MLP → 当前状态的行为 embedding
+### 拼接 + MLP → 当前状态的行为 embedding
 
 拼接：
 
@@ -624,18 +614,14 @@ h2 = ReLU(W2 * h1 + b2)        # 128 维
 user_short_emb = h2            # 当前短期兴趣 + 用户属性的综合表示
 ```
 
-------
-
-### 6.4 长期兴趣 embedding
+### 长期兴趣 embedding
 
 对过去 30 天的行为序列：
 
 - 每个行为都有一个 `behavior_emb_t`（结构和上面类似，或简化版）；
 - 用简单平均 / 加权平均 / RNN 等得到 `user_long_emb` (R^128)。
 
-------
-
-### 6.5 最终 user embedding
+### 最终 user embedding
 
 把长期 + 短期拼在一起，再轻微融合：
 
@@ -653,11 +639,9 @@ user_emb_final = ReLU(W_fuse * z + b_fuse) # 128 维
 - 做“社区 embedding”时：
   直接对一群用户的 user_emb 做平均即可。
 
-------
+## 常见坑 & 经验提示
 
-## 7. 常见坑 & 经验提示
-
-### 7.1 不要把“类别 ID 当数值”直接喂线性模型
+### 不要把“类别 ID 当数值”直接喂线性模型
 
 例如 city_id 0、1、2 ……
 **不能**直接当作 “0.0, 1.0, 2.0” 的数值给线性模型，否则模型会认为有 “大小关系”和“线性距离”，是错误的语义。
@@ -667,7 +651,7 @@ user_emb_final = ReLU(W_fuse * z + b_fuse) # 128 维
 
 ------
 
-### 7.2 embedding 维度不要盲目开太大
+### embedding 维度不要盲目开太大
 
 - 类别特别多（上百万用户 ID / 内容 ID），维度太大容易过拟合 + 耗内存；
 - 经验：
@@ -681,7 +665,7 @@ user_emb_final = ReLU(W_fuse * z + b_fuse) # 128 维
 
 ------
 
-### 7.3 未登录用户 / 新用户（cold start）怎么办？
+### 未登录用户 / 新用户（cold start）怎么办？
 
 - 没有 user_id 时，就无法使用用户ID embedding；
 - 这种情况下更依赖：
@@ -689,17 +673,13 @@ user_emb_final = ReLU(W_fuse * z + b_fuse) # 128 维
   - 设备 / 城市 / 渠道等上下文特征；
 - 可以单独训练一个 “session-based” 模型，仅用最近行为序列构造 user embedding。
 
-------
-
-### 7.4 未出现过的新取值（新城市、新设备）
+### 未出现过的新取值（新城市、新设备）
 
 - 对于 embedding 表中没见过的类别，可以：
   - 映射到一个特殊 ID：``（unknown）；
   - `` 也有自己的 embedding，会在训练中学习“未知值的一般行为”。
 
-------
-
-### 7.5 hash vs embedding 的区别别搞混
+### hash vs embedding 的区别别搞混
 
 - **hash**：只是给东西一个“桶号”，本身不负责表达语义；
 - **embedding**：通过训练学习出“语义坐标”。
@@ -709,9 +689,7 @@ user_emb_final = ReLU(W_fuse * z + b_fuse) # 128 维
 - 先用 hash 把原始字符串变成整数 ID；
 - 再用 embedding 表把整数 ID → 向量。
 
-------
-
-## 8. 总结：从用户特征到 embedding 的标准路线
+## 总结：从用户特征到 embedding 的标准路线
 
 我们最后把整个流程再用一段话总结一下：
 
