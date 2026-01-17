@@ -20,5 +20,5 @@ highlight_shrink:
 
 **<u>有需要请联系我微信：HiSirGuo，只需一杯奶茶钱</u>**
 
-![AI 回答](https://i-blog.csdnimg.cn/direct/0464183680024d1383db5fbcf42123b5.png)
-![转化之后的 word 文档](https://i-blog.csdnimg.cn/direct/ad2565ec19bb4053b0a7feef16ca5fb4.png)
+![AI 回答](https://dora-blog.oss-cn-beijing.aliyuncs.com/0464183680024d1383db5fbcf42123b5.png)
+![转化之后的 word 文档](https://dora-blog.oss-cn-beijing.aliyuncs.com/ad2565ec19bb4053b0a7feef16ca5fb4.png)
