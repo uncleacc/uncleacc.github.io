@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>分布式事务 | Doraemon's Blog</title><meta name="author" content="Doraemon,601162956@qq.com"><meta name="copyright" content="Doraemon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="解决什么问题？我们都知道数据库可以通过事务来保证原子性操作，但实际场景中存在多个 DB实例或者微服务，例如扣减余额和扣减库存，如果余额和库存不在同一个 DB 实例中我们又该如何保证原子性操作？这就是分布式事务的概念。 首先需要铺垫一些理论： CAP 理论CAP 定理是分布式系统中的一个重要定理，它指出在一个分布式系统中，一致性（Consistency）、可用性（Availability）和分区容错">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式事务">
+<meta property="og:url" content="http://fezhu.top/posts/cdcc4eae.html">
+<meta property="og:site_name" content="Doraemon&#39;s Blog">
+<meta property="og:description" content="解决什么问题？我们都知道数据库可以通过事务来保证原子性操作，但实际场景中存在多个 DB实例或者微服务，例如扣减余额和扣减库存，如果余额和库存不在同一个 DB 实例中我们又该如何保证原子性操作？这就是分布式事务的概念。 首先需要铺垫一些理论： CAP 理论CAP 定理是分布式系统中的一个重要定理，它指出在一个分布式系统中，一致性（Consistency）、可用性（Availability）和分区容错">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2025-09-19T07:25:05.000Z">
+<meta property="article:modified_time" content="2025-09-20T02:26:48.554Z">
+<meta property="article:author" content="Doraemon">
+<meta property="article:tag" content="分布式事务">
+<meta property="article:tag" content="数据一致性">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://fezhu.top/posts/cdcc4eae.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="KN6pnEmNs8iAPCiA4HK81_JOnb5b90LWJLxqyZdH0ko"/><meta name="baidu-site-verification" content="codeva-fP6p2S4Tpw"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?e5f1c961209bbe62fbceb50c9ef96345";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BDW0BKMDBE"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BDW0BKMDBE');
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "jec82yg9m8");</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '分布式事务',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-09-20 10:26:48'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">170</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">111</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/talk/"><i class="fa-fw fa-regular fa-comment"></i><span> 说说</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="Doraemon's Blog"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/blogIcon.png"/><span class="site-name">Doraemon's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/talk/"><i class="fa-fw fa-regular fa-comment"></i><span> 说说</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">分布式事务</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-09-19T07:25:05.000Z" title="发表于 2025-09-19 15:25:05">2025-09-19</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-09-20T02:26:48.554Z" title="更新于 2025-09-20 10:26:48">2025-09-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%B0%E5%BD%95/">记录</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/posts/cdcc4eae.html" data-flag-title="分布式事务"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/cdcc4eae.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/posts/cdcc4eae.html" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="解决什么问题？"><a href="#解决什么问题？" class="headerlink" title="解决什么问题？"></a>解决什么问题？</h2><p>我们都知道数据库可以通过事务来保证原子性操作，但实际场景中存在多个 DB实例或者微服务，例如扣减余额和扣减库存，如果余额和库存不在同一个 DB 实例中我们又该如何保证原子性操作？这就是分布式事务的概念。</p>
+<p>首先需要铺垫一些理论：</p>
+<h3 id="CAP-理论"><a href="#CAP-理论" class="headerlink" title="CAP 理论"></a>CAP 理论</h3><p>CAP 定理是分布式系统中的一个重要定理，它指出在一个分布式系统中，一致性（Consistency）、可用性（Availability）和分区容错性（Partition Tolerance）这三个特性不能同时满足，最多只能满足其中两个。以下是对这三个特性的详细解释：</p>
+<ul>
+<li><strong>一致性（Consistency）</strong>：在分布式系统中，一致性指的是所有节点在同一时间具有相同的数据。也就是说，当一个数据在某个节点上被更新后，这个更新能够迅速传播到其他节点，使得所有节点都能看到最新的数据，就好像整个系统只有一个数据副本一样。例如，在一个分布式数据库中，如果一个用户在节点 A 上修改了一条记录，那么其他节点在查询该记录时，应该能够立即看到修改后的结果。</li>
+<li><strong>可用性（Availability）</strong>：可用性意味着系统中的每个请求都能得到响应，而不会出现长时间的等待或系统崩溃导致无法响应的情况。无论系统中是否发生了故障，只要客户端发送请求，系统都应该能够在一定的时间内给出响应，保证服务的正常运行。例如，一个在线购物网站，无论何时用户进行访问、下单等操作，都能得到相应的反馈，而不是出现页面长时间加载或无法访问的情况。</li>
+<li><strong>分区容错性（Partition Tolerance）</strong>：分布式系统通常由多个节点组成，这些节点通过网络进行通信。分区容错性是指当网络出现分区（即部分节点之间无法进行通信）时，系统仍然能够继续运行。也就是说，即使系统中的某些节点之间失去了联系，整个系统也不会因此而崩溃，仍然能够在其他可用的节点上提供服务。例如，在一个跨数据中心的分布式系统中，由于网络故障导致两个数据中心之间的通信中断，但每个数据中心内部的节点仍然能够正常工作，继续为用户提供服务。</li>
+</ul>
+<p>⚠️ <strong>在分布式系统中，网络分区（P）一定可能发生</strong>（链路抖动、网络设备故障等无法避免），所以 <strong>P 是必选项</strong>。</p>
+<h3 id="BASE-理论"><a href="#BASE-理论" class="headerlink" title="BASE 理论"></a>BASE 理论</h3><p>BASE 理论指的是基本可用 Basically Available，软状态 Soft State，最终一致性 Eventual Consistency，核心思想是即便无法做到强一致性，但应该采用适合的方式保证最终一致性。</p>
+<p>BASE，Basically Available Soft State Eventual Consistency 的简写：<br>BA：Basically Available 基本可用，分布式系统在出现故障的时候，允许损失部分可用性，即保证核心可用。<br>S：Soft State 软状态，允许系统存在中间状态，而该中间状态不会影响系统整体可用性。<br>E：Consistency 最终一致性，系统中的所有数据副本经过一定时间后，最终能够达到一致的状态。<br>BASE 理论本质上是对 CAP 理论的延伸，是对 CAP 中 AP 方案的一个补充。</p>
+<h3 id="柔性事务"><a href="#柔性事务" class="headerlink" title="柔性事务"></a>柔性事务</h3><p>不同于 ACID 的刚性事务，在分布式场景下基于 BASE 理论，就出现了柔性事务的概念。要想通过柔性事务来达到最终的一致性，就需要依赖于一些特性，这些特性在具体的方案中不一定都要满足，因为不同的方案要求不一样；但是都不满足的话，是不可能做柔性事务的。</p>
+<h3 id="幂等操作"><a href="#幂等操作" class="headerlink" title="幂等操作"></a>幂等操作</h3><p>在编程中一个幂等操作的特点是其任意多次执行所产生的影响均与一次执行的影响相同。幂等函数，或幂等方法，是指可以使用相同参数重复执行，并能获得相同结果的函数。这些函数不会影响系统状态，也不用担心重复执行会对系统造成改变。例如，支付流程中第三方支付系统告知系统中某个订单支付成功，接收该支付回调接口在网络正常的情况下无论操作多少次都应该返回成功。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/v2-84c272f5b9370ac87d9c02a6ec0b51d8_r.jpg" alt="分布式事务"></p>
+<p><u>2PC 和 3PC</u> 在理想情况下可以保证<strong>强一致性</strong>，但存在全局阻塞的情况，性能受到影响。</p>
+<p><u>TCC 、 Saga 、本地消息表和事务消息</u> 保证的是<strong>最终一致性</strong>，性能较好，但代码侵入性很高。</p>
+<h2 id="两阶段提交-2PC"><a href="#两阶段提交-2PC" class="headerlink" title="两阶段提交 2PC"></a>两阶段提交 2PC</h2><p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/image-20250919154431052.png" alt="2PC 流程" style="zoom:50%;" /></p>
+<p><strong>两种参与者：</strong>协调者和参与者。</p>
+<ul>
+<li><p>第一阶段，协调者让所有参与者执行事务，参与者把执行结果返回给协调者，如果某一个参与者执行失败，协调者会发送回滚事务给所有参与者。</p>
+</li>
+<li><p>第二阶段：如果所有参与者执行成功，协调者就让所有参与者提交事务。适用于对数据一致性要求高、并发度低的场景，如金融系统转账业务。</p>
+</li>
+</ul>
+<p><strong>优点：</strong>理想情况下可以保证分布式节点的<strong>强一致性</strong>。</p>
+<p><strong>缺点：</strong></p>
+<ol>
+<li>如果参与者初始就故障，其他参与者会白白执行事务，存在资源浪费。</li>
+<li>协调者挂掉，参与者执行事务后阻塞等待协调者的通知。</li>
+<li>参与者等待协调者时阻塞，会导致其他访问数据库的事务可能被阻塞。</li>
+</ol>
+<p><strong>数据不一致的情况</strong>：第二阶段，如果部分参与者收到提交命令，<u>部分参与者因为网络原因没有收到提交命令</u>，就会导致数据不一致。</p>
+<h2 id="三阶段提交-3PC"><a href="#三阶段提交-3PC" class="headerlink" title="三阶段提交 3PC"></a>三阶段提交 3PC</h2><p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/image-20250919155850345.png" alt="3PC 流程" style="zoom:50%;" /></p>
+<p>为了解决 2PC 的两个问题，引入了3PC，在开头增加了询问是否故障的 canCommit 阶段，就是询问机器是否可以正常运行。其他两个阶段与 2PC 一致。</p>
+<p>引入了<strong>超时机制</strong>。第二阶段，如果协调者超时没有收到参与者的回复，协调者就会认为执行异常，通知参与者回滚。第三阶段，如果参与者超时没有收到协调者的提交命令，则自动进行提交。</p>
+<p><strong>三阶段提交也不能完全保证数据一致性</strong>，如果存在网络丢包或者阻塞问题，比如由于网络阻塞导致协调者发送的回滚命令未按时到达，就会导致错误提交。</p>
+<p><u>2PC 偏向于牺牲可用性（阻塞），3PC 尝试改善可用性，但牺牲了一致性。</u></p>
+<p>现代分布式系统往往不用 2PC/3PC 来追求强一致性，而是采用：</p>
+<ul>
+<li><strong>共识协议</strong>：Paxos、Raft（强一致性，适合元数据、配置管理）。</li>
+<li><strong>补偿机制</strong>：TCC（Try-Confirm-Cancel）、Saga（长事务补偿，保证最终一致性）。</li>
+<li><strong>幂等操作 + 消息重试</strong>：保证即使失败重试，也不会导致数据错误。</li>
+</ul>
+<h2 id="TCC"><a href="#TCC" class="headerlink" title="TCC"></a>TCC</h2><p>TCC 是一种 <strong>柔性事务（最终一致性）方案</strong>，它不是数据库级事务，而是<strong>应用层事务控制</strong>，由于它对代码侵入性很强，一般不用。</p>
+<p>它把一个完整业务拆成三步：</p>
+<ol>
+<li><strong>Try（预留）</strong>：检查并预留资源（不真正扣减）。</li>
+<li><strong>Confirm（确认）</strong>：真正执行业务操作（提交）。</li>
+<li><strong>Cancel（取消）</strong>：如果失败则回滚，把预留的资源释放掉。</li>
+</ol>
+<p>举个例子：转账 100 元（A → B）</p>
+<p>假设要实现从 <strong>账户 A 转账 100 元给账户 B</strong>。<br> 在分布式场景下，A 和 B 可能不在同一个数据库/服务里，需要跨服务保证一致性。</p>
+<p><strong>如果用 2PC：</strong></p>
+<ul>
+<li>第一步锁定 A、B 的账户行 → 可能阻塞很久。</li>
+<li>如果协调者宕机，A 和 B 状态可能不一致。</li>
+</ul>
+<p><strong>如果用 TCC 来做，我们把业务拆成 Try、Confirm、Cancel 三步：</strong></p>
+<p>Step 1: Try（预留资源）</p>
+<ul>
+<li>A 账户服务：检查余额是否足够，预留 100 元（冻结）。</li>
+<li>B 账户服务：检查账户是否正常，预留可接收额度。</li>
+</ul>
+<p>👉 此时并没有真正扣减 A 的钱，也没有加到 B 上，只是把资源锁定。</p>
+<p>Step 2: Confirm（确认提交）</p>
+<ul>
+<li>如果所有服务的 Try 都成功：<ul>
+<li>A 账户服务：真正扣减余额（-100）。</li>
+<li>B 账户服务：真正加钱（+100）。</li>
+</ul>
+</li>
+</ul>
+<p>👉 这一步才是业务生效。</p>
+<p>Step 3: Cancel（取消操作）</p>
+<ul>
+<li>如果在 Try 过程中发现问题（比如 A 余额不足、B 账户异常），或者 Confirm 阶段某个服务执行失败：<ul>
+<li>A 账户服务：解冻预留的 100 元。</li>
+<li>B 账户服务：撤销接收额度。</li>
+</ul>
+</li>
+</ul>
+<p>👉 确保即使失败，也能回滚到初始状态。</p>
+<p><strong>TCC 的优缺点：</strong></p>
+<p>优点：</p>
+<ul>
+<li>灵活：业务逻辑由应用自己控制，而不是强依赖数据库。</li>
+<li>避免了长时间锁表/行，提高性能。</li>
+<li>明确的补偿机制（Cancel）。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>开发复杂：每个操作都要实现 Try/Confirm/Cancel 三个接口。</li>
+<li>补偿要考虑幂等性（Cancel 可能被调用多次）。</li>
+<li>对<strong><u>业务侵入性强</u></strong>：应用层要设计好冻结、解冻逻辑。</li>
+</ul>
+<h2 id="Saga"><a href="#Saga" class="headerlink" title="Saga"></a>Saga</h2><p>Saga 也是一种 <strong>柔性事务</strong> 模型，和 TCC 一样，目标是解决分布式系统里的事务一致性问题。不同点在于：</p>
+<ul>
+<li><strong>TCC</strong>：每个步骤都有 <strong>Try / Confirm / Cancel</strong> 三个接口。</li>
+<li><strong>Saga</strong>：把一个大事务拆分成一系列 <strong>有序的子事务</strong>（Tx1, Tx2, …），每个子事务都有一个 <strong>补偿操作</strong>（Cx1, Cx2, …）。</li>
+<li>如果中途有步骤失败，就执行前面已完成步骤的 <strong>补偿操作</strong>，保证最终一致性。</li>
+</ul>
+<p>👉 可以理解为：Saga 是一串“正向操作 + 对应补偿”的链条。</p>
+<p>举个例子：电商下单</p>
+<p>用户下单，流程包括：</p>
+<ol>
+<li>扣减库存（Tx1）</li>
+<li>扣减余额（Tx2）</li>
+<li>生成订单（Tx3）</li>
+</ol>
+<p>Saga 正常执行</p>
+<ul>
+<li>Tx1：库存服务扣减库存</li>
+<li>Tx2：支付服务扣减余额</li>
+<li>Tx3：订单服务生成订单</li>
+</ul>
+<p>执行完成 → 事务结束。</p>
+<p>Saga 出现失败（比如余额不足）</p>
+<p>假设 Tx2（扣减余额）失败了：</p>
+<ul>
+<li>执行补偿操作：<ul>
+<li>Cx1：库存服务回滚（加回库存）</li>
+</ul>
+</li>
+<li>Saga 结束，保证最终一致性。</li>
+</ul>
+<p>Saga 出现失败（比如生成订单失败）</p>
+<p>如果 Tx3（生成订单）失败：</p>
+<ul>
+<li>执行补偿操作：<ul>
+<li>Cx2：支付服务回滚（退回余额）</li>
+<li>Cx1：库存服务回滚（加回库存）</li>
+</ul>
+</li>
+<li>Saga 结束。</li>
+</ul>
+<p><strong>Saga 的特点</strong>：</p>
+<p>优点</p>
+<ul>
+<li><strong>实现相对简单</strong>：只需要正向操作 + 补偿操作，不像 TCC 需要 Try/Confirm/Cancel 三套接口。</li>
+<li><strong>长事务友好</strong>：适合跨多个系统、耗时长的业务（比如机票预订、酒店预订、支付组合场景）。</li>
+<li><strong>最终一致性</strong>：保证系统最终达到一致状态。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li><strong>中间状态可见</strong>：补偿之前，部分子事务已经生效（比如库存已扣减，但订单失败了 → 瞬间用户看到库存减少）。</li>
+<li><strong>补偿可能失败</strong>：必须保证补偿操作的幂等性和可靠性。</li>
+<li><strong>业务侵入性</strong>：每个子事务都需要设计对应的补偿逻辑。</li>
+</ul>
+<h2 id="事务消息"><a href="#事务消息" class="headerlink" title="事务消息"></a>事务消息</h2><p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAYyYweGZmMDA=,size_20,color_FFFFFF,t_70,g_se,x_16.png" alt="RocketMq事务消息"></p>
+<p>事务消息通常分两阶段：</p>
+<ol>
+<li><strong>半消息（Prepared Message）</strong><br> 生产者先把消息投递到 MQ，但标记为“半消息”，消费者看不到。</li>
+<li><strong>本地事务执行</strong><br> 生产者执行数据库事务，比如扣减库存、更新订单状态。</li>
+<li><strong>确认或回滚消息</strong><ul>
+<li>如果数据库事务成功，生产者向 MQ <strong>提交确认</strong>，半消息转为真正的消息，消费者可以消费。</li>
+<li>如果数据库事务失败，生产者通知 MQ <strong>回滚消息</strong>，半消息被丢弃。</li>
+</ul>
+</li>
+<li><strong>补偿机制（事务回查）</strong><br> 如果 MQ 在一段时间内没有收到生产者的确认，MQ 会回查生产者，询问本地事务到底是成功还是失败，然后根据结果决定提交或回滚。</li>
+</ol>
+<p><strong>举个例子：电商下单扣库存</strong></p>
+<p>假设用户在电商系统里下单，需要执行两个动作：</p>
+<ol>
+<li><strong>订单服务</strong>：生成订单记录（写数据库）。</li>
+<li><strong>库存服务</strong>：扣减商品库存（异步消费 MQ 消息）。</li>
+</ol>
+<p>如果用事务消息，流程是这样的：</p>
+<ol>
+<li>订单服务发送一条“扣库存”的 <strong>半消息</strong> 到 MQ，消费者看不到。</li>
+<li>订单服务开启本地事务：<ul>
+<li>在订单数据库里插入一条“待支付”的订单。</li>
+<li>本地事务提交成功。</li>
+</ul>
+</li>
+<li>本地事务成功后，订单服务再告诉 MQ：确认提交半消息。<ul>
+<li>MQ 将这条“扣库存”的消息变为可见。</li>
+<li>库存服务消费到消息，减少库存。</li>
+</ul>
+</li>
+<li>如果订单数据库事务失败（比如插入订单出错），则通知 MQ 回滚半消息，消息直接被删除。</li>
+<li>如果网络抖动，确认消息丢失，MQ 会主动回查订单服务：<ul>
+<li>如果发现订单已创建，则重新提交半消息。</li>
+<li>如果发现订单不存在，则回滚半消息。</li>
+</ul>
+</li>
+</ol>
+<p>这样，保证了 <strong>订单和扣库存消息的一致性</strong>。</p>
+<h2 id="本地消息表"><a href="#本地消息表" class="headerlink" title="本地消息表"></a>本地消息表</h2><p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/b86a17506e4919e57349def060e885c5.jpeg" alt="本地消息表"></p>
+<ol>
+<li>当系统 A 被其他系统调用发生数据库表更操作，首先会更新数据库的业务表，其次会往相同数据库的消息表中插入一条数据，两个操作发生在同一个事务中</li>
+<li>系统 A 的脚本定期轮询本地消息往 mq 中写入一条消息，如果消息发送失败会进行重试</li>
+<li>系统 B 消费 mq 中的消息，并处理业务逻辑。如果本地事务处理失败，会在继续消费 mq 中的消息进行重试，如果业务上的失败，可以通知系统 A 进行回滚操作</li>
+</ol>
+<p>本地消息表实现的条件：</p>
+<ol>
+<li>消费者与生成者的接口都要支持幂等</li>
+<li>生产者需要额外的创建消息表</li>
+<li>需要提供补偿逻辑，如果消费者业务失败，需要生产者支持回滚操作</li>
+</ol>
+<p>容错机制：</p>
+<ol>
+<li>步骤 1 失败时，事务直接回滚</li>
+<li>步骤 2、3 写 mq 与消费 mq 失败会进行重试</li>
+<li>步骤 3 业务失败系统 B 向系统 A 发起事务回滚操作</li>
+</ol>
+<p>此方案的核心是将需要分布式处理的任务通过消息日志的方式来异步执行。消息日志可以存储到本地文本、数据库或消息队列，再通过业务规则自动或人工发起重试。人工重试更多的是应用于支付场景，通过对账系统对事后问题的处理。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://fezhu.top">Doraemon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://fezhu.top/posts/cdcc4eae.html">http://fezhu.top/posts/cdcc4eae.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://fezhu.top" target="_blank">Doraemon's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/">分布式事务</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7/">数据一致性</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/63753db4.html" title="秋招-操作系统篇"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">秋招-操作系统篇</div></div></a></div><div class="next-post pull-right"><a href="/posts/fd251b3f.html" title="分布式 ID 的生成方案"><img class="cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">分布式 ID 的生成方案</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">解决什么问题？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CAP-%E7%90%86%E8%AE%BA"><span class="toc-number">1.1.</span> <span class="toc-text">CAP 理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BASE-%E7%90%86%E8%AE%BA"><span class="toc-number">1.2.</span> <span class="toc-text">BASE 理论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%94%E6%80%A7%E4%BA%8B%E5%8A%A1"><span class="toc-number">1.3.</span> <span class="toc-text">柔性事务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B9%82%E7%AD%89%E6%93%8D%E4%BD%9C"><span class="toc-number">1.4.</span> <span class="toc-text">幂等操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-number">1.5.</span> <span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4-2PC"><span class="toc-number">2.</span> <span class="toc-text">两阶段提交 2PC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4-3PC"><span class="toc-number">3.</span> <span class="toc-text">三阶段提交 3PC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCC"><span class="toc-number">4.</span> <span class="toc-text">TCC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Saga"><span class="toc-number">5.</span> <span class="toc-text">Saga</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF"><span class="toc-number">6.</span> <span class="toc-text">事务消息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8"><span class="toc-number">7.</span> <span class="toc-text">本地消息表</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Doraemon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://fezhu.top/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'fbMkGCqFR4CUHufZzPUvIprm-MdYXbMMI',
+      appKey: '3J39KYN5r1aiDyQofBtAPNNj',
+      avatar: '',
+      serverURLs: 'https://fbmkgcqf.api.lncldglobal.com',
+      emojiMaps: "",
+      master: '71a69a31286a700ee0738a6e0942e102',
+      tagMeta: ["博主","小伙伴","访客"],
+      friends:  [], 
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

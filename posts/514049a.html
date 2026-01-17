@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>强化学习入门 | Doraemon's Blog</title><meta name="author" content="Doraemon,601162956@qq.com"><meta name="copyright" content="Doraemon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="理论基础 MDP（马尔可夫模型）：当前状态只和前面一个状态有关，目的是为了简化学习过程，认为当前状态就包含了过去的信息。与之相对的就是非马尔可夫过程，认为当前状态和前面的所有状态有关。 POMDP（部分马尔可夫可观测决策模型）：POMDP 是一种智能体无法直接观测到真实状态的决策模型。虽然系统的内部状态 仍然满足马尔可夫性（这点很关键），但智能体获得的只是状态的部分信息（观测值），因此对智能体来说">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强化学习入门">
+<meta property="og:url" content="http://fezhu.top/posts/514049a.html">
+<meta property="og:site_name" content="Doraemon&#39;s Blog">
+<meta property="og:description" content="理论基础 MDP（马尔可夫模型）：当前状态只和前面一个状态有关，目的是为了简化学习过程，认为当前状态就包含了过去的信息。与之相对的就是非马尔可夫过程，认为当前状态和前面的所有状态有关。 POMDP（部分马尔可夫可观测决策模型）：POMDP 是一种智能体无法直接观测到真实状态的决策模型。虽然系统的内部状态 仍然满足马尔可夫性（这点很关键），但智能体获得的只是状态的部分信息（观测值），因此对智能体来说">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img2/139.webp">
+<meta property="article:published_time" content="2025-11-08T14:47:44.000Z">
+<meta property="article:modified_time" content="2025-11-08T14:53:35.816Z">
+<meta property="article:author" content="Doraemon">
+<meta property="article:tag" content="强化学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img2/139.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://fezhu.top/posts/514049a.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="KN6pnEmNs8iAPCiA4HK81_JOnb5b90LWJLxqyZdH0ko"/><meta name="baidu-site-verification" content="codeva-fP6p2S4Tpw"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?e5f1c961209bbe62fbceb50c9ef96345";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BDW0BKMDBE"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BDW0BKMDBE');
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "jec82yg9m8");</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '强化学习入门',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2025-11-08 22:53:35'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">170</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">111</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/talk/"><i class="fa-fw fa-regular fa-comment"></i><span> 说说</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/uncleacc/Img2/139.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Doraemon's Blog"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/blogIcon.png"/><span class="site-name">Doraemon's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/talk/"><i class="fa-fw fa-regular fa-comment"></i><span> 说说</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">强化学习入门</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-11-08T14:47:44.000Z" title="发表于 2025-11-08 22:47:44">2025-11-08</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-11-08T14:53:35.816Z" title="更新于 2025-11-08 22:53:35">2025-11-08</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/posts/514049a.html" data-flag-title="强化学习入门"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/514049a.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/posts/514049a.html" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h3><ul>
+<li><strong>MDP（马尔可夫模型）</strong>：当前状态只和前面一个状态有关，目的是为了简化学习过程，认为当前状态就包含了过去的信息。与之相对的就是非马尔可夫过程，认为当前状态和前面的所有状态有关。</li>
+<li><strong>POMDP（部分马尔可夫可观测决策模型）</strong>：POMDP 是一种<strong>智能体无法直接观测到真实状态</strong>的决策模型。虽然系统的内部状态 <strong>仍然满足马尔可夫性</strong>（这点很关键），但智能体获得的只是状态的<strong>部分信息（观测值）</strong>，因此对智能体来说，环境<strong>表现为非马尔可夫的</strong>。</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>模型</th>
+<th>场景比喻</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MDP</strong></td>
+<td>你在明亮的房间里走迷宫，看得清周围墙壁的位置，决策只需看当前。</td>
+</tr>
+<tr>
+<td><strong>POMDP</strong></td>
+<td>你在黑暗中走迷宫，只能凭手电照到的一小块区域和脚步声猜测位置。环境本身仍遵守马尔可夫性，但你“看不全”。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>状态价值函数</strong>：当智能体在状态 s 下，按照策略 π 行动后，<strong>能获得的期望总回报</strong>。公式：$V^\pi(s) = \mathbb{E}_\pi [G_t | S_t = s]$。</li>
+<li><strong>动作价值函数</strong>：当智能体在状态 s 下采取动作 a，然后<strong>再按照策略 π 行动</strong>，能获得的期望总回报。$Q^\pi(s, a) = \mathbb{E}_\pi [G_t | S_t = s, A_t = a]$。状态价值函数可以看作动作价值函数的“平均值”：$V^\pi(s) = \sum_a \pi(a|s) Q^\pi(s, a)$。</li>
+<li><strong>贝尔曼方程（核心公式）</strong>：一种特殊的状态价值函数。用估计值去优化估计值，可以收敛的原因在于终态的价值函数是已知的就是0，那么终态前一个状态就可以用真实价值进行反推优化，同理上上个状态也可以，在迭代足够次数后所有状态都会趋向真实值。$Q^<em>(s, a) = E\left[ r + \gamma \max_{a’} Q^</em>(s’, a’) \mid s, a \right]$，意义：即时奖励+下一个状态的最大价值乘以折扣因子（因为时间也是成本，未来的奖励相较于即时奖励应该打折扣），最后取个期望，即估计值。</li>
+<li><strong>时序差分（Temporal Difference, TD）学习 VS 蒙特卡洛（Monte Carlo，MC）方法</strong>：<strong>MC 用“真实未来”更新；TD 用“预测未来”更新</strong>。</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>核心思想</th>
+<th>样本使用</th>
+<th>更新时机</th>
+<th>优缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>蒙特卡洛（MC）</strong></td>
+<td>用完整回合的真实累计回报来更新价值</td>
+<td>一条完整轨迹一次性更新</td>
+<td>需要等待回合结束</td>
+<td>✅ 无偏估计，准确；❌ 方差大，不能在线更新</td>
+</tr>
+<tr>
+<td><strong>时序差分（TD）</strong></td>
+<td>用一步预测 + 下一步价值近似未来回报</td>
+<td>当前步 + 下一步</td>
+<td>每一步都可更新</td>
+<td>✅ 在线更新，样本效率高；❌ 有偏估计，依赖预测值质量</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>策略（Policy，记作 π）</strong>：智能体在每个状态下选择动作的规则或概率分布。<ul>
+<li><strong>确定性策略</strong>（Deterministic Policy）：a=π(s)，表示状态 s 下智能体总是选择固定动作 a。</li>
+<li><strong>随机策略</strong>（Stochastic Policy）：a∼π(a∣s)，表示状态 s 下智能体以一定概率选择动作 a。</li>
+</ul>
+</li>
+</ul>
+<h3 id="经典算法"><a href="#经典算法" class="headerlink" title="经典算法"></a>经典算法</h3><ol>
+<li>基于价值函数（Value-Based）</li>
+</ol>
+<ul>
+<li>Q-Learning：无模型时序差分算法，通过更新 Q 表学习动作价值，适用于离散动作空间。</li>
+<li>SARSA：同属时序差分算法，采用 “在线学习”（执行动作后更新），更注重策略安全性。</li>
+<li>DQN（Deep Q-Network）：结合深度学习与 Q-Learning，用神经网络替代 Q 表，适配高维状态空间。</li>
+<li>Double DQN / Dueling DQN：DQN 的改进版，分别解决过估计问题和分离价值与优势函数，提升稳定性。</li>
+</ul>
+<ol>
+<li>基于策略梯度（Policy-Based）</li>
+</ol>
+<ul>
+<li>REINFORCE：蒙特卡洛策略梯度算法，直接优化策略函数，适用于离散 / 连续动作空间。</li>
+<li>A2C（Advantage Actor-Critic）：结合策略网络（Actor）和价值网络（Critic），通过优势函数减少方差，提升训练效率。</li>
+<li>A3C（Asynchronous A2C）：A2C 的异步版本，多线程并行训练，加速探索与收敛。</li>
+</ul>
+<ol>
+<li>演员 - 评论员（Actor-Critic）与连续动作适配</li>
+</ol>
+<ul>
+<li>DDPG（Deep Deterministic Policy Gradient）：专为连续动作空间设计，用确定性策略替代随机策略，搭配目标网络和经验回放提升稳定性。</li>
+<li>PPO（Proximal Policy Optimization）：通过 “信任区域” 限制策略更新幅度，兼顾性能与稳定性，适用于离散 / 连续动作，落地场景广泛。</li>
+<li>TD3（Twin Delayed DDPG）：DDPG 的改进版，双 Critic 网络减少过估计，延迟策略更新，优化连续动作学习效果。</li>
+</ul>
+<p>基于价值函数只能处理离散动作空间，因为需要枚举动作计算 Q 值；</p>
+<p>基于策略梯度可以处理连续动作空间，有两种方式，可以输出确定性动作，例如方向盘直接转动 45.6 度，也可以输出动作概率分布曲线，例如力度 40 牛的概率最高（曲线峰值），38-42 牛的概率稍低。这里和 Q 值的动作概率分布区别就是这里的动作是连续的，可以理解为连续的曲线，而 Q 值的动作概率分布是离散的点。</p>
+<h3 id="训练流程"><a href="#训练流程" class="headerlink" title="训练流程"></a>训练流程</h3><p>强化学习训练的通用流程可概括为 “环境建模→智能体初始化→交互采样→策略更新→迭代收敛” 五步，核心是通过 “试错 - 反馈 - 优化” 循环提升策略性能，具体如下：</p>
+<ol>
+<li>环境与问题建模</li>
+</ol>
+<ul>
+<li>定义核心要素：明确状态空间（环境可观测信息，如 MEC 基站缓存状态）、动作空间（智能体可执行操作，如缓存优先级调整）、奖励函数（目标量化，如延迟降低量）。</li>
+<li>确定约束条件：设定物理或业务限制（如基站缓存容量、动作执行边界）。</li>
+<li>选择环境类型：区分真实环境（如实际网络）或仿真环境（如基于数据集的模拟场景）。</li>
+</ul>
+<ol>
+<li>智能体架构设计</li>
+</ol>
+<ul>
+<li>选择学习框架：基于问题类型确定价值型（如 DQN）、策略型（如 REINFORCE）或 Actor-Critic 型（如 DDPG）架构。</li>
+<li>初始化网络 / 参数：搭建神经网络（如 Q 网络、策略网络），初始化权重、经验回放池（用于无模型算法）等。</li>
+<li>设定探索策略：确定动作选择规则（如 ε-greedy、随机噪声），平衡探索新动作与利用已有经验。</li>
+</ul>
+<ol>
+<li>交互采样与数据收集</li>
+</ol>
+<ul>
+<li>智能体观测当前状态（s），根据当前策略选择动作（a）。</li>
+<li>执行动作后，获取环境反馈的即时奖励（r）和下一状态（s’）。</li>
+<li>将经验元组（s, a, r, s’）存入经验回放池，为后续更新积累数据。</li>
+<li>重复上述步骤，持续收集交互数据，直至满足单轮采样数量或触发终止条件。</li>
+</ul>
+<ol>
+<li>策略与价值网络更新</li>
+</ol>
+<ul>
+<li>从经验回放池采样批量数据（无模型算法）或利用环境模型生成数据（有模型算法）。</li>
+<li>计算目标值：基于奖励函数和折扣因子，计算动作价值目标（如 Q 目标值）或策略目标（如优势函数）。</li>
+<li>反向传播优化：通过梯度下降最小化预测值与目标值的误差，更新价值网络（如 Q 网络）或策略网络（如 Actor 网络）。</li>
+<li>同步目标网络（如 DDPG、DQN）：定期软更新或硬更新目标网络参数，保证训练稳定性。</li>
+</ul>
+<ol>
+<li>迭代训练与收敛验证</li>
+</ol>
+<ul>
+<li>重复 “交互采样→网络更新” 流程，迭代多轮训练（episode）。</li>
+<li>监控关键指标：跟踪奖励值、目标指标（如缓存命中率、延迟）的变化趋势。</li>
+<li>判定收敛：当指标趋于稳定（如连续多轮奖励波动小于阈值），停止训练，保存最优模型参数。</li>
+</ul>
+<p>例如 DQN 的训练过程如下：</p>
+<p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/image-20251108222814648.png" alt="image-20251108222814648" style="zoom:50%;" /></p>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ol>
+<li><p>Qtarget 的作用是什么？</p>
+<p>Qtarget（目标 Q 值）用于<strong>稳定训练目标</strong>，防止网络在更新时“自己追自己”导致发散。如果训练目标也用当前网络参数 θ，那么每次更新都会影响目标值本身，<br>就会形成<strong>正反馈震荡</strong>，使训练过程不稳定。所以，DQN 使用一个延迟更新的 <strong>目标网络（Target Network）</strong>：</p>
+<ul>
+<li>主网络（Online Network）：Q(s,a; θ) 负责学习；</li>
+<li>目标网络（Target Network）：Q_target(s,a; θ⁻) 提供稳定目标。</li>
+</ul>
+</li>
+<li><p>为什么需要经验池？</p>
+<p>经验池的作用是<strong>打破数据相关性</strong>，<strong>提高样本利用率</strong>。这些数据是<strong>时间相关的</strong>（状态连续），而神经网络的训练假设样本是<strong>独立同分布（i.i.d.）</strong>。<br>如果直接用序列样本训练，网络容易陷入震荡或遗忘。</p>
+<p>经验池的两个关键作用：</p>
+<ol>
+<li><strong>打乱顺序（随机取样）</strong> → 让样本近似独立；</li>
+<li><strong>重复利用历史经验</strong> → 提高样本效率。</li>
+</ol>
+</li>
+<li><p>目标网络的软更新和回合更新区别是什么？</p>
+<p>两者都是为了更新目标网络参数 θ⁻，区别在于<strong>更新频率和方式</strong>。</p>
+<ul>
+<li>回合更新：每隔固定步数（如 1000 步）直接拷贝一次；更新突变，稳定但不连续。</li>
+<li>软更新：每一步都缓慢靠近主网络；连续、平滑，震荡更小；常见于 <strong>DDPG、SAC 等连续控制算法</strong>。</li>
+</ul>
+</li>
+<li><p>DQN 和 DDPG 分别用于处理什么问题？</p>
+<ul>
+<li><p>DQN 适用于动作有限的情况，比如：“向上 / 向下 / 向左 / 向右”；</p>
+</li>
+<li><p>DDPG 适用于动作连续的情况，比如机器人控制“转角 37.5°”或“推力 0.68”。</p>
+</li>
+</ul>
+</li>
+<li><p>经验回放为什么要随机取样？</p>
+<ul>
+<li><p>环境交互数据是时间相关的；</p>
+</li>
+<li><p>连续采样的样本高度相关，容易导致梯度方向相似 → 学习效率低；</p>
+</li>
+<li><p>随机采样可打乱时间依赖，让网络每次学习到更全面的信息。</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h3><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/wiiXFEw_gv5iQj36t80pgg">DQN算法原理及代码实现</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://fezhu.top">Doraemon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://fezhu.top/posts/514049a.html">http://fezhu.top/posts/514049a.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://fezhu.top" target="_blank">Doraemon's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/uncleacc/Img2/139.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/49b93d8d.html" title="进程上下文到底是什么东西？"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img2/138.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">进程上下文到底是什么东西？</div></div></a></div><div class="next-post pull-right"><a href="/posts/3400fb6e.html" title="2025 年度总结"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img2/140.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">2025 年度总结</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">理论基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">经典算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E6%B5%81%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">训练流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">4.</span> <span class="toc-text">常见问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-number">5.</span> <span class="toc-text">参考文献</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Doraemon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://fezhu.top/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'fbMkGCqFR4CUHufZzPUvIprm-MdYXbMMI',
+      appKey: '3J39KYN5r1aiDyQofBtAPNNj',
+      avatar: '',
+      serverURLs: 'https://fbmkgcqf.api.lncldglobal.com',
+      emojiMaps: "",
+      master: '71a69a31286a700ee0738a6e0942e102',
+      tagMeta: ["博主","小伙伴","访客"],
+      friends:  [], 
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>

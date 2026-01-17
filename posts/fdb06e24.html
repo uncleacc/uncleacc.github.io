@@ -1,0 +1,489 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>内网穿透到底是个什么东西？ | Doraemon's Blog</title><meta name="author" content="Doraemon,601162956@qq.com"><meta name="copyright" content="Doraemon"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="如果你是一个开发者，或者是一个热衷于折腾 NAS 和树莓派的技术爱好者，你一定遇到过这个问题：  “我在家里的局域网能用 SSH 连上我的服务器，但在公司或者出差时，怎么连都连不上。”  这时候，老手们会丢给你一个词：“做个内网穿透吧。” 这一篇博客将避开晦涩的教科书定义，面向有一定计算机基础的读者，从网络底层原理出发，讲清楚内网穿透到底穿的是什么“墙”，透的又是哪层“膜”。 为什么你“失联”了？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网穿透到底是个什么东西？">
+<meta property="og:url" content="http://fezhu.top/posts/fdb06e24.html">
+<meta property="og:site_name" content="Doraemon&#39;s Blog">
+<meta property="og:description" content="如果你是一个开发者，或者是一个热衷于折腾 NAS 和树莓派的技术爱好者，你一定遇到过这个问题：  “我在家里的局域网能用 SSH 连上我的服务器，但在公司或者出差时，怎么连都连不上。”  这时候，老手们会丢给你一个词：“做个内网穿透吧。” 这一篇博客将避开晦涩的教科书定义，面向有一定计算机基础的读者，从网络底层原理出发，讲清楚内网穿透到底穿的是什么“墙”，透的又是哪层“膜”。 为什么你“失联”了？">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img2/142.webp">
+<meta property="article:published_time" content="2026-01-16T12:49:14.000Z">
+<meta property="article:modified_time" content="2026-01-16T13:28:38.805Z">
+<meta property="article:author" content="Doraemon">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/uncleacc/Img2/142.webp"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://fezhu.top/posts/fdb06e24.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//www.clarity.ms"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google-site-verification" content="KN6pnEmNs8iAPCiA4HK81_JOnb5b90LWJLxqyZdH0ko"/><meta name="baidu-site-verification" content="codeva-fP6p2S4Tpw"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?e5f1c961209bbe62fbceb50c9ef96345";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-BDW0BKMDBE"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-BDW0BKMDBE');
+</script><script>(function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "jec82yg9m8");</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: {"limitDay":365,"position":"top","messagePrev":"It has been","messageNext":"days since the last update, the content of the article may be outdated."},
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":400},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'mediumZoom',
+  Snackbar: {"chs_to_cht":"你已切换为繁体中文","cht_to_chs":"你已切换为简体中文","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#1f1f1f","position":"bottom-left"},
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '内网穿透到底是个什么东西？',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2026-01-16 21:28:38'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/uncleacc/sucai_2/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">170</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">111</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/talk/"><i class="fa-fw fa-regular fa-comment"></i><span> 说说</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/uncleacc/Img2/142.webp')"><nav id="nav"><span id="blog-info"><a href="/" title="Doraemon's Blog"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/uncleacc/website_materials_img/blogIcon.png"/><span class="site-name">Doraemon's Blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/talk/"><i class="fa-fw fa-regular fa-comment"></i><span> 说说</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);" rel="external nofollow noreferrer"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">内网穿透到底是个什么东西？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-01-16T12:49:14.000Z" title="发表于 2026-01-16 20:49:14">2026-01-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-01-16T13:28:38.805Z" title="更新于 2026-01-16 21:28:38">2026-01-16</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>15分钟</span></span><span class="post-meta-separator">|</span><span class="leancloud_visitors" id="/posts/fdb06e24.html" data-flag-title="内网穿透到底是个什么东西？"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span class="leancloud-visitors-count"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/posts/fdb06e24.html#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/posts/fdb06e24.html" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>如果你是一个开发者，或者是一个热衷于折腾 NAS 和树莓派的技术爱好者，你一定遇到过这个问题：</p>
+<blockquote>
+<p>“我在家里的局域网能用 SSH 连上我的服务器，但在公司或者出差时，怎么连都连不上。”</p>
+</blockquote>
+<p>这时候，老手们会丢给你一个词：“做个内网穿透吧。”</p>
+<p>这一篇博客将避开晦涩的教科书定义，面向有一定计算机基础的读者，从网络底层原理出发，讲清楚内网穿透到底穿的是什么“墙”，透的又是哪层“膜”。</p>
+<h2 id="为什么你“失联”了？"><a href="#为什么你“失联”了？" class="headerlink" title="为什么你“失联”了？"></a>为什么你“失联”了？</h2><p>在讨论如何“穿透”之前，我们必须先理解“阻隔”我们的是什么。</p>
+<h3 id="公网-IP-与-IPv4-的枯竭"><a href="#公网-IP-与-IPv4-的枯竭" class="headerlink" title="公网 IP 与 IPv4 的枯竭"></a>公网 IP 与 IPv4 的枯竭</h3><p>在互联网设计的最初愿景里，每一个设备都应该有一个全球唯一的 IP 地址（公网 IP）。如果大家都有公网 IP，根本不需要内网穿透，你只需要输入 <code>ping 对方IP</code>，就能直接握手。</p>
+<p>但现实是残酷的：IPv4 地址只有约 43 亿个，早就被瓜分殆尽。</p>
+<p>为了让全球几百亿台设备都能上网，工程师们发明了 NAT（Network Address Translation，网络地址转换） 技术。</p>
+<h3 id="NAT：路由器的“换皮”魔法"><a href="#NAT：路由器的“换皮”魔法" class="headerlink" title="NAT：路由器的“换皮”魔法"></a>NAT：路由器的“换皮”魔法</h3><p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/image-20260116211921514.png" alt="NAT 转发"></p>
+<p>现在，运营商通常不会给你分配独立的公网 IP，而是把你划入一个巨大的局域网。你家里的路由器（或者光猫）成为了这一层网络的边界。</p>
+<p>当你的电脑（内网 IP: <code>192.168.1.5</code>）想访问百度时，数据包经过路由器，路由器会做一件关键的事：<strong>修改数据包的头部</strong>。</p>
+<ol>
+<li>路由器把“源地址”从你的内网 IP，修改为路由器 WAN 口的公网 IP。</li>
+<li>路由器在自己的小本本上记下一笔帐（这就是 <strong>NAT 映射表</strong>）。</li>
+<li>百度收到数据，以为是路由器发给它的，于是把数据回传给路由器。</li>
+<li>路由器查小本本，发现“哦，这是刚才 <code>192.168.1.5</code> 要的数据”，于是把数据转发给你。</li>
+</ol>
+<p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/image-20260116212531281.png" alt="NAT 数据表示例"></p>
+<h3 id="核心矛盾：NAT-的“单向阻隔”"><a href="#核心矛盾：NAT-的“单向阻隔”" class="headerlink" title="核心矛盾：NAT 的“单向阻隔”"></a>核心矛盾：NAT 的“单向阻隔”</h3><p>NAT 完美解决了上网问题，但它带来了一个巨大的副作用：<strong>连接必须由内网主动发起。</strong></p>
+<p>这里我们需要引入一个<strong>比喻</strong>来理解这个困境：</p>
+<blockquote>
+<p>比喻：</p>
+<p>把互联网想象成一个巨大的邮政系统。</p>
+<ul>
+<li><strong>公网 IP</strong> 是拥有独立门牌号的<strong>别墅</strong>。</li>
+<li><strong>内网 IP</strong> 是住在<strong>酒店</strong>里的房间号（如 101 房）。</li>
+<li><strong>路由器（NAT）</strong> 就是酒店的<strong>前台</strong>。</li>
+</ul>
+<p>当你（101 房）要给外面寄信时，前台会把你的信封换成酒店的信封寄出去，对方回信寄给酒店，前台知道这是给你的。</p>
+<p>但是，如果此时有一个陌生人（你在公司的电脑）直接给酒店寄一封信，上面写着“转交 101 房”，<strong>前台会直接把信扔进垃圾桶</strong>。</p>
+<p><strong>为什么？</strong> 因为酒店里可能并没有人要在此时收信，或者出于安全考虑，前台规定：<strong>“只有住客先寄出去的信，对应的回信我才接收；任何莫名其妙从外面寄来的信，一律拒收。”</strong></p>
+</blockquote>
+<p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/image-20260116211950078.png" alt="NAT 的单向发送"></p>
+<p>这就是你连不上家里服务器的原因：你的请求到达了家里的路由器（公网 IP），但路由器查不到对应的“映射记录”，直接丢弃了你的连接请求。</p>
+<p>看到这里，你脑子里可能冒出了一个巨大的问号：</p>
+<blockquote>
+<p>“你说路由器会拦截外部的数据，那为什么我在家打开 B 站，视频流能哗哗地传进来？这不也是从外网发给我的数据吗？”</p>
+</blockquote>
+<p>这就触及到了 NAT 最核心的<strong>“状态机制”</strong>。</p>
+<p>简单来说，路由器虽然是个冷酷的门卫，但它遵循一条铁律：<strong>“谁先撩谁”</strong>。</p>
+<h4 id="情况-A：你主动撩别人（正常上网）"><a href="#情况-A：你主动撩别人（正常上网）" class="headerlink" title="情况 A：你主动撩别人（正常上网）"></a>情况 A：你主动撩别人（正常上网）</h4><p>当你点击 B 站视频时，是<strong>你的电脑先发起</strong>了一个请求：“我要看这个视频”。</p>
+<ol>
+<li>这个请求经过路由器。</li>
+<li>路由器看了一眼，记在小本本上：“注意！我也住客（内网 IP）主动找了 B 站服务器（外网 IP），大概 1 秒后 B 站会回信，这封回信是合法的，<strong>允许通行</strong>。”</li>
+<li>当 B 站的视频数据回来时，路由器查到了这条“放行记录”，于是视频就顺利进来了。</li>
+</ol>
+<p><strong>结论</strong>：只要是你主动发起的连接，回来的数据就能通过。</p>
+<h4 id="情况-B：别人主动撩你（内网穿透要解决的问题）"><a href="#情况-B：别人主动撩你（内网穿透要解决的问题）" class="headerlink" title="情况 B：别人主动撩你（内网穿透要解决的问题）"></a>情况 B：别人主动撩你（内网穿透要解决的问题）</h4><p>现在的场景是：你在公司，想连家里的电脑。</p>
+<ol>
+<li>此时，家里的电脑在发呆，没有任何动作（没有主动撩你）。</li>
+<li>你在公司，直接给家里路由器的公网 IP 发了一个数据包。</li>
+<li>数据包到达家里路由器。路由器翻开小本本，发现<strong>一片空白</strong>——没有任何住客刚才请求过这个公司 IP。</li>
+<li>路由器判断：<strong>“这是骚扰拦截”</strong>，直接把数据包丢进垃圾桶。</li>
+</ol>
+<p><strong>总结一下：</strong></p>
+<ul>
+<li><strong>出站（Outbound）</strong>：你找别人，路由器会自动建立临时白名单，<strong>通</strong>。</li>
+<li><strong>入站（Inbound）</strong>：别人找你（且你没提前打招呼），路由器默认视而不见，<strong>堵</strong>。</li>
+</ul>
+<p>这就是为什么你平时上网没感觉，但一做服务器就歇菜的原因——<strong>内网穿透，就是要想办法打破这个“只能我找人，不能人找我”的僵局。</strong></p>
+<h3 id="实战自检：我有公网-IP-吗？（光猫、路由器与-ISP-的三角关系）"><a href="#实战自检：我有公网-IP-吗？（光猫、路由器与-ISP-的三角关系）" class="headerlink" title="实战自检：我有公网 IP 吗？（光猫、路由器与 ISP 的三角关系）"></a>实战自检：我有公网 IP 吗？（光猫、路由器与 ISP 的三角关系）</h3><p>在决定使用哪种内网穿透方案之前，我们需要先搞清楚自己处于什么样的网络环境中。这涉及到家庭网络的三个核心角色：<strong>ISP</strong>、<strong>光猫</strong>和<strong>路由器</strong>。</p>
+<p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/image-20260116212812779.png" alt="光猫，路由，ISP"></p>
+<h4 id="物理层面的“接力赛”"><a href="#物理层面的“接力赛”" class="headerlink" title="物理层面的“接力赛”"></a>物理层面的“接力赛”</h4><p>当我们说“上网”时，数据其实经历了一个三级跳的过程：</p>
+<ol>
+<li><strong>ISP (互联网服务提供商)</strong>：<ul>
+<li>这是你的运营商（电信/联通/移动）。他们构建了骨干网，并掌握着全球公网 IP 资源。</li>
+<li><strong>核心作用</strong>：<strong>分配 IP</strong>。你的“门牌号”（IP 地址）是他们租给你的。</li>
+</ul>
+</li>
+<li><strong>光猫 (Optical Modem)</strong>：<ul>
+<li>这是运营商入户的第一个盒子。</li>
+<li><strong>核心作用</strong>：<strong>信号转换（调制解调）</strong>。ISP 的骨干网传输的是<strong>光信号</strong>，而你的电脑和路由器识别的是<strong>电信号</strong>。光猫负责在两者之间进行翻译。</li>
+<li><em>注意</em>：现代光猫通常自带路由功能（拨号），这意味着它也是一层 NAT。</li>
+</ul>
+</li>
+<li><strong>路由器 (Router)</strong>：<ul>
+<li>这是你自己买的带有天线的设备。</li>
+<li><strong>核心作用</strong>：<strong>网关与 NAT</strong>。它负责管理家里的所有设备（手机、电脑），并通过 NAT 技术让它们共享同一个上级分配的 IP 上网。</li>
+</ul>
+</li>
+</ol>
+<h4 id="如何检测是否有公网-IP？（“找不同”法）"><a href="#如何检测是否有公网-IP？（“找不同”法）" class="headerlink" title="如何检测是否有公网 IP？（“找不同”法）"></a>如何检测是否有公网 IP？（“找不同”法）</h4><p>判断你是否拥有公网 IP，最准确的方法是进行<strong>双向比对</strong>。我们需要获取两个数值：<strong>“外界看到的你”</strong> 和 <strong>“你自己以为的你”</strong>。</p>
+<p><strong>步骤一：获取“外界看到的 IP”</strong> 在连接家里 Wi-Fi 的电脑或手机上，直接访问搜索引擎（百度/Google）搜索关键词：“<strong>IP</strong>”。 或者访问专业网站如 <code>ip138.com</code>。</p>
+<ul>
+<li>假设你看到的地址是：<code>A = 113.108.x.x</code></li>
+</ul>
+<p><strong>步骤二：获取“路由器 WAN 口 IP”</strong> 登录你的路由器管理后台（通常是 <code>192.168.1.1</code> 或 <code>192.168.0.1</code>），在“系统状态”或“上网设置”中找到 <strong>WAN 口 IP 地址</strong>。</p>
+<ul>
+<li>假设你看到的地址是：<code>B</code></li>
+</ul>
+<p><strong>步骤三：结果判定</strong></p>
+<ul>
+<li><strong>情况 1：A 与 B 完全一致</strong><ul>
+<li><strong>结论</strong>：🎉 <strong>恭喜，你拥有真正的公网 IPv4 地址。</strong></li>
+<li><strong>意义</strong>：你的路由器直接暴露在公网上。你不需要复杂的内网穿透软件，只需要在路由器上设置简单的<strong>端口映射 (Port Forwarding)</strong>，即可直接从外网访问家里。</li>
+</ul>
+</li>
+<li><strong>情况 2：A 与 B 不一致</strong><ul>
+<li><strong>结论</strong>：❌ <strong>你没有公网 IP（处于内网中）。</strong></li>
+<li><strong>意义</strong>：你的路由器上级还有设备（光猫或运营商的局端设备）在做 NAT。外部请求无法到达你的路由器。</li>
+</ul>
+</li>
+</ul>
+<h4 id="警惕“假”公网-IP：CGNAT-100-x-x-x"><a href="#警惕“假”公网-IP：CGNAT-100-x-x-x" class="headerlink" title="警惕“假”公网 IP：CGNAT (100.x.x.x)"></a>警惕“假”公网 IP：CGNAT (100.x.x.x)</h4><p>在查看 <strong>WAN 口 IP (数值 B)</strong> 时，如果你发现它属于以下范围，那么不用比对，直接判定为内网：</p>
+<ul>
+<li><strong><code>100.64.0.0</code> - <code>100.127.255.255</code></strong><ul>
+<li>这是 IETF 标准定义的 <strong>运营商级 NAT (Carrier-Grade NAT, CGNAT)</strong> 专用地址段。</li>
+<li>如果你看到 <code>100</code> 开头的 IP，说明运营商像个“二房东”，把你和隔壁小区的几千个用户关在了一个巨大的局域网里，共用极少数的公网 IP 出口。这是目前全中国最常见的家庭宽带状态。</li>
+</ul>
+</li>
+<li><strong><code>10.x.x.x</code>, <code>172.16.x.x</code>, <code>192.168.x.x</code></strong><ul>
+<li>这是标准的私有地址。如果你路由器的 WAN 口是这些 IP，说明你的路由器接在了光猫（或其他路由器）下面，你需要去检查上一级设备。</li>
+</ul>
+</li>
+</ul>
+<h3 id="终极救星-IPv6？理想丰满，现实骨感"><a href="#终极救星-IPv6？理想丰满，现实骨感" class="headerlink" title="终极救星 IPv6？理想丰满，现实骨感"></a>终极救星 IPv6？理想丰满，现实骨感</h3><p>读到这里，敏锐的读者可能已经想到了一个终极解决方案：</p>
+<blockquote>
+<p>“大家都说 IPv4 枯竭了，那不是还有 IPv6 吗？听说 IPv6 的地址多到能给地球上的每一粒沙子都分一个 IP，那我直接给家里的服务器配个 IPv6 不就行了吗？还要什么内网穿透？”</p>
+</blockquote>
+<p>答案是：<strong>理论上完美，但实操中有三个“隐形大坑”。</strong></p>
+<p>虽然国内运营商（ISP）的宽带目前基本都下发了 IPv6 地址，但要把它用作远程连接，你得过五关斩六将。</p>
+<p><strong>坑一：单向的“半残”网络（客户端环境不支持）</strong></p>
+<p>这是目前最致命的问题。 就算你把家里的服务器配置好了 IPv6 公网地址，这只代表<strong>“家里有门”</strong>。 但是，当你身处公司、酒店、咖啡厅或者使用公共 Wi-Fi 时，<strong>你所在的网络环境未必支持 IPv6</strong>。</p>
+<ul>
+<li><strong>场景</strong>：你在公司想连回家。</li>
+<li><strong>现实</strong>：公司的内网为了安全或设备老旧，通常是<strong>纯 IPv4 环境</strong>。</li>
+<li><strong>后果</strong>：你在纯 IPv4 的环境下，根本找不到通往 IPv6 地址的路由。这就好比你拿着一部只能拨打 7 位数号码的老电话（IPv4），试图拨打一个 128 位的超长号码（IPv6），根本拨不出去。</li>
+</ul>
+<p>除非你时刻开着手机热点（蜂窝移动网络通常支持 IPv6）给电脑用，否则 IPv6 的连通性极不稳定。</p>
+<p><strong>坑二：光猫与防火墙的“黑箱”</strong></p>
+<p>有了 IPv6 地址，不代表大门是开着的。</p>
+<ol>
+<li><strong>光猫拦截</strong>：大多数运营商的光猫默认工作在“路由模式”，自带的防火墙策略极严，往往会拦截所有入站的 IPv6 流量。你通常需要把光猫改成<strong>“桥接模式”</strong>，用自己的高性能路由器拨号，才能获得控制权。</li>
+<li><strong>裸奔风险</strong>：IPv6 没有 NAT 的保护。一旦你在路由器上放行了 IPv6 防火墙，你的服务器就是<strong>赤裸裸地暴露在公网</strong>上的。每一个端口的开放都需要极其谨慎，否则就是给黑客送肉机。</li>
+</ol>
+<p><strong>坑三：动态变化的地址（需要 DDNS）</strong></p>
+<p>虽然 IPv6 是公网地址，但运营商给你的依然是<strong>动态 IP</strong>（Dynamic IP）。</p>
+<ul>
+<li>路由器每重启一次，或者运营商每隔几天强制刷新一次，你的 IPv6 地址（尤其是前缀 Prefix）就会变。</li>
+<li><strong>解决成本</strong>：你必须配置 <strong>DDNS v6</strong>（动态域名解析），还得写脚本让服务器定期向 DNS 服务商汇报：“老板，我的新 IP 是这个，快更新一下域名指向。”</li>
+</ul>
+<h2 id="如何“穿墙”？（内网穿透模式）"><a href="#如何“穿墙”？（内网穿透模式）" class="headerlink" title="如何“穿墙”？（内网穿透模式）"></a>如何“穿墙”？（内网穿透模式）</h2><p>所谓的“内网穿透”，核心目的只有一个：<strong>在路由器（前台）拒绝外部请求的情况下，建立一条能从外面连进来的通路。</strong></p>
+<p>目前主流的技术方案主要分为两类。</p>
+<h3 id="模式一：反向代理-中继（FRP-Ngrok）"><a href="#模式一：反向代理-中继（FRP-Ngrok）" class="headerlink" title="模式一：反向代理 / 中继（FRP, Ngrok）"></a>模式一：反向代理 / 中继（FRP, Ngrok）</h3><p><img src="https://dora-blog.oss-cn-beijing.aliyuncs.com/image-20260116212033458.png" alt="反向代理/中继模式"></p>
+<p>这是最传统、最稳健，但成本最高的方案。</p>
+<p><strong>原理：</strong></p>
+<p>既然路由器只允许“从内向外”发起连接，那我们就顺着它来。</p>
+<p>我们需要一台拥有公网 IP 的服务器（VPS）作为中介。</p>
+<ol>
+<li><strong>主动“挂号”</strong>：你家里的内网服务器启动一个客户端，<strong>主动</strong>向公网 VPS 发起一个长连接（TCP 连接）。因为是内网主动发起的，路由器会放行，并维持这个连接。</li>
+<li><strong>流量转发</strong>：当你在公司想连回家时，你其实是连向那台公网 VPS。</li>
+<li><strong>借道传输</strong>：VPS 收到你的请求后，通过刚才建立的那条长连接，把数据“透传”给家里的内网服务器。</li>
+</ol>
+<p><strong>特点：</strong></p>
+<ul>
+<li><strong>稳定性</strong>：极高。只要 VPS 不挂，连接就在。</li>
+<li><strong>缺点</strong>：你需要购买 VPS，且速度受限于 VPS 的带宽（数据都要去 VPS 绕一圈，这叫“流量中转”）。</li>
+</ul>
+<h3 id="模式二：P2P-打洞-UDP-Hole-Punching-Tailscale-ZeroTier"><a href="#模式二：P2P-打洞-UDP-Hole-Punching-Tailscale-ZeroTier" class="headerlink" title="模式二：P2P 打洞 / UDP Hole Punching (Tailscale, ZeroTier)"></a>模式二：P2P 打洞 / UDP Hole Punching (Tailscale, ZeroTier)</h3><p><img src="/Users/doraemon/Documents/blog/source/_posts/内网穿透到底是个什么东西？.assets/image-20260116212108496.png" alt="p2p打洞"></p>
+<p>这种模式是现代组网工具（如 Tailscale, ZeroTier）的首选方案。它的核心不再是“绕过”NAT，而是利用 NAT 设备处理 <strong>UDP 协议</strong>时的状态机逻辑，通过<strong>诱导</strong>双方 NAT 设备建立合法的 Session 映射，从而实现端对端（Peer-to-Peer）直连。</p>
+<p><strong>技术原理：</strong></p>
+<p>这一过程依赖于中间的一个<strong>信令服务器（Signaling Server / Coordination Server）</strong>（如 STUN Server 或 Tailscale Control Plane），以及 NAT 设备对 UDP 会话的<strong>状态检测（Stateful Packet Inspection）</strong>机制。</p>
+<p>整个打洞过程可以拆解为三个微秒级的同步步骤：</p>
+<h4 id="第一步：端点发现与信令交换-Endpoint-Discovery-amp-Signaling"><a href="#第一步：端点发现与信令交换-Endpoint-Discovery-amp-Signaling" class="headerlink" title="第一步：端点发现与信令交换 (Endpoint Discovery &amp; Signaling)"></a>第一步：端点发现与信令交换 (Endpoint Discovery &amp; Signaling)</h4><p>由于双方（Client A 和 Client B）都位于 NAT 之后，无法直接获知对方的公网入口。</p>
+<ol>
+<li><strong>连接信令服务器</strong>：A 和 B 分别与公网上的信令服务器建立连接。</li>
+<li><strong>获取 Server-Reflexive Address</strong>：信令服务器观测 A 和 B 的请求来源，识别出它们经过 NAT 映射后的<strong>公网 IP 和端口（Public Endpoint）</strong>。</li>
+<li><strong>交换信息</strong>：信令服务器通过侧链（Side-channel），将 A 的公网地址告诉 B，将 B 的公网地址告诉 A。</li>
+</ol>
+<h4 id="第二步：双向同步发包-Simultaneous-Open"><a href="#第二步：双向同步发包-Simultaneous-Open" class="headerlink" title="第二步：双向同步发包 (Simultaneous Open)"></a>第二步：双向同步发包 (Simultaneous Open)</h4><p>这是“打洞”最关键的一步。双方获得对方地址后，几乎同时向对方发起 UDP 通信。</p>
+<ol>
+<li><strong>A -&gt; B 发包</strong>：<ul>
+<li>Client A 向 Client B 的公网地址发送一个 UDP 包。</li>
+<li><strong>NAT A 的行为</strong>：NAT A 检测到内网有出站流量，于是并在 NAT 映射表中创建一条 <strong>Session 记录</strong>（五元组：<code>Src:A_Int, Dst:B_Pub</code>），允许 B 的回包通过。</li>
+<li><strong>NAT B 的行为</strong>：此时 B 尚未向 A 发包，NAT B 上没有关于 A 的记录。因此，A 的包到达 NAT B 时，会被防火墙规则（Default Deny）直接丢弃。</li>
+<li><em>结果：数据包丢失，但在 NAT A 上留下了“洞口”（Session）。</em></li>
+</ul>
+</li>
+<li><strong>B -&gt; A 发包</strong>（与上一步几乎同时发生）：<ul>
+<li>Client B 向 Client A 的公网地址发送一个 UDP 包。</li>
+<li><strong>NAT B 的行为</strong>：NAT B 检测到出站流量，创建针对 A 的 Session 记录，允许 A 的回包通过。</li>
+<li><strong>NAT A 的行为</strong>：B 的数据包到达 NAT A。NAT A 进行查表操作，<strong>匹配到了上一步 A 发包时创建的 Session 记录</strong>。</li>
+<li><em>结果：NAT A 认为这是 A 请求的“合法响应”，允许数据包通过并转发给 Client A。</em></li>
+</ul>
+</li>
+</ol>
+<h4 id="第三步：隧道建立与保活-Connection-amp-Keep-alive"><a href="#第三步：隧道建立与保活-Connection-amp-Keep-alive" class="headerlink" title="第三步：隧道建立与保活 (Connection &amp; Keep-alive)"></a>第三步：隧道建立与保活 (Connection &amp; Keep-alive)</h4><p>一旦 Client A 成功收到了 Client B 的数据包（或者反之），一条双向的 UDP 通道即宣告建立。</p>
+<ul>
+<li><strong>隧道封装</strong>：上层的应用数据（如 SSH 的 TCP 流量）会被封装在这些 UDP 包中直接传输。</li>
+<li><strong>心跳保活</strong>：由于 NAT 设备的 UDP Session 超时时间较短（通常 30s-120s），客户端必须定期发送 Keep-alive 包以刷新 NAT 表中的 TTL，防止映射关系被回收。</li>
+</ul>
+<p><strong>技术局限性：Symmetric NAT (对称型 NAT)</strong></p>
+<p>P2P 打洞并非 100% 成功。其成功率取决于运营商和路由器使用的 NAT 类型。</p>
+<ul>
+<li><strong>Cone NAT (锥型 NAT)</strong>：对所有目标 IP 使用相同的出口端口映射，<strong>打洞成功率极高</strong>。</li>
+<li><strong>Symmetric NAT (对称型 NAT)</strong>：对于不同的目标 IP，NAT 会分配<strong>不同的公网端口</strong>。<ul>
+<li><em>场景</em>：Client A 告诉信令服务器自己在端口 10000。但当 Client A 向 Client B 发包时，Symmetric NAT 会将其映射为端口 10001。Client B 依然向 10000 发包，导致打洞失败。</li>
+<li><em>解决方案</em>：当检测到一端为对称型 NAT 且无法预测端口时，协议会自动降级为<strong>模式一（中继模式 / TURN）</strong>，通过中转服务器转发流量。</li>
+</ul>
+</li>
+</ul>
+<h2 id="你可能存在的疑问"><a href="#你可能存在的疑问" class="headerlink" title="你可能存在的疑问"></a>你可能存在的疑问</h2><h3 id="为什么不直接打-TCP-洞？"><a href="#为什么不直接打-TCP-洞？" class="headerlink" title="为什么不直接打 TCP 洞？"></a>为什么不直接打 TCP 洞？</h3><p>TCP 协议的设计初衷是“可靠的、面向连接的流”，这导致其打洞难度远高于 UDP。</p>
+<p><strong>严格的状态机限制</strong>：</p>
+<ul>
+<li>TCP 连接建立必须遵循严格的 <strong>三次握手 (SYN -&gt; SYN/ACK -&gt; ACK)</strong>。</li>
+<li>NAT 设备通常具备 <strong>状态检测 (Stateful Inspection)</strong> 功能。如果 NAT 在 <code>LISTEN</code> 或 <code>SYN_SENT</code> 状态下收到一个意外的入站 <code>SYN</code> 包（序列号不在预期窗口内），它会直接丢弃该包甚至回复 <code>RST</code> 重置连接。</li>
+<li>要实现 TCP 打洞，必须利用 <strong>TCP 同时打开 (Simultaneous Open)</strong> 这一罕见特性，要求两端在毫秒级的误差内同时发送 <code>SYN</code> 包。这在不可靠的公网环境中极难协调。</li>
+</ul>
+<p>相比之下，UDP 是无状态的。NAT 设备对 UDP 的处理逻辑仅仅是“有去就有回”，不需要维护复杂的握手状态，打洞成功率呈指数级上升。</p>
+<p>虽然将 TCP 封装在 UDP 中（Tunneling）解决了连通性问题，但这种“协议套娃”引入了新的物理层面的问题：</p>
+<ul>
+<li><strong>问题一：MTU 黑洞与分片 (Fragmentation)</strong><ul>
+<li>物理网络通常限制数据包最大为 1500 字节（MTU）。</li>
+<li>原本一个 1500 字节的 TCP 包，现在被套上了 <code>IP头(20) + UDP头(8) + WireGuard/VPN头(几十字节)</code>。</li>
+<li><strong>后果</strong>：总长度超出了 1500 字节。路由器必须将包<strong>分片 (Fragment)</strong> 传输，或者直接丢弃并返回 ICMP 错误。IP 分片会严重降低传输效率，且许多防火墙会拦截分片包，导致连接卡顿或中断。</li>
+</ul>
+</li>
+<li><strong>问题二：运营商 QoS 限速</strong><ul>
+<li>国内部分运营商（ISP）会对高带宽的 UDP 流量（常见于 BT 下载、游戏）进行 <strong>QoS (Quality of Service)</strong> 降级或丢包。</li>
+<li><strong>后果</strong>：你可能发现 SSH 连接虽然通了，但打字经常卡顿，或者文件传输速度极慢，远低于带宽上限。</li>
+</ul>
+</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>总结一下：</p>
+<ul>
+<li><strong>计算机网络理论告诉我们</strong>：由于 IPv4 短缺和 NAT 的存在，外网无法直接访问内网。</li>
+<li><strong>内网穿透告诉我们</strong>：<ul>
+<li>要么找个<strong>有公网 IP 的中介</strong>（FRP/中继模式），稳定但费钱。</li>
+<li>要么利用规则<strong>欺骗路由器</strong>（P2P/打洞模式），快速且免费。</li>
+</ul>
+</li>
+</ul>
+<p>对于大多数个人开发者，<strong>Tailscale</strong> 或 <strong>ZeroTier</strong> 这种基于 P2P 打洞的方案是首选；如果你要搭建一个给很多人访问的网站，那么 <strong>FRP</strong> 配合一台大带宽 VPS 则是更稳妥的选择。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://fezhu.top">Doraemon</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://fezhu.top/posts/fdb06e24.html">http://fezhu.top/posts/fdb06e24.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow noreferrer" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://fezhu.top" target="_blank">Doraemon's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/uncleacc/Img2/142.webp" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>赞助</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechatpay.png" target="_blank"><img class="post-qr-code-img" src="/img/wechatpay.png" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.png" target="_blank"><img class="post-qr-code-img" src="/img/alipay.png" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/9324cd13.html" title="从“用户信息”到“向量表示”：一篇把用户特征转 成 Embedding 的完整实战指南"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img2/141.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">从“用户信息”到“向量表示”：一篇把用户特征转 成 Embedding 的完整实战指南</div></div></a></div><div class="next-post pull-right"><a href="/posts/c4322b95.html" title="word 公式批量转换"><img class="cover" src="https://cdn.jsdelivr.net/gh/uncleacc/Img2/143.webp" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">word 公式批量转换</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%A0%E2%80%9C%E5%A4%B1%E8%81%94%E2%80%9D%E4%BA%86%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">为什么你“失联”了？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E7%BD%91-IP-%E4%B8%8E-IPv4-%E7%9A%84%E6%9E%AF%E7%AB%AD"><span class="toc-number">1.1.</span> <span class="toc-text">公网 IP 与 IPv4 的枯竭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NAT%EF%BC%9A%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E2%80%9C%E6%8D%A2%E7%9A%AE%E2%80%9D%E9%AD%94%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">NAT：路由器的“换皮”魔法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B8%E5%BF%83%E7%9F%9B%E7%9B%BE%EF%BC%9ANAT-%E7%9A%84%E2%80%9C%E5%8D%95%E5%90%91%E9%98%BB%E9%9A%94%E2%80%9D"><span class="toc-number">1.3.</span> <span class="toc-text">核心矛盾：NAT 的“单向阻隔”</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E5%86%B5-A%EF%BC%9A%E4%BD%A0%E4%B8%BB%E5%8A%A8%E6%92%A9%E5%88%AB%E4%BA%BA%EF%BC%88%E6%AD%A3%E5%B8%B8%E4%B8%8A%E7%BD%91%EF%BC%89"><span class="toc-number">1.3.1.</span> <span class="toc-text">情况 A：你主动撩别人（正常上网）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%83%85%E5%86%B5-B%EF%BC%9A%E5%88%AB%E4%BA%BA%E4%B8%BB%E5%8A%A8%E6%92%A9%E4%BD%A0%EF%BC%88%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%89"><span class="toc-number">1.3.2.</span> <span class="toc-text">情况 B：别人主动撩你（内网穿透要解决的问题）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E6%88%98%E8%87%AA%E6%A3%80%EF%BC%9A%E6%88%91%E6%9C%89%E5%85%AC%E7%BD%91-IP-%E5%90%97%EF%BC%9F%EF%BC%88%E5%85%89%E7%8C%AB%E3%80%81%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%8E-ISP-%E7%9A%84%E4%B8%89%E8%A7%92%E5%85%B3%E7%B3%BB%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">实战自检：我有公网 IP 吗？（光猫、路由器与 ISP 的三角关系）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%89%A9%E7%90%86%E5%B1%82%E9%9D%A2%E7%9A%84%E2%80%9C%E6%8E%A5%E5%8A%9B%E8%B5%9B%E2%80%9D"><span class="toc-number">1.4.1.</span> <span class="toc-text">物理层面的“接力赛”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%A3%80%E6%B5%8B%E6%98%AF%E5%90%A6%E6%9C%89%E5%85%AC%E7%BD%91-IP%EF%BC%9F%EF%BC%88%E2%80%9C%E6%89%BE%E4%B8%8D%E5%90%8C%E2%80%9D%E6%B3%95%EF%BC%89"><span class="toc-number">1.4.2.</span> <span class="toc-text">如何检测是否有公网 IP？（“找不同”法）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AD%A6%E6%83%95%E2%80%9C%E5%81%87%E2%80%9D%E5%85%AC%E7%BD%91-IP%EF%BC%9ACGNAT-100-x-x-x"><span class="toc-number">1.4.3.</span> <span class="toc-text">警惕“假”公网 IP：CGNAT (100.x.x.x)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%88%E6%9E%81%E6%95%91%E6%98%9F-IPv6%EF%BC%9F%E7%90%86%E6%83%B3%E4%B8%B0%E6%BB%A1%EF%BC%8C%E7%8E%B0%E5%AE%9E%E9%AA%A8%E6%84%9F"><span class="toc-number">1.5.</span> <span class="toc-text">终极救星 IPv6？理想丰满，现实骨感</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E2%80%9C%E7%A9%BF%E5%A2%99%E2%80%9D%EF%BC%9F%EF%BC%88%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F%E6%A8%A1%E5%BC%8F%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">如何“穿墙”？（内网穿透模式）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E4%B8%80%EF%BC%9A%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86-%E4%B8%AD%E7%BB%A7%EF%BC%88FRP-Ngrok%EF%BC%89"><span class="toc-number">2.1.</span> <span class="toc-text">模式一：反向代理 &#x2F; 中继（FRP, Ngrok）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%BC%8F%E4%BA%8C%EF%BC%9AP2P-%E6%89%93%E6%B4%9E-UDP-Hole-Punching-Tailscale-ZeroTier"><span class="toc-number">2.2.</span> <span class="toc-text">模式二：P2P 打洞 &#x2F; UDP Hole Punching (Tailscale, ZeroTier)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E7%AB%AF%E7%82%B9%E5%8F%91%E7%8E%B0%E4%B8%8E%E4%BF%A1%E4%BB%A4%E4%BA%A4%E6%8D%A2-Endpoint-Discovery-amp-Signaling"><span class="toc-number">2.2.1.</span> <span class="toc-text">第一步：端点发现与信令交换 (Endpoint Discovery &amp; Signaling)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E5%8F%8C%E5%90%91%E5%90%8C%E6%AD%A5%E5%8F%91%E5%8C%85-Simultaneous-Open"><span class="toc-number">2.2.2.</span> <span class="toc-text">第二步：双向同步发包 (Simultaneous Open)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E9%9A%A7%E9%81%93%E5%BB%BA%E7%AB%8B%E4%B8%8E%E4%BF%9D%E6%B4%BB-Connection-amp-Keep-alive"><span class="toc-number">2.2.3.</span> <span class="toc-text">第三步：隧道建立与保活 (Connection &amp; Keep-alive)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%A0%E5%8F%AF%E8%83%BD%E5%AD%98%E5%9C%A8%E7%9A%84%E7%96%91%E9%97%AE"><span class="toc-number">3.</span> <span class="toc-text">你可能存在的疑问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9B%B4%E6%8E%A5%E6%89%93-TCP-%E6%B4%9E%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">为什么不直接打 TCP 洞？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-number">4.</span> <span class="toc-text">结语</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2026 By Doraemon</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, welcome to my <a href="https://fezhu.top/">blog</a>!</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/medium-zoom/dist/medium-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>function panguFn () {
+  if (typeof pangu === 'object') pangu.autoSpacingPage()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/pangu/dist/browser/pangu.min.js')
+      .then(() => {
+        pangu.autoSpacingPage()
+      })
+  }
+}
+
+function panguInit () {
+  if (false){
+    GLOBAL_CONFIG_SITE.isPost && panguFn()
+  } else {
+    panguFn()
+  }
+}
+
+document.addEventListener('DOMContentLoaded', panguInit)</script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'fbMkGCqFR4CUHufZzPUvIprm-MdYXbMMI',
+      appKey: '3J39KYN5r1aiDyQofBtAPNNj',
+      avatar: '',
+      serverURLs: 'https://fbmkgcqf.api.lncldglobal.com',
+      emojiMaps: "",
+      master: '71a69a31286a700ee0738a6e0942e102',
+      tagMeta: ["博主","小伙伴","访客"],
+      friends:  [], 
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/gh/HCLonely/Valine@latest/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !false) {
+    if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-ribbon.min.js" size="150" alpha="0.6" zIndex="-1" mobile="false" data-click="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
